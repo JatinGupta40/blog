@@ -1,6 +1,5 @@
 <?php include './header.php';?>
 <!-- blogs content start -->
-
 <div class="blog">
    <div class="container ">
       <div class="blogcontent">
@@ -27,8 +26,8 @@
       <div class="blogcommentsection">
          <form action="">
             <p><b><i>Please provide Your valuable Comments - </i></b></p>
-         <textarea class="blogcommentbox" id="comments" name=""></textarea>
-                       <br>
+            <textarea class="blogcommentbox" id="comments" name=""></textarea>
+            <br>
             <button type="button" class="btn btn-primary"  onclick="thankyou()" value="Submit">SUBMIT</button>
             <i>
                <p id="ty"></p>
@@ -37,11 +36,9 @@
       </div>
    </div>
 </div>
-<main id="main">
-</main>
+<main id="main"></main>
 <!-- End #main -->
-<div style="margin-top:50px;">
-</div>
+<div style="margin-top:50px;"></div>
 <script>
    function thankyou()
    {

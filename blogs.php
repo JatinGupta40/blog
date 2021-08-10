@@ -24,4 +24,4 @@
       <main id="main">
       </main>
       <!-- End #main -->
-    <?php include './footer.php'; ?>
+<?php include './footer.php'; ?>

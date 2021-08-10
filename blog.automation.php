@@ -4,7 +4,7 @@
 <div class="container ">
    <div class="blogcontent">
       <h3>Automation</h3>
-      <p id="demo"></p>
+      <p id="demo"></p> <!-- current page URL -->
       <img class="blogimage img-fluid animated img-thumbnail"  src="./images/analyticblog.jpeg" alt="Responsive image">
       <p>Automation is a term for technology applications where human input is minimized. This includes business process automation (BPA), 
          IT automation, personal applications such as home automation and more. Human intervention is reduced by 

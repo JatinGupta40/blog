@@ -1,56 +1,37 @@
 <?php
-    $data = $_POST;
-    if
-    (
-        empty($data['fname']) ||
-        empty($data['lname']) ||
-        empty($data['email']) ||
-        empty($data['password']) ||
-        empty($data['repassword']))
+   // session_start();
+    include("connection.php");
+    
+    if(isset($_POST['submit']))
+    {
+        $email = $_POST['email'];  //$_POST email is getting the values from the login page and pushing it to the variable
+        $pass = $_POST['password'];
+
+        echo $email, $pass;  //values that are coming from the user at login page
+        
+        $query = "select * from user where emailid = '$email'and password = '$pass'";
+        $res = mysqli_query($conn,$query) or die(mysqli_error($conn));
+
+        $result = mysqli_num_rows($res);
+        if($result == 1)
         {
-            die('please fill all required fields');
+            while($rows = mysqli_fetch_assoc($res))
+            {
+                $email = $rows['emailid']; //emailid is coming from db and we are pushing it into variable email
+                $name = $rows['fname'];
+                echo "$name";
+                echo $email;
+            }
+            $_SESSION['name']= $name;
+            $_SESSION['email']=$email;
+        
+            header("location:admin.php");
         }
-        if($data['password'] !== $data['repassword'])
+        else
         {
-            die('Password and confirm password not match');
+        echo '<script>alert("invalid email or password") </script>';
+        header("refresh:0,url=login.php");
         }
-      
-
-
-$sql = "CREATE TABLE IF NOT EXISTS `users` (
-    `id` int(20) NOT NULL,
-      `fname` varchar(30) NOT NULL,
-      `lname` varchar(30) NOT NULL,
-      `email` varchar(225) PRIMARY KEY,
-      `password` varchar(225) NOT NULL,
-      `image` varchar(225) NOT NULL DEFAULT 'profile.jpg',
-    `joindate` varchar(225) NOT NULL );";
-
-   
+    }
 ?>
 
-
-
-<!-- //    if(isset($_POST['register']))
-//   {
-//   	//getting the post values
-//     $fname=$_POST['fname'];
-//     $lname=$_POST['lname'];
-//     $email=$_POST['email'];
-//     $password=$_POST['password'];
-//    $repassword=$_POST['repassword'];
-    
-//    if($pass)
-//   // Query for data insertion
-//      $query=mysqli_query($con, "insert into tblusers(fname , lname, email, password) VALUES 
-//      ('$fname','$lname', '$email', '$password' )");
-//     if ($query) {
-//     echo "<script>alert('You have successfully inserted the data');</script>";
-//     echo "<script > document.location ='index.php'; </script>";
-//   }
-//   else
-//     {
-//       echo "<script>alert('Something Went Wrong. Please try again');</script>";
-//     }
-// } -->
- 
