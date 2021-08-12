@@ -1,7 +1,7 @@
 <?php
 
-    ob_start();
-    session_start();
+  //  ob_start();
+  //  session_start();
     $servername = "localhost";
     $username = "root";
     $password = "";
@@ -13,5 +13,5 @@
     if(!$conn){
         dir('Error:cannot connect');
         }
-        echo "Connected to $db_name db successfully.";
+       // echo "Connected to $db_name db successfully.";
 ?>

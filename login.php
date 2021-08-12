@@ -1,14 +1,86 @@
-<?php include './header.php'; ?>
+<?php include './header.php'; 
+   $alert = false; 
+   $flag = 0 ;
+   
+  if($_SERVER["REQUEST_METHOD"] == "POST")
+  {     include("connection.php"); 
 
+      $fname=$_POST['fname']; //post fname is coming from the UI and getting stored into fname
+      $lname=$_POST['lname'];
+      $email=$_POST['email'];
+      $pass=$_POST['password']; //password is from UI that getting stored in pass
+      $repass=$_POST['repassword'];
+      
+  //variable for alerting   
+      //Check if user is already registered
+     // echo $fname," ",$lname," ", $email," ", $pass, " " ,$repass ; //printing all the values entered by the new user.
+      $sql = "Select * from user where emailid = '$email'";  //checking the entered email id with the existing email id's
+      //echo $sql;
+      $res = mysqli_query($conn,$sql); //mapping to the db
+      
+      $row = mysqli_num_rows($res); 
+     //echo $row;
+  
+   if($pass == $repass)
+   {
+           if($row >=  1)
+               {
+                   $flag = 1;
+                   //header("refresh:0,url=register.php");
+                   }
+                else
+                   {
+                    $result="INSERT INTO `user` (`fname`, `lname`, `emailid`, `password`) VALUES ('$fname','$lname','$email','$pass')";
+                    $run=mysqli_query($conn,$result);
+                    if($run)
+                       {
+                        
+                        $alert = true;
+                        $login = mysqli_query($conn,`select * from user where emailid = '$email' `);       
+                        
+                       }
+                    else
+                       {
+                        echo "<script> alert(' Registration failed ')</script>";
+                       }
+                   }
+               }
+        else
+        {
+           $flag = 2;
+         //  header("refresh:0,url=login.php");
+        }   
+   } 
+   
+?>
+
+<?php 
+if($alert)
+{
+   echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+  <strong>Successfully Registered!</strong> .
+ 
+</div>';
+   header('location:blogs.php');
+}
+else if($flag == 1)
+echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                   <strong>This Email-id is already taken.</strong> .
+      </div>';
+else if($flag == 2)
+echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <strong>Password and Confirm Password does not matched with each other !!</strong> .
+      </div>';
+?>
 <div class="tab">
-   <button class="tablinks" onclick="openTab(event, 'Registration')">Registration</button>
+   <button class="tablinks" onclick="openTab(event, 'Registration')" >Registration</button>
    <button class="tablinks" onclick="openTab(event, 'Login')" id="defaultOpen">Login</button>
 </div>
 <div id="Registration" class="tabcontent">
    <div class="registrationpage page card bg-light ">
       <article class="card-body mx-auto">
          <h4 class="card-title mt-3 text-center">Create Account</h4>
-         <form method="POST" action="validation.php" id="contactform" >
+         <form method="POST" id="contactform" >
             <div class=" form-group input-group">
                <div class="input-group-prepend">
                   <span class="input-group-text"> <i class="fa fa-user"></i> </span>
@@ -107,6 +179,25 @@
    document.getElementById("defaultOpen").click();
 
 
+// (function () {
+//   'use strict'
+
+//   // Fetch all the forms we want to apply custom Bootstrap validation styles to
+//   var forms = document.querySelectorAll('.needs-validation')
+
+//   // Loop over them and prevent submission
+//   Array.prototype.slice.call(forms)
+//     .forEach(function (form) {
+//       form.addEventListener('submit', function (event) {
+//         if (!form.checkValidity()) {
+//           event.preventDefault()
+//           event.stopPropagation()
+//         }
+
+//         form.classList.add('was-validated')
+//       }, false)
+//     })
+// })()
 
 </script>
 <!-- <script src="../js/validation.js"></script> -->
