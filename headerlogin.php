@@ -1,3 +1,5 @@
+<?php session_start();?>
+
 <!DOCTYPE html>
 <html lang="en">
    <head>
@@ -44,9 +46,17 @@
                       //  $sql = 'select * user where emailid = '$email'';
                        // echo $sql;
                   ?> 
-                     <li><a class="nav-link scrollto" href="#hero">Home $email</a></li>
-                     <li><a class="nav-link" href="blogs.php">Hello</a></li>
-                     <li><a class="nav-link" href="logout.php">Logout</a></li>
+                     <!-- <li><a class="nav-link scrollto" href="#hero">Home</a></li> -->
+                     <li><a class="nav-link" href="blogs.php">Hello - <?php echo $_SESSION['fname'], " ", $_SESSION['lname'];?></a></li>
+                     <?php 
+                     if($_SESSION['loggedin'])
+                     {
+                       // echo "true";
+                        ?>
+                        <li><a class="nav-link" href="logout.php">Logout</a></li>
+                    <?php }
+                     ?>
+                     
                      <!-- <li><a class="nav-link" href="register.php"><i class="fa fa-user" aria-hidden="true"></i> &nbsp Register</a></li> -->
                   </ul>
                   <i class="bi bi-list mobile-nav-toggle" style="color:black;"></i>

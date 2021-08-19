@@ -1,3 +1,8 @@
+<?php session_start();
+ include 'connection.php'
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
    <head>
@@ -34,24 +39,52 @@
    </head>
    <body>
       <!-- ======= Header ======= -->
-      <div>
-         <header id="header" class="fixed-top ">
-            <div class="container d-flex align-items-center">
+         <header class="header">
+            <div class="logo d-flex align-items-center">
                <h1 class="logo me-auto"><a href="index.php"><i>Blogging</i></a></h1>
-               <!-- Uncomment below if you prefer to use an image logo -->
-               <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a> -->
+               <form class="form-inline" action="search.php">
+                     <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search">
+                     <button class="btn btn-outline-success my-2 my-sm-0" name="">Search</button>
+               </form>
                <nav id="navbar" class="navbar">
                   <ul>
-                     <li><a class="nav-link scrollto" href="#hero">Home</a></li>
-                     <li><a class="nav-link" href="blogs.php">Blogs </a></li>
-                     <li><a class="nav-link" href="register.php"><i class="fa fa-user" aria-hidden="true"></i> &nbsp Register</a></li>
-                     <li><a class="nav-link" href="login.php"><i class="fa fa-user" aria-hidden="true"></i> &nbsp Login</a></li>
-                     <!-- <li><a class="getstarted scrollto" href="#about">Get Started</a></li> -->
+                  <?php 
+                     if(isset($_SESSION['loggedin']) || isset($_SESSION['success']))
+                     {
+                        // echo "true";  //when user is loggedin
+                  ?>
+                        <li><a class="nav-link" href="blogs.php">Hello - <?php echo $_SESSION['fname'], " ", $_SESSION['lname'];?></a></li>
+                        <li><a class="nav-link" href="blogslogin.php">My Blogs</a></li>
+                        <li><a class="nav-link" href="logout.php">Logout</a></li>
+                  <?php 
+                     }
+                    else
+                    {
+                  ?>
+                     <ul>
+                        <li><a class="nav-link scrollto" href="#hero">Home</a></li>
+                        <li><a class="nav-link" href="register.php"><i class="fa fa-user" aria-hidden="true"></i> &nbsp Register</a></li>
+                        <li><a class="nav-link" href="login.php"><i class="fa fa-user" aria-hidden="true"></i> &nbsp Login</a></li>
+                     </ul>
+                  <?php
+                    }
+                  ?>
+                  <!-- <li><a class="nav-link" href="register.php"><i class="fa fa-user" aria-hidden="true"></i> &nbsp Register</a></li> -->
                   </ul>
                   <i class="bi bi-list mobile-nav-toggle" style="color:black;"></i>
                </nav>
-               <!-- .navbar -->
             </div>
          </header>
          <!-- End Header -->
-      </div>
+     
+
+
+
+
+
+
+
+
+
+      
+                

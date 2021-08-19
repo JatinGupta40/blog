@@ -1,204 +1,123 @@
 <?php include './header.php'; 
-   $alert = false; 
-   $flag = 0 ;
-   
-  if($_SERVER["REQUEST_METHOD"] == "POST")
-  {     include("connection.php"); 
+   //session_start();
+    include("connection.php");
+    
+    if(isset($_POST['submit']))
+    {
+        $email = $_POST['email'];  //$_POST email is getting the values from the login page and pushing it to the variable
+        $pass = $_POST['pass'];
 
-      $fname=$_POST['fname']; //post fname is coming from the UI and getting stored into fname
-      $lname=$_POST['lname'];
-      $email=$_POST['email'];
-      $pass=$_POST['password']; //password is from UI that getting stored in pass
-      $repass=$_POST['repassword'];
-      
-  //variable for alerting   
-      //Check if user is already registered
-     // echo $fname," ",$lname," ", $email," ", $pass, " " ,$repass ; //printing all the values entered by the new user.
-      $sql = "Select * from user where emailid = '$email'";  //checking the entered email id with the existing email id's
-      //echo $sql;
-      $res = mysqli_query($conn,$sql); //mapping to the db
-      
-      $row = mysqli_num_rows($res); 
-     //echo $row;
-  
-   if($pass == $repass)
-   {
-           if($row >=  1)
-               {
-                   $flag = 1;
-                   //header("refresh:0,url=register.php");
-                   }
-                else
-                   {
-                    $result="INSERT INTO `user` (`fname`, `lname`, `emailid`, `password`) VALUES ('$fname','$lname','$email','$pass')";
-                    $run=mysqli_query($conn,$result);
-                    if($run)
-                       {
-                        
-                        $alert = true;
-                        $login = mysqli_query($conn,`select * from user where emailid = '$email' `);       
-                        
-                       }
-                    else
-                       {
-                        echo "<script> alert(' Registration failed ')</script>";
-                       }
-                   }
-               }
-        else
+      if (!empty($_POST['email'])) {
+         $email = htmlspecialchars($_POST['email']);
+      }
+      else {
+         $email = null;
+      }
+
+      if (!empty($_POST['pass'])) {
+         $pass = htmlspecialchars($_POST['pass']);
+      } else {
+         $pass = null;
+      }
+
+      $errors = array();
+
+      if ($email == null) {
+         $errors['email'] = 'Email-Id is required.';
+      }
+
+      if ($pass == null) {
+         $errors['pass'] = 'Password is required.';
+      }
+      else{
+         
+     
+      $pass1 = md5($pass);
+         $query = "select * from user where emailid = '$email'and password = '$pass1'"; //emailid and password are the db name and email and pass are the variabe name that we get above
+         $res = mysqli_query($conn,$query) or die(mysqli_error($conn));
+         $result = mysqli_num_rows($res);
+        //echo $result;
+        if($result == 1)
         {
-           $flag = 2;
-         //  header("refresh:0,url=login.php");
-        }   
-   } 
-   
+            $rows = mysqli_fetch_assoc($res);
+               $_SESSION['id'] = $rows['id'];
+               $_SESSION['fname'] = $rows['fname'];
+               $_SESSION['lname'] = $rows['lname'];
+               $_SESSION['email'] = $rows['emailid'];
+               $_SESSION['loggedin'] = true; 
+               $success = false;      //for registration page message
+               $_SESSION['success'] = $success ;
+               // $pass = $rows['password'];
+               //echo  $_SESSION['id'], $_SESSION['fname'], $_SESSION['lname'] , $_SESSION['email'] ;
+               // echo ;
+                header("location:blogslogin.php");
+         }
+         elseif($email=="admin@gmail.com" && $pass =="21232f297a57a5a743894a0e4a801fc3")
+         {
+            $_SESSION['fname'] = $rows['fname'];
+            $_SESSION['id'] = $rows['id'];
+            $_SESSION['lname'] = $rows['lname'];
+            $_SESSION['email'] = $rows['emailid']; 
+            header("location:blogslogin.php");
+         }
+         else 
+         {
+            $errors['check'] = 'Invalid Email or Password';
+         }
+         
+      }
+    }
 ?>
+<?php
 
-<?php 
-if($alert)
-{
-   echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
-  <strong>Successfully Registered!</strong> .
- 
-</div>';
-   header('location:blogs.php');
-}
-else if($flag == 1)
-echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-                   <strong>This Email-id is already taken.</strong> .
-      </div>';
-else if($flag == 2)
-echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
-      <strong>Password and Confirm Password does not matched with each other !!</strong> .
-      </div>';
+ if(isset($errors))
+ {
+   if (count($errors) > 0) 
+   {
+      foreach ($errors as $key => $value) 
+      {
+         echo '<div class="alert alert-danger">' . $value . '</div>';
+      }
+   }
+ }
 ?>
-<div class="tab">
-   <button class="tablinks" onclick="openTab(event, 'Registration')" >Registration</button>
-   <button class="tablinks" onclick="openTab(event, 'Login')" id="defaultOpen">Login</button>
-</div>
-<div id="Registration" class="tabcontent">
-   <div class="registrationpage page card bg-light ">
-      <article class="card-body mx-auto">
-         <h4 class="card-title mt-3 text-center">Create Account</h4>
-         <form method="POST" id="contactform" >
-            <div class=" form-group input-group">
-               <div class="input-group-prepend">
-                  <span class="input-group-text"> <i class="fa fa-user"></i> </span>
-               </div>
-               <input name="fname" class="form-control" placeholder="First name" type="text" required>
-            </div>
-            <!-- form-group// -->
-            <div class="form-group input-group">
-               <div class="input-group-prepend">
-                  <span class="input-group-text"> <i class="fa fa-user"></i> </span>
-               </div>
-               <input name="lname" class="form-control" placeholder="Last name" type="text" required>
-            </div>
-            <!-- form-group// -->
+<!-- LOGIN PART -->
+<div id="Login" class="tabcontent">
+   <div class="loginpage card bg-light">
+      <article class="card-body mx-auto" style="max-width: 400px;">
+         <h4 class="card-title mt-3 text-center">LOGIN</h4>
+         <form method="POST">
             <div class="form-group input-group">
                <div class="input-group-prepend">
                   <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
                </div>
-               <input  name="email" class="form-control" placeholder="Email address" type="email" required>
+               <input type="text" name="email" class="form-control <?php if (isset($errors['check']) || isset($errors['email'])) : ?>input-error<?php endif; ?>" placeholder = "xzy@gmail.com" value="<?php if (isset($_POST['email'])) { echo $email; } ?>">
             </div>
             <!-- form-group// -->
             <div class="form-group input-group">
                <div class="input-group-prepend">
                   <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
                </div>
-               <input class="form-control"  name="password" placeholder="Create password" type="password" required>
+               <input type="password" name="pass" class="form-control <?php if (isset($errors['check']) || isset($errors['pass'])) : ?>input-error<?php endif; ?>" placeholder = "*****" value="<?php if (isset($_POST['pass'])) { echo $pass; } ?>">
             </div>
             <!-- form-group// -->
-            <div class="form-group input-group">
-               <div class="input-group-prepend">
-                  <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
-               </div>
-               <input class="form-control"  name="repassword" placeholder="Repeat password" type="password" required>
-            </div>
-            <!-- form-group// -->   
             <div class="form-group">
-               <button type="submit" name="submit" class="btn btn-primary btn-block" >Create Account</button>
+               <button type="submit" class="btn btn-primary btn-block" name="submit"> LOGIN  </button>
             </div>
+            <div class="form-group" style="text-align:center;">
+               <a href="forgotpwd.php"><p>Forgotten Password?</p></a> 
+            </div>
+            
             <!-- form-group// -->      
-            <p class="text-center">Have an account? <a class="tablinks text-primary" style="cursor:pointer;"><u><b>Login <b></u></a></p>
          </form>
       </article>
    </div>
    <!-- card.// -->
 </div>
 
-<!-- LOGIN PART -->
-<div id="Login" class="tabcontent">
-   <div class="loginpage card bg-light">
-      <article class="card-body mx-auto" style="max-width: 400px;">
-         <h4 class="card-title mt-3 text-center">LOGIN</h4>
-         <form action="signup.php" method="POST">
-            <div class="form-group input-group">
-               <div class="input-group-prepend">
-                  <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
-               </div>
-               <input name="email" class="form-control" placeholder="Email address" type="email" required>
-            </div>
-            <!-- form-group// -->
-            <div class="form-group input-group">
-               <div class="input-group-prepend">
-                  <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
-               </div>
-               <input class="form-control" name="password" placeholder="Password" type="password" required>
-            </div>
-            <!-- form-group// -->
-            <div class="form-group">
-               <button type="submit" class="btn btn-primary btn-block" name="submit"> LOGIN  </button>
-            </div>
-            <!-- form-group// -->      
-         </form>
-      </article>
-   </div>
- <!-- card.// -->
-</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/es6-shim/0.35.3/es6-shim.min.js"></script>    
 <script src="/vendors/formvalidation/dist/js/FormValidation.min.js"></script>
 <script src="/vendors/formvalidation/dist/js/plugins/Tachyons.min.js"></script>
-<script>
-   function openTab(evt, tabname) {
-     var i, tabcontent, tablinks;
-   
-     tabcontent = document.getElementsByClassName("tabcontent");
-     for (i = 0; i < tabcontent.length; i++) {
-       tabcontent[i].style.display = "none";
-     }
-     tablinks = document.getElementsByClassName("tablinks");
-     for (i = 0; i < tablinks.length; i++) {
-       tablinks[i].className = tablinks[i].className.replace(" active", "");
-     }
-     document.getElementById(tabname).style.display = "block";
-     evt.currentTarget.className += " active";
-   }   
-   // Get the element with id="defaultOpen" and click on it
-   document.getElementById("defaultOpen").click();
 
-
-// (function () {
-//   'use strict'
-
-//   // Fetch all the forms we want to apply custom Bootstrap validation styles to
-//   var forms = document.querySelectorAll('.needs-validation')
-
-//   // Loop over them and prevent submission
-//   Array.prototype.slice.call(forms)
-//     .forEach(function (form) {
-//       form.addEventListener('submit', function (event) {
-//         if (!form.checkValidity()) {
-//           event.preventDefault()
-//           event.stopPropagation()
-//         }
-
-//         form.classList.add('was-validated')
-//       }, false)
-//     })
-// })()
-
-</script>
-<!-- <script src="../js/validation.js"></script> -->
 <?php include './footer.php'; ?>
