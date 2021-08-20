@@ -1,142 +1,158 @@
 <?php
     include 'header.php';
-    include 'connection.php';
-    
-        
-            // else
-            // {
-            // if(!empty($_POST['pwd'])) //validation
-            // {
-            //     $pwd = htmlspecialchars($_POST['pwd']);
-            // }
-            // else
-            // {
-            //     $pwd = null;
-            // }
-            // if(!empty($_POST['repwd']))
-            // {
-            //     $repwd = htmlspecialchars($_POST['repwd']);
-            // }
-            // else
-            // {
-            //     $repwd = null;
-            // }
-            // if(empty($_POST['pwd']) && empty($_POST['repwd']) )
-            // {
-            //     $bothempty = true;
-            // }   
-            // else
-            // {
-            //     $bothempty = false;
-            // }
-            // if($_POST['pwd'] != $_POST['repwd'])
-            // {
-            //     $notequal = true;
-            // }
-            // else
-            // {
-            //     $notequal = false;
-            // }
+    include('connection.php');
+    if (isset($_POST['password']) && $_POST['reset_link_token'] && $_POST['email']) 
+    {
+        $email = $_POST['email'];
+        //echo $email;
+        $code = $_POST['reset_link_token'];
 
-            // $errors = array();
-
-            // if($pwd == null)
-            // {
-            //     $errors['pwd'] = "Password Required";
-            // }
-            // if($repwd == null)
-            // {
-            //     $errors['repwd'] = "Confirm Password Required";
-            // }
-            // if($bothempty == true)
-            // {
-            //     $errors['bothemptypwd'] = "Fields cannot be empty";
-            // }
-            // if($notequal == true)
-            // {
-            //     $errors['noteqal'] = "Confirmed Password did not match";
-            // } //validation ends
-        //}
-        
-
-       // 
-        
-       if(isset($_POST['submit']))
+        if (!empty($_POST['password'])) 
         {
-            if(isset($_POST['password']) && $_POST['reset_link_token'] && $_POST['email'])
-                {
-                echo "hello";
-                $email = $_POST['email'];
-                echo $email;
-                $code = $_POST['reset_link_token'];
-                echo $code;
-                $password = md5($_POST['password']);
-                echo $password;
-                $query = mysqli_query($conn,"SELECT * FROM `user` WHERE `reset_link_token`='".$code."' and `emailid`='".$email."'");
-                $row = mysqli_num_rows($query);
-                    if($row)
-                    {
-                        mysqli_query($conn,"UPDATE users set  password='" . $password . "', reset_link_token='" . NULL . "' ,exp_date='" . NULL . "' WHERE emailid='" . $emailId . "'");
-                        echo '<p>Congratulations! Your password has been updated successfully.</p>';
-                    }
-                    else
-                    {
-                        echo "<p>Something goes wrong. Please try again</p>";
-                    }
-            }else
+            $password = htmlspecialchars($_POST['password']);
+        }
+        else 
+        {
+            $password = null;
+        }
+
+        $errors=array();
+
+        if (!empty($_POST['password2'])) 
+        {
+            $password2 = htmlspecialchars($_POST['password2']);
+        } 
+        else 
+        {
+            $password2 = null;
+        }
+
+        if ($password == null) 
+        {
+            $errors['password'] = 'Password is required.';
+        }
+
+        if ($password2 == null) 
+        {
+            $errors['password2'] = 'Confirmed Password is required.';
+        }
+
+        if ($password != null && $password2 != null) 
+        {
+            if (strcmp($password, $password2)) 
             {
-                echo "bhar";
+                $errors['password_mismatch'] = 'Confirmed password should be same as the password.';
             }
         }
-       
-    
-     
-    
-    ?>
-    
-    <?php
 
-    if($_GET['key'] && $_GET['code'])
-    {
-        $email = $_GET['key'];
-        $code = $_GET['code'];
-        $sql = "SELECT * FROM `user` WHERE `reset_link_token`='".$code."' and `emailid`='".$email."'";
-        //echo $email;
-        //echo $code;
-        $query = mysqli_query($conn,$sql);
-        $curDate = date("d-m-Y H:i:s");
-        //print_r($query);
-        //echo $sql;
-        if (mysqli_num_rows($query) > 0) 
-            {   
-                $row= mysqli_fetch_array($query);
-                if($row['exp_date'] > $curDate)
-                    {
+        if (count($errors) > 0) 
+        {
+            foreach ($errors as $key => $value) 
+            {
+                echo '<div class="form-error">' . $value . '</div>';
+            }
+
+            $query = mysqli_query($conn,"SELECT * FROM user WHERE reset_link_token='" . $code . "' and emailid='" . $email . "';");
+            $curDate = date("Y-m-d H:i:s");
+            if (mysqli_num_rows($query) > 0) 
+            {
+                $row = mysqli_fetch_array($query);
+                if ($row['exp_date'] >= $curDate) 
+                { 
 ?>
-                    <div>
-                        <form action="updatepwd.php" class="form container forgotpwd" method="POST";>
-                            <div>
-                                <label>New Password :</label>
-                                <input class="<?php if(isset($errors['pwd'])) : ?>input-error<?php endif; ?>" type="password" name="pwd" placeholder="*****"></input>
-                            </div>
-                            <div>
-                                <label>Confirm Password :</label>
-                                <input class="<?php if(isset($errors['repwd'])) : ?>input-error<?php endif; ?>" type="password" name="repwd" placeholder="*****"></input>
-                            </div>
-                            <div>
-                                <button type="submit" name="submit">Submit</button>
-                            </div>
-                        </form>
-                    </div>
-<?php
-                    }
+<?php           }
             }
             else
             {
-                echo '<div class="warning">Sorry, Your Reset Password link has expired.</div>';  
-            }
-    }
-     
+?>
+<?php
+             }
+        }
+        else
+        {
 ?>
 
-<?php include 'footer.php';?>
+<?php
+            $email = $_POST['email'];
+            $code = $_POST['reset_link_token'];
+            $query = mysqli_query($conn, "SELECT * FROM user WHERE reset_link_token='" . $code . "' and emailid='" . $email . "'");
+            $row = mysqli_num_rows($query);
+            if ($row) 
+            {
+                $password = md5($password);
+                mysqli_query($conn, "UPDATE user set  password='" . $password . "', reset_link_token=NULL, exp_date=NULL WHERE emailid='" . $email . "'");
+                header("Refresh:5; url=login.php");
+?>
+                <div class="success">
+                    <p>Your password has been updated successfully.</p>
+                    <p>You will be redirected to login within 5 seconds. If it doesn't redirect within 5 seconds, <a href="/accounts/login.php">click here</a>.</p>
+                </div>
+<?php
+            }
+            else
+            {
+                echo "<p>Something goes wrong. Please try again</p>";
+            }
+        }
+    }
+    if ($_GET['key'] && $_GET['code']) 
+    {
+      include('connection.php');
+      $email = $_GET['key'];
+      $code = $_GET['code'];
+      $query = mysqli_query(
+         $conn,
+         "SELECT * FROM `user` WHERE `reset_link_token`='" . $code . "' and `emailid`='" . $email . "';"
+      );
+      $curDate = date("Y-m-d H:i:s");
+      if (mysqli_num_rows($query) > 0) {
+         $row = mysqli_fetch_array($query);
+         if ($row['exp_date'] >= $curDate) { ?>
+            <header>
+               <h2>Create New Password</h2>
+            </header>
+            <form action="" method="post">
+               <div class="input-group">
+                  <input type="hidden" name="email" value="<?php echo $email; ?>">
+               </div>
+               <div class="input-group">
+                  <input type="hidden" name="reset_link_token" value="<?php echo $code; ?>">
+               </div>
+               <!-- <div class="form-group"> -->
+               <div class="input-group">
+                  <label for="exampleInputEmail1">Password</label>
+                  <input type="password" name='password' class="form-control <?php if (isset($errors['password'])) : ?>input-error<?php endif; ?>" value="<?php if (isset($_POST['password'])) {
+                                                                                                                                                               echo $password;
+                                                                                                                                                            } ?>">
+               </div>
+               <!-- </div>    -->
+               <div class="input-group">
+                  <!-- <div class="form-group"> -->
+                  <label for="exampleInputEmail1">Confirm Password</label>
+                  <input type="password" name='password2' class="form-control <?php if (isset($errors['password2'])) : ?>input-error<?php endif; ?>" value="<?php if (isset($_POST['password2'])) {
+                                                                                                                                                               echo $password2;
+                                                                                                                                                            } ?>">
+               </div>
+               <!-- </div> -->
+               <div class="input-group">
+                  <button type="submit" name="submit" class="btn">SUBMIT</button>
+               </div>
+            </form>
+         <?php }
+      }  
+         
+   
+   }
+   
+   
+   else{ 
+      ?>
+      <p>This forget password link has been expired</p>
+      <?php
+   }
+
+   ?>
+
+</body>
+
+</html>

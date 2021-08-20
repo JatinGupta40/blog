@@ -27,12 +27,15 @@ $result = $conn->query($sql);
             $id = $row['id'];
             $heading = $row['Heading'];
             $content=$row['content'];
+            $image = $row['image'];
+            echo $image;
             //echo $id;
 
 ?>
             <div class="container" style="margin-top:20px;">
             <div class="blogbox">
                <h3><?php echo $heading;?></h3>
+               <img src="<?php echo $image; ?>"> 
                <p><?php 
                   { $content = substr($content,0,150);
                      echo $content; 

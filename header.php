@@ -40,38 +40,38 @@
    <body>
       <!-- ======= Header ======= -->
          <header class="header">
-            <div class="logo d-flex align-items-center">
-               <h1 class="logo me-auto"><a href="index.php"><i>Blogging</i></a></h1>
-               <form class="form-inline" action="search.php">
-                     <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search">
-                     <button class="btn btn-outline-success my-2 my-sm-0" name="">Search</button>
+            <div class="headcontent">
+               <h1><a href="index.php"><i>Blogging</i></a></h1>
+               <form class="searchbar" action="search.php">
+                     <input class="" type="search" name="search" placeholder="Search">
+                     <button class="" name="">Search</button>
                </form>
-               <nav id="navbar" class="navbar">
+               <nav class="navbar">
                   <ul>
                   <?php 
                      if(isset($_SESSION['loggedin']) || isset($_SESSION['success']))
                      {
                         // echo "true";  //when user is loggedin
                   ?>
-                        <li><a class="nav-link" href="blogs.php">Hello - <?php echo $_SESSION['fname'], " ", $_SESSION['lname'];?></a></li>
-                        <li><a class="nav-link" href="blogslogin.php">My Blogs</a></li>
-                        <li><a class="nav-link" href="logout.php">Logout</a></li>
+                        <li><a href="blogs.php">Hello - <?php echo $_SESSION['fname'], " ", $_SESSION['lname'];?></a></li>
+                        <li><a href="blogslogin.php">My Blogs</a></li>
+                        <li><a href="logout.php">Logout</a></li>
                   <?php 
                      }
                     else
                     {
                   ?>
                      <ul>
-                        <li><a class="nav-link scrollto" href="#hero">Home</a></li>
-                        <li><a class="nav-link" href="register.php"><i class="fa fa-user" aria-hidden="true"></i> &nbsp Register</a></li>
-                        <li><a class="nav-link" href="login.php"><i class="fa fa-user" aria-hidden="true"></i> &nbsp Login</a></li>
+                        <li><a class="scrollto" href="#hero">Home</a></li>
+                        <li><a href="register.php"><i class="fa fa-user" aria-hidden="true"></i> &nbsp Register</a></li>
+                        <li><a href="login.php"><i class="fa fa-user" aria-hidden="true"></i> &nbsp Login</a></li>
                      </ul>
                   <?php
                     }
                   ?>
                   <!-- <li><a class="nav-link" href="register.php"><i class="fa fa-user" aria-hidden="true"></i> &nbsp Register</a></li> -->
                   </ul>
-                  <i class="bi bi-list mobile-nav-toggle" style="color:black;"></i>
+                  <!-- <i class="bi bi-list mobile-nav-toggle" style="color:black;"></i> -->
                </nav>
             </div>
          </header>
