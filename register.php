@@ -129,56 +129,45 @@ if (isset($errors)) {
    }
 }
 ?>
-<div id="Registration" class="tabcontent">
-   <div class="registrationpage page card bg-light ">
-      <article class="card-body mx-auto">
-         <h4 class="card-title mt-3 text-center">Create Account</h4>
-            <form method="POST" id="contactform" >
-               <div class=" form-group input-group">
-                  <div class="input-group-prepend">
-                     <span class="input-group-text"> <i class="fa fa-user"></i></span>
-                  </div>
-                  <input type="text" name="fname" placeholder = "First Name" class="form-control <?php if (isset($errors['fname'])) : ?> input-error<?php endif ; ?>" value="<?php if (isset($_POST['fname'])) { echo $fname; } ?>">
+   <div class="registrationpage">
+      <article class="form">
+         <h4 class="">Create Account</h4>
+            <form method="POST">
+               <div class="formcontent">
+                <i class="fa fa-user"></i>
+                <input type="text" name="fname" placeholder = "First Name" class=" <?php if (isset($errors['fname'])) : ?> input-error<?php endif ; ?>" value="<?php if (isset($_POST['fname'])) { echo $fname; } ?>">
                </div>
                <!-- form-group// -->
-               <div class="form-group input-group">
-                  <div class="input-group-prepend">
-                     <span class="input-group-text"> <i class="fa fa-user"></i> </span>
-                  </div>
-                  <input type="text" name="lname" placeholder = "Last Name" class="form-control <?php if (isset($errors['lname']) || isset($errors['lname'])): ?>input-error<?php endif; ?>" value="<?php if (isset($_POST['lname'])) { echo $lname; } ?>">
+               <div class="">
+               <i class="fa fa-user"></i> 
+               <input type="text" name="lname" placeholder = "Last Name" class=" <?php if (isset($errors['lname']) || isset($errors['lname'])): ?>input-error<?php endif; ?>" value="<?php if (isset($_POST['lname'])) { echo $lname; } ?>">
             </div>
             <!-- form-group// -->
-            <div class="form-group input-group">
-               <div class="input-group-prepend">
-                  <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
-               </div>
-               <input type="text" name="email" placeholder = "xzy@gmail.com" class="form-control <?php if (isset($errors['check']) || isset($errors['email'])): ?>input-error<?php endif; ?>" value="<?php if (isset($_POST['email'])) { echo $email; } ?>">
+            <div class="">
+            <i class="fa fa-user"></i>
+               <input type="text" name="email" placeholder = "xzy@gmail.com" class=" <?php if (isset($errors['check']) || isset($errors['email'])): ?>input-error<?php endif; ?>" value="<?php if (isset($_POST['email'])) { echo $email; } ?>">
             </div>
          <!-- form-group// -->
-            <div class="form-group input-group">
-               <div class="input-group-prepend">
-                  <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
-               </div>
-               <input type="password" name="password" placeholder = "*****" class="form-control <?php if (isset($errors['check']) || isset($errors['pass'])): ?>input-error<?php endif; ?>" value="<?php if (isset($_POST['pass'])) {  echo $pass; } ?>">
+            <div class="">
+               <i class="fa fa-lock"></i>
+                  <input type="password" name="password" placeholder = "*****" class="<?php if (isset($errors['check']) || isset($errors['pass'])): ?>input-error<?php endif; ?>" value="<?php if (isset($_POST['pass'])) {  echo $pass; } ?>">
             </div>
             <!-- form-group// -->
-            <div class="form-group input-group">
-               <div class="input-group-prepend">
-                  <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
-               </div>
-               <input type="password" name="repassword" placeholder = "*****"  class="form-control <?php if (isset($errors['check']) || isset($errors['pass'])): ?>input-error<?php endif; ?>" value="<?php if (isset($_POST['pass'])) {  echo $pass; } ?>">
+            <div class="">
+               <i class="fa fa-lock"></i>
+                  <input type="password" name="repassword" placeholder = "*****"  class="<?php if (isset($errors['check']) || isset($errors['pass'])): ?>input-error<?php endif; ?>" value="<?php if (isset($_POST['pass'])) {  echo $pass; } ?>">
             </div>
             <!-- form-group// -->   
             <div class="form-group">
-               <button type="submit" name="submit" class="btn btn-primary btn-block" >Create Account</button>
+               <button type="submit" name="submit" class="" >Create Account</button>
             </div>
             <!-- form-group// -->      
-            <p class="text-center">Have an account? <a class="tablinks text-primary" style="cursor:pointer;" href="login.php"><u><b>Login <b></u></a></p>
+            <p class="text-center">Have an account? <a class="" style="cursor:pointer;" href="login.php"><u><b>Login <b></u></a></p>
          </form>
       </article>
    </div>
    <!-- card.// -->
-</div>
+
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/es6-shim/0.35.3/es6-shim.min.js"></script>    

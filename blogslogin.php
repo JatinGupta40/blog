@@ -44,14 +44,14 @@ include ("connection.php");
   
 
 ?>
-    <div class="addblog container d-flex align-items-center">
-        <h3><a href="createblog.php">Add Blog</a></h3>
+    <div class="addblog">
+        <h2><a href="createblog.php">Add Blog</a></h2>
     </div>
-    <div class="container">
+    <div class="addbloghr">
         <hr>
     </div>
-    <div class="container d-flex align-items-center">
-        <h3><u>My Blogs</u> <i class="fas fa-caret-down"></i></h3>
+    <div class="myblog">
+        <h2><u>My Blogs</u> <i class="fas fa-caret-down"></i></h2>
     </div>
 <?php
     if ($_SESSION['email'] == "admin@gmail.com")
@@ -67,8 +67,7 @@ include ("connection.php");
             $heading = $row['Heading'];
             $content = $row['content'];
 ?>
-            <div class="container" style="margin-top:20px;">
-                <div class="blogbox">
+            <div class="blogbox">
                     <h3><?php echo $heading; ?></h3>
                     <p>
 <?php
@@ -79,7 +78,6 @@ include ("connection.php");
                     }
 ?>
                     </p>
-                </div>
             </div>
 <?php
             }
@@ -87,7 +85,7 @@ include ("connection.php");
         else
         {
 ?>
-            <div class="container">
+            <div class="">
                 <h5>You have not added any Blog yet.</h5>
                 <p>(To create click on the Add Blog button above.)</p>
             </div>
@@ -143,7 +141,7 @@ include ("connection.php");
             $id = $row['id'];
 
 ?>
-            <div class="container" style="margin-top:20px;">
+            <div class="" style="margin-top:20px;">
                 <div class="blogbox">
                     <h3><?php echo $heading; ?></h3>
                     <p>
@@ -154,11 +152,12 @@ include ("connection.php");
                             // echo $i;
                         }
                     ?>
-                    <div class="row">
-                        <div class="form-group col-md-3">
-                            <a href="editblog.php?id=<?php echo $id;?>"><button type="submit"  class="btn btn-primary btn-block" name="submit"> Edit </button></a>
+                    <div class="editdelete">
+                        <div class="editdeletebutton">
+                            <a href="editblog.php?id=<?php echo $id;?>">
+                            <button type="submit"  class="btn btn-primary btn-block" name="submit"> Edit </button></a>
                         </div>
-                        <div class="form-group col-md-3">
+                        <div class="">
                             <a href="deleteblog.php"><button type="submit" class="btn btn-primary btn-block" name="submit"> Delete </button></a>
                         </div>
                     </div>
@@ -171,7 +170,7 @@ include ("connection.php");
         else
         {
 ?>
-        <div class="container">
+        <div class="">
             <h5>You have not added any Blog yet.</h5>
             <p>(To create click on the '<u>Add Blog</u>' button above.)</p>
         </div>

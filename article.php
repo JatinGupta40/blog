@@ -14,9 +14,7 @@ include ("connection.php");
 ?>
 
 <!-- blogs content start -->
-<div class="blog">
-   <div class="container ">
-      <div class="blogcontent">
+<div class="blogbox">
          <?php //fetching heading and content using heading value           
             
             $sql = "select * from blog where id='$a'";
@@ -36,11 +34,12 @@ include ("connection.php");
                }
             }
 //            echo $_GET['Heading']; 
+         // below - <img class="blogimage img-fluid animated img-thumbnail"  src="images/analyticblog.jpeg" alt="Responsive image" >
          
          
          ?>
-         <h3>Analytics</h3>
-         <img class="blogimage img-fluid animated img-thumbnail"  src="images/analyticblog.jpeg" alt="Responsive image" >
+         <h2>Analytics</h2>
+         <img class="blogimage"  src="images/analyticblog.jpeg" alt="Responsive image" >
          <p><?php echo $content;?></p>
       </div>
       <!-- blogs content END -->
