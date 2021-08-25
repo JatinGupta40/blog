@@ -307,7 +307,7 @@ section {
 
 .editdelete{ display: flex;}
 .editdeletebutton{height: 30px; width: 50px; }
-.formcontent
+.formcontent {padding:10vh;}
 
 /*--------------------------------------------------------------
 # Footer
