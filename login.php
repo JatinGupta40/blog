@@ -82,42 +82,30 @@
  }
 ?>
 <!-- LOGIN PART -->
-<div id="Login" class="tabcontent">
-   <div class="loginpage card bg-light">
-      <article class="card-body mx-auto" style="max-width: 400px;">
-         <h4 class="card-title mt-3 text-center">LOGIN</h4>
+   <div class="registrationpage">
+      <article class="regform">
          <form method="POST">
-            <div class="form-group input-group">
-               <div class="input-group-prepend">
-                  <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
-               </div>
+            <h2 class="">LOGIN</h2>
+         
+            <div class="formcontent">
+               <i class="fa fa-envelope"></i>
                <input type="text" name="email" class="form-control <?php if (isset($errors['check']) || isset($errors['email'])) : ?>input-error<?php endif; ?>" placeholder = "xzy@gmail.com" value="<?php if (isset($_POST['email'])) { echo $email; } ?>">
             </div>
-            <!-- form-group// -->
-            <div class="form-group input-group">
-               <div class="input-group-prepend">
-                  <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
-               </div>
+            
+            <div class="formcontent">
+               <i class="fa fa-lock"></i>
                <input type="password" name="pass" class="form-control <?php if (isset($errors['check']) || isset($errors['pass'])) : ?>input-error<?php endif; ?>" placeholder = "*****" value="<?php if (isset($_POST['pass'])) { echo $pass; } ?>">
             </div>
-            <!-- form-group// -->
-            <div class="form-group">
-               <button type="submit" class="btn btn-primary btn-block" name="submit"> LOGIN  </button>
-            </div>
-            <div class="form-group" style="text-align:center;">
+            
+            <button type="submit" class="btn btn-primary btn-block" name="submit"> LOGIN  </button>
+          
+            <div class="formcontent">
                <a href="forgotpwd.php"><p>Forgotten Password?</p></a> 
             </div>
             
-            <!-- form-group// -->      
          </form>
       </article>
    </div>
    <!-- card.// -->
-</div>
-
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/es6-shim/0.35.3/es6-shim.min.js"></script>    
-<script src="/vendors/formvalidation/dist/js/FormValidation.min.js"></script>
-<script src="/vendors/formvalidation/dist/js/plugins/Tachyons.min.js"></script>
 
 <?php include './footer.php'; ?>

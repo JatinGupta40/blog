@@ -38,15 +38,13 @@
       <link rel="stylesheet" href="/vendors/formvalidation/dist/css/formValidation.min.css"> -->
       <!-- Template Main CSS File -->
       
-      <link rel="stylesheet" href="style.css">
+      <link rel="stylesheet" href="style.scss">
    </head>
    <body>
       <!-- ======= Header ======= -->
       <header>
          <div class="header"> <!-- Header start -->
-         <a class="icon" onclick="myFunction()">
-    <i class="fa fa-bars"></i>
-  </a> 
+        
          <div class="headcontent">
                <h1><a href="index.php"><i>Blogging</i></a></h1>
                <i class="bi bi-list    mobile-nav-toggle" style="color:black;"></i>    
@@ -71,21 +69,26 @@
                         <li><a href="blogs.php">Hello - <?php echo $_SESSION['fname'], " ", $_SESSION['lname'];?></a></li>
                         <li><a href="blogslogin.php">My Blogs</a></li>
                         <li><a href="logout.php">Logout</a></li>
-                     
+                        <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+                            <i class="fa fa-bars"></i>
+                        </a> 
                   <?php 
                      }
                     else
                     {
                   ?>
                      
-                        <li><a class="scrollto" href="#hero">Home</a></li>
-                        <li><a href="register.php"><i class="fa fa-user" aria-hidden="true"></i> &nbsp Register</a></li>
-                        <li><a href="login.php"><i class="fa fa-user" aria-hidden="true"></i> &nbsp Login</a></li>
-                     </ul>
+                     <li><a class="scrollto" href="#hero">Home</a></li>
+                     <li><a href="register.php"><i class="fa fa-user" aria-hidden="true"></i> &nbsp Register</a></li>
+                     <li><a href="login.php"><i class="fa fa-user" aria-hidden="true"></i> &nbsp Login</a></li>
+                     <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+                        <i class="fa fa-bars"></i>
+                     </a> 
+                  </ul>
                   <?php
                     }
                   ?>
-                  </ul>
+                 
                  
                </nav>
             </div>
@@ -94,6 +97,17 @@
          </header>
          <!-- End Header -->
      
+         <script>   //for hamburger responsive
+
+function myFunction() {
+  var x = document.getElementById("hamburger");
+  if (x.className === "navbar") {
+    x.className += " responsive";
+  } else {
+    x.className = "navbar";
+  }
+}
+</script>
 
 
 

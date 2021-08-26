@@ -38,7 +38,7 @@ include ("connection.php");
          
          
          ?>
-         <h2>Analytics</h2>
+         <h2>Analytics</h2 >
          <img class="blogimage"  src="images/analyticblog.jpeg" alt="Responsive image" >
          <p><?php echo $content;?></p>
       </div>

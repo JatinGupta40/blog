@@ -1,5 +1,5 @@
-$font-family:"Open Sans", sans-serif;
 
+$fontfamily: "Helvetica Neue", "Arial", sans-serif;
 
 body {
   font-family: $font-family;
@@ -18,8 +18,9 @@ a:hover {
   text-decoration: none;
 }
 
-h1, h2, h3, h4, h5, h6, p {
-  font-family: sans-serif;
+h1, h2, h3, h4, h5, h6, p, a {
+  font-family: $fontfamily;
+  
 }
 
 
@@ -41,7 +42,8 @@ h1, h2, h3, h4, h5, h6, p {
 .searchbar input, button { height: 35px; }
 .searchbar input { width: 74%;}
 .searchbar button{ background-color:white; border: 1px solid green; width: 20%; border-radius: 10px;}
-.navbar{width:25%;  position: relative ; }
+
+.navbar{width:25%;  position: relative; overflow: hidden; }
 .navbar li{padding: 10px; height: 20px;}
 
 .navbar ul {
@@ -59,7 +61,7 @@ h1, h2, h3, h4, h5, h6, p {
 }
 
 .navbar a, .navbar a:focus {
-  display: flex;
+    display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0px 0 5px 0px;
@@ -81,8 +83,8 @@ h1, h2, h3, h4, h5, h6, p {
 @media (max-width:425px){
   .headcontent{ width: 100%; }
   .headcontent h1{padding: 0; text-align: center;}
-  .searchbar { width: 85%; }
-  .searchbar input{width:55%; margin: 21px 10px 20px 40px;}
+  .searchbar { width: 95%; padding-top: 0px; }
+  .searchbar input{width:55%; margin: 24px 10px 20px 40px;}
   .navbar{width:100%;}
   .navbar ul{margin-left: 16vw;}
   .header{flex-direction: column;}
@@ -97,9 +99,10 @@ h1, h2, h3, h4, h5, h6, p {
   .navbar li{padding: 9px; height: 20px;}
 }
 
+//a:not(:first-child)  for displaying the first list element of navbar. should be added before display none
 @media screen and (max-width: 600px) {
-  .navbar a:not(:first-child) {display: none;}
-  .navbar a.icon {
+  .navbar li {display: none;}
+  .navbar li.icon {
     float: right;
     display: block;
   }
@@ -113,7 +116,7 @@ h1, h2, h3, h4, h5, h6, p {
     right: 0;
     top: 0;
   }
-  .navbar.responsive a {
+  .navbar.responsive li {
     float: none;
     display: block;
     text-align: left;
@@ -314,11 +317,18 @@ section {
 .registrationpage{padding: 5% 30% 10% 30%;}
 
 .regform{width: 100%; background: #b3c6ff; }
-.regform h2{margin-top: 2vh;}
+.regform h2{margin-top: 2vh;    text-align: center;
+    padding: 2vh;}
 .formcontent {padding:2vh; margin-left: 25vh;}
 .formcontent input{height: 2em;}
 .regform button{ border: 1px solid green; margin-left: 34vh; background: white; border-radius: 5px; padding: 10px; }
 
+
+@media (max-width:417px){
+    .registrationpage{padding: 5% 10% 10% 10%;}
+    .formcontent {padding:2vh; margin-left: 0vh;}
+    .regform button{ margin-left: 5vh; }
+}
 /*--------------------------------------------------------------
 # Footer
 --------------------------------------------------------------*/
