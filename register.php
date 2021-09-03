@@ -124,7 +124,7 @@ include("connection.php");
 if (isset($errors)) {
    if (count($errors) > 0) {
       foreach ($errors as $key => $value) {
-         echo '<div class="alert alert-danger">' . $value . '</div>';
+         echo '<div class="warning">' . $value . '</div>';
       }
    }
 }

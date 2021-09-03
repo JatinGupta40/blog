@@ -1,25 +1,25 @@
 <?php include './header.php';
 include 'connection.php';
 //session_start();
-if (isset($_GET['pageno'])) {
-   $pageno = $_GET['pageno'];
-} 
+if (isset($_GET['pageno'])) 
+   {
+      $pageno = $_GET['pageno'];
+   } 
 else 
-{
-   $pageno = 1;
-}
-$no_of_records_per_page = 5;  //Number of blogs to be shpwn on a single page
-$offset = ($pageno-1) * $no_of_records_per_page;
-//echo $offset;
-$total_pages_sql = "SELECT COUNT(*) FROM blog"; //counting the number of blogs user have of his own
-$result = mysqli_query($conn,$total_pages_sql); //mapping it to db
-$total_rows = mysqli_fetch_array($result)[0];
-//echo $total_rows;
-$total_pages = ceil($total_rows / $no_of_records_per_page);
-//$result = $conn->query($sql);
-$sql =  "select * from blog ORDER BY id DESC LIMIT $offset, $no_of_records_per_page";
-$result = $conn->query($sql);
-  if($result->num_rows > 0)
+   {
+      $pageno = 1;
+   }
+
+   //Number of blogs to be shown on a single page. For Pagination.
+   $no_of_records_per_page = 5;  
+   $offset = ($pageno-1) * $no_of_records_per_page;
+   $total_pages_sql = "SELECT COUNT(*) FROM blog"; //counting the number of blogs user have of his own
+   $result = mysqli_query($conn,$total_pages_sql); //mapping it to db
+   $total_rows = mysqli_fetch_array($result)[0];
+   $total_pages = ceil($total_rows / $no_of_records_per_page);
+   $sql =  "select * from blog ORDER BY id DESC LIMIT $offset, $no_of_records_per_page";
+   $result = $conn->query($sql);
+   if($result->num_rows > 0)
    {
       //$data = array();
       while ($row = mysqli_fetch_assoc($result))
@@ -27,10 +27,9 @@ $result = $conn->query($sql);
             $id = $row['id'];
             $heading = $row['Heading'];
             $content=$row['content'];
-            $image = $row['image'];
-            echo $image;
-            //echo $id;
-
+         //   $image = $row['image'];
+         //   echo $image;
+   
 ?>
          <div class="blogbox">
                <h2><?php echo strtoupper($heading);?></h2>
