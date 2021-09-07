@@ -17,12 +17,12 @@ include 'connection.php';
       <meta content="" name="description">
       <meta content="" name="keywords">
       <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css">
-      
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
       <link rel="stylesheet" href="assets/css/main.css?nounce=<?php echo time(); ?>">
    </head>
-   <script src=
-    "https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js">
-</script>
    <body>
       <!-- ======= Header ======= -->
       <header>
@@ -42,7 +42,7 @@ include 'connection.php';
                      {
                         // echo "true";  //when user is loggedin
                   ?>
-                        <li class="active"><u>Hello - <?php echo $_SESSION['fname'], " ", $_SESSION['lname'];?></u></li>
+                        <li class="active"><a><u>Hello - <?php echo $_SESSION['fname'], " ", $_SESSION['lname'];?></u></a></li>
                         <li><a href="personalisedcarousel.php">Carousel</a></li>
                         <li><a href="blogslogin.php">My Blogs</a></li>
                         <li><a href="logout.php">Logout</a></li>

@@ -15,6 +15,7 @@ body {
 
 a {
   text-decoration: none;
+  color: #171750 !important;
 }
 
 a:hover {
@@ -55,8 +56,9 @@ h1, h2, h3, h4, h5, h6, p, a {
 }
 
 .searchbar {
-  padding-top: 1px;
+  padding-top: 1vh;
   width: 25%;
+  font-size: 20px;
 }
 
 .searchbar input, .searchbar button {
@@ -78,6 +80,8 @@ h1, h2, h3, h4, h5, h6, p, a {
   width: 35%;
   position: relative;
   overflow: hidden;
+  float: right;
+  display: block;
   font-size: 18px;
 }
 
@@ -95,18 +99,18 @@ h1, h2, h3, h4, h5, h6, p, a {
 }
 
 .navbar li {
-  padding: 10px;
+  padding: 0 0 0 15px;
   height: 20px;
-  color: white;
 }
 
 .navbar ul li a:hover {
   border-bottom: 3px solid #2f00ff;
   -webkit-transition: all 0.3s ease-in-out 0s;
   transition: all 0.3s ease-in-out 0s;
+  padding-bottom: 1vh;
 }
 
-.navbar a, .navbar a:focus {
+.navbar a:not(:first-child), .navbar a:focus {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -131,7 +135,7 @@ h1, h2, h3, h4, h5, h6, p, a {
   margin-left: 5px;
 }
 
-@media (max-width: 425px) {
+@media (max-width: 540px) {
   .headcontent {
     width: 100%;
   }
@@ -141,11 +145,11 @@ h1, h2, h3, h4, h5, h6, p, a {
   }
   .searchbar {
     width: 95%;
-    padding-top: 0px;
+    padding-top: 2vh;
   }
   .searchbar input {
     width: 60%;
-    margin: 12% 2% 8% 13%;
+    margin: 0% 2% 0% 13%;
   }
   .header {
     -webkit-box-orient: vertical;
@@ -155,18 +159,6 @@ h1, h2, h3, h4, h5, h6, p, a {
   }
   .blogbox {
     margin-left: 5vw !important;
-  }
-}
-
-@media (max-width: 375px) {
-  .searchbar input {
-    margin: 15% 2% 8% 15%;
-  }
-}
-
-@media (max-width: 320px) {
-  .searchbar input {
-    margin: 14% 2% 8% 13%;
   }
 }
 
@@ -197,7 +189,7 @@ h1, h2, h3, h4, h5, h6, p, a {
   }
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 540px) {
   .icon {
     position: absolute;
     left: 0;
@@ -214,9 +206,20 @@ h1, h2, h3, h4, h5, h6, p, a {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    margin-top: 15px;
+    margin-top: 0px;
     background-color: #000000;
     display: none;
+    position: relative;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    font-size: 20px;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    padding: 2vh 0 5vh 0 !important;
   }
   .navbar ul {
     display: block;
@@ -235,9 +238,6 @@ h1, h2, h3, h4, h5, h6, p, a {
   }
 }
 
-/* .navbar a:hover, .navbar .active, .navbar .active:focus, .navbar li:hover > a {
-  color: #47b2e4;
-} */
 .paging ul {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -295,7 +295,7 @@ h1, h2, h3, h4, h5, h6, p, a {
 .blogbox {
   border-bottom: 1px solid #e5e5e5;
   border-radius: 5px;
-  margin-top: 20px;
+  margin-top: 30px;
   margin-left: 8vw;
   margin-right: 8vw;
 }
@@ -305,7 +305,7 @@ h1, h2, h3, h4, h5, h6, p, a {
 }
 
 .blogbox p {
-  font-size: 18px;
+  font-size: 22px;
   line-height: 30px;
   margin-bottom: 10px;
 }
@@ -414,7 +414,7 @@ h1, h2, h3, h4, h5, h6, p, a {
 
 .warning {
   background: #fff3cd;
-  height: 1rem;
+  height: 2.5rem;
   padding: 13px;
 }
 
@@ -448,11 +448,11 @@ h1, h2, h3, h4, h5, h6, p, a {
 }
 
 .field {
-  padding: 9px;
+  margin: 2.5vw;
 }
 
 .field input {
-  height: 25px;
+  height: 40px;
 }
 
 .field button {
@@ -461,6 +461,118 @@ h1, h2, h3, h4, h5, h6, p, a {
   background: white;
   width: 5rem;
   border: 2px solid green;
+}
+
+.carousel {
+  position: relative;
+}
+
+#demo .carousel-inner {
+  position: relative;
+  width: 94%;
+  overflow: hidden;
+  border-radius: 10px;
+  margin-left: 40px;
+  margin-top: 30px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+          box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+}
+
+#demo .carousel-inner .carousel-item {
+  width: 100%;
+  height: 80vh;
+}
+
+#demo .carousel-inner .carousel-item img {
+  width: 100%;
+  position: absolute;
+  height: 80vh;
+  vertical-align: middle;
+  border-style: none;
+  border: 0;
+}
+
+#demo .carousel-inner .carousel-item h1 {
+  position: relative;
+  text-align: center;
+  color: white;
+  margin-top: 32vh;
+}
+
+#demo .carousel-inner .carousel-item h3 {
+  position: relative;
+  text-align: center;
+  color: white;
+}
+
+.carousel.pointer-event {
+  -ms-touch-action: pan-y;
+  touch-action: pan-y;
+}
+
+::after, ::before {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+@media (max-width: 540px) {
+  #demo .carousel-inner {
+    position: relative;
+    width: 94%;
+    overflow: hidden;
+    border-radius: 10px;
+    margin-left: 3vw;
+    margin-top: 30px;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+            box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+  }
+  #demo .carousel-inner .carousel-item {
+    width: 100%;
+    height: 29vh;
+  }
+  #demo .carousel-inner .carousel-item img {
+    width: 100%;
+    height: 29vh;
+    vertical-align: middle;
+    border-style: none;
+    border: 0;
+  }
+}
+
+.row {
+  margin-left: 10% !important;
+}
+
+.row .col img {
+  margin-bottom: 36px;
+  border-radius: 10px;
+  opacity: 1;
+  -webkit-transition: .2s ease;
+  transition: .2s ease;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  -webkit-box-shadow: rgba(80, 59, 59, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+          box-shadow: rgba(80, 59, 59, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+}
+
+.row .col a {
+  opacity: 0;
+  position: relative;
+  right: 25%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+  -webkit-transition: .2s ease;
+  transition: .2s ease;
+}
+
+.row .col a:hover {
+  opacity: 1;
+}
+
+.row .col a i {
+  font-size: 20px;
 }
 
 .box {
@@ -490,6 +602,10 @@ h1, h2, h3, h4, h5, h6, p, a {
   display: flex;
   height: 40vh;
   margin: 0 0px 0 100px;
+}
+
+.carouselbox input[type=checkbox] {
+  zoom: 1.5;
 }
 
 .centered {
@@ -529,6 +645,7 @@ h1, h2, h3, h4, h5, h6, p, a {
   height: 5vh;
   width: 5vw;
   font-size: 16px;
+  cursor: pointer;
   border-radius: 80px;
   background-color: white;
   border: 1px solid darkgreen;
@@ -594,6 +711,7 @@ h1, h2, h3, h4, h5, h6, p, a {
     width: 25vw;
     font-size: 16px;
     border-radius: 80px;
+    cursor: pointer;
     background-color: white;
     border: 1px solid darkgreen;
   }

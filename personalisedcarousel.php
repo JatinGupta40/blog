@@ -28,6 +28,7 @@ if(isset($_POST['upload']))
             if(move_uploaded_file($_FILES["image"]["tmp_name"],$location)) // move file into the folder - image is the name of the filed we have taken
             {
                 //echo "success";
+               
                 $sql = "INSERT INTO `carousel`(`userid`, `image`, `title`, `imageby`) VALUES ($id, '$locationdb', '$title', '$author')";
                 $run=mysqli_query($conn,$sql);
                 if($sql)
@@ -39,9 +40,6 @@ if(isset($_POST['upload']))
             {
                 echo "File cannot be saved, please try again.";
             }
-             
-           
-   
         }
         else
         {
