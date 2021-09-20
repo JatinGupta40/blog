@@ -1,26 +1,8 @@
 <?php
-include './header.php';
+include_once 'header.php';
 include ("connection.php");
 //session_start();
     
-
-
-    // if (isset($_GET['pageno'])) {
-    //     $pageno = $_GET['pageno'];
-    // } 
-    // else 
-    // {
-    //     $pageno = 1;
-    // }
-    // $no_of_records_per_page = 10;
-    // $offset = ($pageno-1) * $no_of_records_per_page;
-
-    // $total_pages_sql = "SELECT COUNT(*) FROM blog where userid=$id";
-    // $result = mysqli_query($conn,$total_pages_sql);
-    // $total_rows = mysqli_fetch_array($result)[0];
-    // echo $total_rows;
-    // $total_pages = ceil($total_rows / $no_of_records_per_page);
-
     
     if ($_SESSION['success'] == 1) //successfully registered message for new registered user only
     {
@@ -46,10 +28,9 @@ include ("connection.php");
 ?>
     <div class="addblog">
         <h2><a href="createblog.php">Add Blog</a></h2>
+        <h2><a href="personalisedcarousel.php">Personalise Carousel</a></h2>
     </div>
-    <div class="addbloghr">
-        <hr>
-    </div>
+    <hr>
     <div class="myblog">
         <h2><u>My Blogs</u> <i class="fas fa-caret-down"></i></h2>
     </div>
@@ -117,24 +98,28 @@ include ("connection.php");
         else 
         {
             $pageno = 1;
+
         }
-        
-        $no_of_records_per_page = 5;  //Number of blogs to be shpwn on a single page
+
+        // Number of blogs to be shown on a single page.
+        $no_of_records_per_page = 5;  
         $offset = ($pageno-1) * $no_of_records_per_page;
-        //echo $offset;
-        $sql = "select id, Heading, content FROM blog where userid=$id ORDER BY id DESC LIMIT $offset, $no_of_records_per_page"; //Fetching data from db table blog
-        $total_pages_sql = "SELECT COUNT(*) FROM blog where userid=$id"; //counting the number of blogs user have of his own
-        $result = mysqli_query($conn,$total_pages_sql); //mapping it to db
+        // echo $offset;
+
+        // Fetching data from db table blog.
+        $sql = "select id, Heading, content FROM blog where userid=$id ORDER BY id DESC LIMIT $offset, $no_of_records_per_page"; 
+        $total_pages_sql = "SELECT COUNT(*) FROM blog where userid=$id"; // counting the number of blogs user have of his own.
+        $result = mysqli_query($conn,$total_pages_sql); //mapping it to db.
         $total_rows = mysqli_fetch_array($result)[0];
         //echo $total_rows;
         $total_pages = ceil($total_rows / $no_of_records_per_page);
         $result = $conn->query($sql);
-        //echo $total_pages; //total number of pages to be made with respect to 5 blogs per page
+        //echo $total_pages; //total number of pages to be made with respect to 5 blogs per page.
         if ($result->num_rows > 0)      
         {
             while ($row = mysqli_fetch_assoc($result))
             {
-            //  echo implode(" ",$row);// $id = $row['id']; //string conversion
+            //  echo implode(" ",$row);// $id = $row['id']; //string conversion.
             $heading = $row['Heading'];
             $content = $row['content'];
             $_SESSION['heading'] = $row['Heading'];
@@ -155,10 +140,10 @@ include ("connection.php");
                     <div class="editdelete">
                         <div class="editdeletebutton">
                             <a href="editblog.php?id=<?php echo $id;?>">
-                            <button type="submit"  class="btn btn-primary btn-block" name="submit"> Edit </button></a>
+                            <button type="submit"  class="" name="submit"> Edit </button></a>
                         </div>
-                        <div class="">
-                            <a href="deleteblog.php"><button type="submit" class="btn btn-primary btn-block" name="submit"> Delete </button></a>
+                        <div class="editdeletebutton">
+                            <a href="deleteblog.php"><button type="submit" class="" name="submit"> Delete </button></a>
                         </div>
                     </div>
                     </p>
@@ -192,4 +177,5 @@ include ("connection.php");
         <li><a href="?pageno=<?php echo $total_pages; ?>">Last</a></li>
     </ul>
 </div>
-<?php include './footer.php'; ?>
+
+<?php include 'footer.php'; ?>

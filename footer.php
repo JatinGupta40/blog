@@ -48,16 +48,6 @@
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script> <!-- without this file website is not getting opened and just showing the loading icon -->
 
-  <script>   //for hamburger responsive
-function myFunction() {
-  var x = document.getElementById("hamburger");
-  if (x.className === "navbar") {
-    x.className += " responsive";
-  } else {
-    x.className = "navbar";
-  }
-}
-</script>
 
 </body>
 
