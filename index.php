@@ -32,10 +32,8 @@ $result = $conn->query($sql);
             //echo $id;
 
 ?>
-            <div class="container" style="margin-top:20px;">
-            <div class="blogbox">
-               <h3><?php echo $heading;?></h3>
-               <img src="<?php echo $image; ?>"> 
+         <div class="blogbox">
+               <h2><?php echo strtoupper($heading);?></h2>
                <p><?php 
                   { $content = substr($content,0,150);
                      echo $content; 
@@ -44,7 +42,6 @@ $result = $conn->query($sql);
                   ?>
                </p>
                <p><a href="article.php?Heading=<?php echo $heading; ?>&id=<?php echo $id;?>">Read More</a></p>
-            </div>
          </div>
 <?php
          }
@@ -60,10 +57,10 @@ $result = $conn->query($sql);
 <ul>
         <li><a href="?pageno=1">First</a></li>
         <li class="<?php if($pageno <= 1){ echo 'disabled'; } ?>">
-            <a href="<?php if($pageno <= 1){ echo '#'; } else { echo "?pageno=".($pageno - 1); } ?>">< Prev</a>
+            <a href="<?php if($pageno <= 1){ echo '#'; } else { echo "?pageno=".($pageno - 1); } ?>">Prev</a>
         </li>
         <li class="<?php if($pageno >= $total_pages){ echo 'disabled'; } ?>">
-            <a href="<?php if($pageno >= $total_pages){ echo '#'; } else { echo "?pageno=".($pageno + 1); } ?>">Next ></a>
+            <a href="<?php if($pageno >= $total_pages){ echo '#'; } else { echo "?pageno=".($pageno + 1); } ?>">Next</a>
         </li>
         <li><a href="?pageno=<?php echo $total_pages; ?>">Last</a></li>
     </ul>
