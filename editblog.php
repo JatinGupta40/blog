@@ -57,46 +57,36 @@
     }
 ?>
 <?php 
-    //$ab = $_GET['id'];
     $sql = "SELECT * FROM blog WHERE id='" . $a . "' LIMIT 1";
-   // $sql = "select * from blog where id='$a'";
-        $result = mysqli_query($conn,$sql);
-            if($result->num_rows > 0)
-            {
-                //$data = array();
-                while ($row = mysqli_fetch_assoc($result))
-                {
-                //echo "hello";
-                echo $a;
-                $id = $row['id'];
-                $title = $row['Heading'];
-                $content = $row['content'];
-                //echo $id;
-                //print_r($result);
-?>
-        
-<?php
-         //print_r($content);
-
-      }
-   }
+      $result = mysqli_query($conn,$sql);
+        if($result->num_rows > 0)
+        {
+          while ($row = mysqli_fetch_assoc($result))
+          {
+            echo $a;
+            $id = $row['id'];
+            $title = $row['Heading'];
+            $content = $row['content'];
+   
+          }
+        }
 
 
 ?>
 
 
- <div class="container d-flex align-items-center createblog">
-<form action="" method="POST" style="width:55%">
-<h3 class="form-caption">Edit Article</h3>
-<hr>
-  <div class="form-group">
-    <label>Title/Heading</label>
-    <input type="title" name ="title" class="form-control" value="<?php echo $title; ?>" placeholder="Enter Title">
-  </div>
-  <div class="form-group">
-    <label>Content</label>
-    <textarea type="content" name="content" rows="10" class="form-control" placeholder="Blog Content"><?php echo $content; ?></textarea>
-  </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+<div class="container d-flex align-items-center createblog">
+  <form action="" method="POST" style="width:55%">
+  <h3 class="form-caption">Edit Article</h3>
+  <hr>
+    <div class="form-group">
+      <label>Title/Heading</label>
+      <input type="title" name ="title" class="form-control" value="<?php echo $title; ?>" placeholder="Enter Title">
+    </div>
+    <div class="form-group">
+      <label>Content</label>
+      <textarea type="content" name="content" rows="10" class="form-control" placeholder="Blog Content"><?php echo $content; ?></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+   </form>
 </div>
