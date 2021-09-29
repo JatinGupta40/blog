@@ -64,6 +64,8 @@ include ("init.php");
     {
       $email = $_SESSION['email'];
       // For accessing the id of the logged in user to be used as reference for getting Heading and content data to be fetched from the blog table.
+
+      // Checking the logged in user is registered user and not is not an  admin.
       $userquery = $source->checkemail($email);
       if ($userquery->num_rows > 0)      
       {
@@ -81,7 +83,7 @@ include ("init.php");
         $pageno = $_GET['pageno'];
       } 
       else 
-      {
+      { 
         $pageno = 1;
       }
 
@@ -89,16 +91,16 @@ include ("init.php");
       $no_of_records_per_page = 5;  
       $offset = ($pageno-1) * $no_of_records_per_page;
         
-      // Fetching data from DB table blog.
-      $sql = "select id, Heading, content FROM blog where userid=$id ORDER BY id DESC LIMIT $offset, $no_of_records_per_page"; 
         
       // Counting the number of blogs user have of his own.
       $result = $source->countblog($id); // Mapping it to db.
       $total_rows = $method->fetch($result)[0];
-      // The ceil function just round off the value.
+
       // Total number of pages to be made with respect to 5 blogs per page.
-      $total_pages = ceil($total_rows / $no_of_records_per_page);
-      $result = $conn->query($sql);
+      $total_pages = ceil($total_rows / $no_of_records_per_page);  // The ceil function round off the value.
+            
+      // Fetching data from DB table blog.
+      $result = $source->selectblog($id, $offset, $no_of_records_per_page);
       if ($result->num_rows > 0)      
       {
         while ($row = $method->fetch($result))

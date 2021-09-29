@@ -3,7 +3,7 @@
   {
     session_start();
   }
-include 'connection.php';
+include 'init.php';
 
 ?>
 
@@ -20,6 +20,14 @@ include 'connection.php';
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
       <link rel="stylesheet" href="assets/css/main.css?nounce=<?php echo time(); ?>">
+      <!-- <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+      <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+      <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+      <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+      <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+      <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+      <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet"> -->
+
    </head>
    <body>
     

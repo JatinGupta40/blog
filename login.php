@@ -42,16 +42,12 @@
       {
         // Encrypting the User entered password to verify with the DB password.
         $passuser = md5($data['pass']);
-        echo "user = ",$passuser;
         // Checking whether entered email is present in the DB or not
         $sql = $source->checkemail($email);
-        print_r($sql);
-        if($sql->num_row > 0)
+        if($sql->num_rows > 0)
         {
-          echo "ad";
           $row = $method->fetchassoc($sql);
-          print_r($row);
-          //$password = $row['password'];    // Password we got from the DB.
+          $password = $row['password'];    // Password we got from the DB.
             if($passuser == $password)     // Verifying both the password.
             {
               $_SESSION['id'] = $row['id'];
@@ -61,7 +57,7 @@
               $_SESSION['loggedin'] = true; 
               $success = false;      // For registration page message
               $_SESSION['success'] = $success ;
-              //header("location:blogslogin.php");
+              header("location:blogslogin.php");
             }
             elseif($email=="admin@gmail.com" && $pass =="21232f297a57a5a743894a0e4a801fc3")
             {
@@ -69,7 +65,7 @@
               $_SESSION['id'] = $rows->id;
               $_SESSION['lname'] = $rows->lname;
               $_SESSION['email'] = $rows->emailid; 
-              //header("location:blogslogin.php");
+              header("location:blogslogin.php");
             }
             else 
             {

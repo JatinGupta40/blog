@@ -822,6 +822,30 @@ touch-action: pan-y;
     .formcontent {padding:2vh; margin-left: 0vh;}
     .regform button{ margin-left: 5vh; }
 }
+
+.newpwd
+{
+  width: 50%;
+  display: flex;
+  h2
+  {
+    margin: 5vh 0 0 5vh;
+  }
+  .pwd
+    {
+    margin: 25px;
+    button
+    {
+      background-color: $bg;
+      border: 1px solid $searchbutton;
+      //width: 20%;
+      border-radius: 10px;
+    }
+  }
+}
+
+
+
 /*--------------------------------------------------------------
 # Footer
 --------------------------------------------------------------*/

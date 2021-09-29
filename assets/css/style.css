@@ -849,6 +849,27 @@ h1, h2, h3, h4, h5, h6, p, a {
   }
 }
 
+.newpwd {
+  width: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.newpwd h2 {
+  margin: 5vh 0 0 5vh;
+}
+
+.newpwd .pwd {
+  margin: 25px;
+}
+
+.newpwd .pwd button {
+  background-color: white;
+  border: 1px solid green;
+  border-radius: 10px;
+}
+
 /*--------------------------------------------------------------
 # Footer
 --------------------------------------------------------------*/

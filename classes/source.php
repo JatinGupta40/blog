@@ -31,9 +31,9 @@ class source
   } 
   
   // Fetching details of user added blog from blog table by provided user id.
-  public function selectblog($id,$offset)
-  {
-    $result = mysqli_query($this->connection,"SELECT id, Heading, content FROM blog where userid=$id ORDER BY id DESC LIMIT $offset");
+  public function selectblog($id, $offset, $no_of_records_per_page)
+  { 
+    $result = mysqli_query($this->connection,"SELECT id, Heading, content FROM blog where userid=$id ORDER BY id DESC LIMIT $offset, $no_of_records_per_page");
     return $result;
   }
 
@@ -70,7 +70,7 @@ class source
     return $result;
   }
 
-  // search a blog for editing.
+  // select a blog for editing.
   public function selectblogedit($id)
   {
     $result = mysqli_query($this->connection,"SELECT * FROM blog WHERE id='" . $id . "' LIMIT 1");
@@ -84,10 +84,74 @@ class source
     return $result;
   }
 
-  //fetchblogpaging
+  // Getting Blogs for Paging.
   public function fetchblogpaging($offset, $no_of_records_per_page)
   {
     $result = mysqli_query($this->connection,"select * from blog ORDER BY id DESC LIMIT $offset, $no_of_records_per_page");
+    return $result;
+  }
+   
+  // Search function // OR content LIKE '%$search%' ORDER BY updated_at DESC";
+  public function search($search)
+  {
+    $result = mysqli_query($this->connection,"SELECT * FROM blog WHERE Heading LIKE '%$search%'");
+    return $result;
+  }
+  
+  // Carousel.
+  public function carousel($search)
+  {
+    $result = mysqli_query($this->connection,"SELECT * FROM carousel");
+    return $result;
+  }
+  
+
+  // Uploading Image for Carousel.
+  public function uploadimage($id, $locationdb, $title, $author)
+  {
+    $result = mysqli_query($this->connection,"INSERT INTO `carousel`(`userid`, `image`, `title`, `imageby`) VALUES ($id, '$locationdb', '$title', '$author')");
+    return $result;
+  }
+
+  // Getting details of the Image uploaded by specific user and checked for Carousel.
+  public function selectimage($tick)
+  {
+    $result = mysqli_query($this->connection,"select * from `carousel` where image = '$tick'");
+    return $result;
+  }
+  
+  // Updating carousel checked value to true when the tick the image.
+  public function updateimage($tick)
+  {
+    $result = mysqli_query($this->connection,"UPDATE carousel SET checked = TRUE  WHERE image = '$tick'");
+    return $result;
+  }
+
+  // Deleting carousel checked image.
+  public function deleteimage($tick)
+  {
+    $result = mysqli_query($this->connection,"DELETE FROM `carousel` WHERE image = '$tick'");
+    return $result;
+  }
+
+  // Update Token, time for forgot password.
+  public function updatetoken($password, $code, $expDate, $email)
+  {
+    $result = mysqli_query($this->connection,"UPDATE user set password='" . $password . "', reset_link_token='" . $code . "' ,exp_date='" . $expDate . "' WHERE emailid='" . $email . "'");
+    return $result;
+  }
+
+  // Get Token, time for forgot password.
+  public function selecttoken($code, $email)
+  {   
+    $result = mysqli_query($this->connection,"SELECT * FROM user WHERE reset_link_token='" . $code . "' and emailid='" . $email . "';");
+    return $result;
+  }
+
+  // Update Password
+  public function updatepwd($password, $email)
+  {   
+    $result = mysqli_query($this->connection,"UPDATE user set  password='" . $password . "', reset_link_token=NULL, exp_date=NULL WHERE emailid='" . $email . "'");
     return $result;
   }
 }

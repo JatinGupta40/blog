@@ -1,6 +1,6 @@
 <?php
     include 'header.php';
-    include 'connection.php';
+    include 'init.php';
     use PHPMailer\PHPMailer\PHPMailer;
     use PHPMailer\PHPMailer\SMTP;
     use PHPMailer\PHPMailer\Exception;
@@ -13,17 +13,16 @@
       if($_POST['email'])
         {
           $email = $_POST['email']; // User entered Email.
-          $result = mysqli_query($conn,"SELECT * FROM user where emailid='$email'");
-          $row = mysqli_fetch_assoc($result);
-          echo $row['exp_date'];
-	        if($row) 
+          $result = $source->checkemail($email);  // Check email in DB.
+          $row = $method->fetchassoc($result); // Fetching details.
+          if($row) 
           {
 		        $code = md5('email').rand(10,100); 
             date_default_timezone_set("Asia/Calcutta");
             $expFormat = mktime(date("H"), date("i"), date("s"), date("m") ,date("d")+1, date("Y"));
             $expDate = date("Y-m-d H:i:s",$expFormat);
-            $sql = "UPDATE user set password='" . $password . "', reset_link_token='" . $code . "' ,exp_date='" . $expDate . "' WHERE emailid='" . $email . "'";
-            $update = mysqli_query($conn, $sql);
+            $password = ""; // Making Password empty.
+            $update = $source->updatetoken($password, $code, $expDate, $email);
             $link = "<a href='https://localhost/blogging/newpwd.php?key=".$email."&code=".$code."'>Click To Reset password</a>";
             require 'vendor/autoload.php';
             $mail = new PHPMailer();
@@ -64,7 +63,6 @@
     else
     {
       $a = array();
-      //$email = true;
       $a['email'] = "Email required";
      echo '<div class="warning">Valid Email-id is required.</div>';
     }

@@ -1,5 +1,5 @@
 <?php include 'header.php';
-include 'connection.php'?>
+include 'init.php'?>
 <?php 
     // Logged-in user Id
     $id = $_SESSION['id'];  
@@ -11,15 +11,14 @@ include 'connection.php'?>
           $check = $_POST['checkbox1'];
           foreach($check as $key => $value)
             {  
-              $sql1 = "select * from `carousel` where image = '$check[$key]'";  // fetching the details of image
-              $res1 = mysqli_query($conn,$sql1);
+              // Fetching the details of image thats is checked/ Selected.
+              $tick = $check[$key];
+              $res1  = $source->selectimage($tick);
               if($res1 -> num_rows > 0)
               {
-                $sql = "UPDATE carousel SET checked = TRUE  WHERE image = '$check[$key]'";  // updating the value to true on selected image by the user.
-                $res = mysqli_query($conn,$sql);
+                // Updating the value to true on selected image by the user.
+                $sql = $source->updateimage($tick);
                 header('location:index.php');
-                //print_r($res);
-                //echo "success true";
               }
               else
               {
@@ -36,20 +35,16 @@ include 'connection.php'?>
     }
     elseif(isset($_POST['delete']))
     {
-      echo "as";
       if(!empty($_POST['checkbox1'])) 
         {
           $check = $_POST['checkbox1'];
           foreach($check as $key => $value)
             {  
-              $sql1 = "select * from `carousel` where image = '$check[$key]'";  // fetching the details of image
-              $res1 = mysqli_query($conn,$sql1);
+              $tick = $check[$key];
+              $res1 = $source->selectimage($tick);  // Fetching the details of image.
               if($res1 -> num_rows > 0)
               {
-                $sql = "DELETE FROM `carousel` WHERE image = '$check[$key]'";  // updating the value to true on selected image by the user.
-                $res = mysqli_query($conn,$sql);
-                print_r($res);
-                //echo "success true";
+                $sql = $source->deleteimage($tick);  // Updating the value to true on selected image by the user.
               }
             }    
           }
@@ -58,10 +53,10 @@ include 'connection.php'?>
   ?>
           <div class="warning"> <?php echo "Please select image first"; ?></div>
 <?php
-        }//print_r($check[$key]);
+        }
     }
   
-// Fetching the images uploaded by the user   
+    // Fetching the images uploaded by the user.   
     $sql = "SELECT * from carousel WHERE userid = '$id' ORDER BY id DESC "; 
     $result = mysqli_query($conn,$sql);
     ?>
@@ -72,7 +67,7 @@ include 'connection.php'?>
     
 <?php
 
-    // For Displaying the Uploaded images of the user
+    // For Displaying the Uploaded images of the user.
     if($result->num_rows > 0)
       {
         while ($row = mysqli_fetch_assoc($result))
@@ -111,16 +106,6 @@ include 'connection.php'?>
       }
 ?>   
 
-<!-- <script>
-    $('input:submit').on('click', function() {
-        var array = [];
-        $("input:checkbox[name=checkbox]:checked").each(function() {
-          
-          array.push($(this).val());
-        });
-        $('#show').text(array);
-        
-    });
-</script> -->
+
 
 <?php include 'footer.php'; 

@@ -2,7 +2,7 @@
 include 'connection.php';
 include 'init.php';
 
-$result1 = $conn->query("SELECT * FROM carousel where checked = 1");
+$result1 = $conn->query("SELECT * FROM carousel");
 ?>
 
 <!-- Carousel Start -->
