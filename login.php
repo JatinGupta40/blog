@@ -74,7 +74,7 @@
         }
         else
         {
-          $errors['check'] = 'This Email Id is not Registered with us. Please try registering yourself first.';
+          $errors['check'] = 'Entered Email Id is not Registered with us. Please try registering yourself first.';
         }
         
       }    
