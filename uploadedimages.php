@@ -63,7 +63,7 @@ include 'init.php'?>
     <div class="uploadimageheading">
       <h2>Please Select the Images to be shown on your Carousel - </h2> 
     </div>
-    <form action="" method="POST">
+    <form action="" method="POST ">
     
 <?php
 
