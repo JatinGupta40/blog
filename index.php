@@ -1,18 +1,22 @@
 <?php include './header.php';
-include 'connection.php';
-include 'init.php';
-
-$result1 = $conn->query("SELECT * FROM carousel");
+      include 'classes/method.php';
+      
+      // Creating Object.
+      $method = new method;
+      $source = new sourceQuery\source;
+  
+      // Fetching carousel details from DB.
+      $result1 = $source->carousel("SELECT * FROM carousel");
 ?>
 
 <!-- Carousel Start -->
 
-      <div id="demo" class="carousel slide" data-ride="carousel">
+      <div id="" class="carousel demo slide" data-ride="carousel">
         <!-- Indicators -->
         <ul class="carousel-indicators">
-          <li data-target="#demo" data-slide-to="0" class="active"></li>
-          <li data-target="#demo" data-slide-to="1"></li>
-          <li data-target="#demo" data-slide-to="2"></li>
+          <li data-target=".demo" data-slide-to="0" class="active"></li>
+          <li data-target=".demo" data-slide-to="1"></li>
+          <li data-target=".demo" data-slide-to="2"></li>
         </ul> 
 
         <!-- The slideshow -->
@@ -42,16 +46,37 @@ $result1 = $conn->query("SELECT * FROM carousel");
         </div>
 
         <!-- Left and right controls -->
-        <a class="carousel-control-prev" href="#demo" data-slide="prev">
+        <a class="carousel-control-prev" href=".demo" data-slide="prev">
           <span class="carousel-control-prev-icon"></span>
         </a>
-        <a class="carousel-control-next" href="#demo" data-slide="next">
+        <a class="carousel-control-next" href=".demo" data-slide="next">
           <span class="carousel-control-next-icon"></span>
         </a>
       </div>
-<!-- Carousel ends -->
+<!-- Carousel ends. -->
 
-<?php
+<!-- Newsletter Start. -->
+
+      <div class = "container newsletter">
+        <h3>*TO get updates when we add new post for you. Dont forgot to subscribe us.*</h3>
+        <div>  
+          <?php
+
+            if(isset($_SESSION['loggedin']))
+            {
+
+            }
+            else
+            {
+
+            }
+          ?>
+        </div> 
+      </div>
+
+<!-- Newsletter Ends. -->
+
+  <?php
 
     if (isset($_GET['pageno'])) 
     {
@@ -67,16 +92,16 @@ $result1 = $conn->query("SELECT * FROM carousel");
   $offset = ($pageno-1) * $no_of_records_per_page;
 
   // Counting the number of blogs user have of his own
-  $result = $source->countallblog(); 
-  $total_rows = $method->fetch($result)[0];
+  $result = $source->countAllBlog(); 
+  $total_rows = $method->fetchArray($result)[0];
 
   // CEIL is used to roundoff.
   $total_pages = ceil($total_rows / $no_of_records_per_page);
-  $result = $source->fetchblogpaging($offset, $no_of_records_per_page);
+  $result = $source->fetchBlogPaging($offset, $no_of_records_per_page);
   
   if($result->num_rows > 0)
   {
-    while ($row = mysqli_fetch_assoc($result))
+    while ($row = $method->fetchAssoc($result))
     {
       $id = $row['id'];
       $heading = $row['Heading'];

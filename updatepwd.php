@@ -3,7 +3,6 @@
 include "connection.php";
 $a = isset($_GET['pwd']);
 echo $a;
-echo "asd";
 if(isset($_POST['submit']))
         {
             if(isset($_POST['pwd']) && isset($_POST['reset_link_token']) && $_POST['email'])

@@ -1,7 +1,12 @@
 <?php
     include 'header.php';
     include('connection.php');
-    include('init.php');
+    include 'classes/method.php';
+      
+    // Creating Object.
+    $method = new method;
+    $source = new sourceQuery\source;
+  
     if (isset($_POST['password']) && $_POST['reset_link_token'] && $_POST['email']) 
     {
       $email = $_POST['email'];
@@ -53,11 +58,11 @@
           echo '<div class="alert alert-danger">' . $value . '</div>';
         }
         // Getting token and email of user.
-        $query = $source->selecttoken($code, $email);
+        $query = $source->selectToken($code, $email);
         $curDate = date("Y-m-d H:i:s");
-        if ($method->numrows($query) > 0) 
+        if ($method->numRows($query) > 0) 
         {
-          $row = $method->fetch($query);
+          $row = $method->fetchArray($query);
           if ($row['exp_date'] >= $curDate) 
           { 
 ?>
@@ -77,12 +82,12 @@
 <?php
         $email = $_POST['email'];
         $code = $_POST['reset_link_token'];
-        $query = $source->selecttoken($code, $email);
-        $row = $method->numrows($query);
+        $query = $source->selectToken($code, $email);
+        $row = $method->numRows($query);
         if ($row) 
         {
           $password = md5($password);
-          $source->updatepwd($password, $email);
+          $source->updatePassword($password, $email);
           header("Refresh:5; url=login.php");
 ?>
           <div class="alert alert-success">

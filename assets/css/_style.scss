@@ -453,12 +453,12 @@ h1, h2, h3, h4, h5, h6, p, a {
 }
 
 
-.carouselinputbox
-  {
-    padding: 9px;
-    border: 1px solid;
-    background-color: $carouselinput;
-}
+// .carouselinputbox
+//   {
+//     padding: 9px;
+//     border: 1px solid;
+//     background-color: $carouselinput;
+//   }
 .field
   {
     margin: 2.5vw;
@@ -475,14 +475,14 @@ h1, h2, h3, h4, h5, h6, p, a {
     }
   }
 
-// // Carousel 
+// Carousel Start
 
 
 .carousel {
     position: relative;
 }
 
-#demo {
+.demo {
   .carousel-inner{
       position: relative;
       width: 94%;
@@ -841,6 +841,16 @@ touch-action: pan-y;
       //width: 20%;
       border-radius: 10px;
     }
+  }
+}
+
+.newsletter
+{
+  width: 100%;
+  background-color: $color-accent;
+  h3
+  {
+    text-align: center;
   }
 }
 

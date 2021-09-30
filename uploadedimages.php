@@ -1,5 +1,10 @@
 <?php include 'header.php';
-include 'init.php'?>
+include 'classes/method.php';
+      
+// Creating Object.
+$method = new method;
+$source = new sourceQuery\source;
+include 'connection.php';?>
 <?php 
     // Logged-in user Id
     $id = $_SESSION['id'];  
@@ -13,11 +18,11 @@ include 'init.php'?>
             {  
               // Fetching the details of image thats is checked/ Selected.
               $tick = $check[$key];
-              $res1  = $source->selectimage($tick);
+              $res1  = $source->selectImage($tick);
               if($res1 -> num_rows > 0)
               {
                 // Updating the value to true on selected image by the user.
-                $sql = $source->updateimage($tick);
+                $sql = $source->updateImage($tick);
                 header('location:index.php');
               }
               else
@@ -41,10 +46,10 @@ include 'init.php'?>
           foreach($check as $key => $value)
             {  
               $tick = $check[$key];
-              $res1 = $source->selectimage($tick);  // Fetching the details of image.
+              $res1 = $source->selectImage($tick);  // Fetching the details of image.
               if($res1 -> num_rows > 0)
               {
-                $sql = $source->deleteimage($tick);  // Updating the value to true on selected image by the user.
+                $sql = $source->deleteImage($tick);  // Updating the value to true on selected image by the user.
               }
             }    
           }

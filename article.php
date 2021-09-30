@@ -1,6 +1,9 @@
 <?php 
-include './header.php';
-include ("init.php");
+  include './header.php';
+  include 'classes/method.php';
+  $method = new method;
+  $source = new sourceQuery\source;
+    
 
   // Getting id of blog.
   $id = $_GET['id']; 
@@ -11,12 +14,12 @@ include ("init.php");
   <div class="blogbox">
   <?php 
     // Getting field DB table.     
-    $result = $source->blogbyid($id);
+    $result = $source->blogById($id);
     {
       if($result->num_rows > 0)
       {
         // Fetching details from blog table with respect to blog-id.
-        while ($row = $method->fetch($result))
+        while ($row = $method->fetchArray($result))
         {
           $id = $row['id'];
           $title = $row['Heading'];

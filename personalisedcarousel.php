@@ -1,5 +1,10 @@
 <?php include 'header.php';
-      include 'init.php'; 
+      include 'classes/method.php';
+      
+      // Creating Object.
+      $method = new method;
+      $source = new sourceQuery\source;
+     
 
 $id = $_SESSION['id'];
 
@@ -30,7 +35,7 @@ if(isset($_POST['upload']))
         // Move file into the folder - image is the name of the filed we have taken
         if(move_uploaded_file($_FILES["image"]["tmp_name"],$location)) 
         {
-          $run = $source->uploadimage($id, $locationdb, $title, $author);
+          $run = $source->uploadImage($id, $locationdb, $title, $author);
           if($run)
           {
             header('location:uploadedimages.php');

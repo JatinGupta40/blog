@@ -1,6 +1,10 @@
 <?php 
     include "header.php";
-    include 'init.php';
+    include 'classes/method.php';
+    
+    // Creating Object
+    $method = new method;
+    $source = new sourceQuery\source;
 
     // Fetching ID of user whose blog is needed to be edited.
     $a = $_GET['id'];
@@ -50,8 +54,8 @@
       }
       else
       {
-        $sql = "UPDATE blog SET Heading='$title', content='$content' WHERE id=$a";
-        if ($conn->query($sql) === TRUE) 
+        $sql = $source->updateBlog($title, $content, $a);
+        if ($sql === TRUE) 
         {
           header('Location:blogslogin.php');
         }
@@ -64,10 +68,10 @@
     }
 ?>
 <?php 
-    $result = $source->selectblogedit($a);
+    $result = $source->selectBlogEdit($a);
       if($result->num_rows > 0)
       {
-        while ($row = $method->fetchassoc($result))
+        while ($row = $method->fetchAssoc($result))
         {
           $id = $row['id'];
           $title = $row['Heading'];

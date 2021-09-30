@@ -1,14 +1,16 @@
 <?php
     include ("header.php");
-    include 'init.php';
-    $a = $_SESSION['fname'];
+    include 'classes/method.php';
+    $method = new method;
+    $source = new sourceQuery\source;
+    
     $id = $_SESSION['id'];
     
     if(isset($_POST['submit']))
     {
       $heading = $_POST['heading'];
       $content = $_POST['content']; 
-      $result = $source->insertblog($id, $heading, $content);
+      $result = $source->insertBlog($id, $heading, $content);
       header("location:blogslogin.php");
     }
 

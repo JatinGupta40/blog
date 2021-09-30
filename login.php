@@ -1,5 +1,9 @@
 <?php include './header.php'; 
-      include("init.php");
+      include 'classes/method.php';
+      // Creating Object. 
+      $method = new method;
+      $source = new sourceQuery\source;
+  
     
     if(isset($_POST['submit']))
     {
@@ -43,10 +47,10 @@
         // Encrypting the User entered password to verify with the DB password.
         $passuser = md5($data['pass']);
         // Checking whether entered email is present in the DB or not
-        $sql = $source->checkemail($email);
+        $sql = $source->checkEmail($email);
         if($sql->num_rows > 0)
         {
-          $row = $method->fetchassoc($sql);
+          $row = $method->fetchAssoc($sql);
           $password = $row['password'];    // Password we got from the DB.
             if($passuser == $password)     // Verifying both the password.
             {
