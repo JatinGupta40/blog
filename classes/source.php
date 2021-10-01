@@ -1,4 +1,5 @@
 <?php
+namespace query
 include './connection.php';
 class source 
 {
@@ -10,14 +11,14 @@ class source
   }
   
   // Function for checking email in DB. Register
-  public function checkemail($email)
+  public function checkEmail($email)
   {
     $result = mysqli_query($this->connection,"Select * from user where emailid = '$email'");
     return $result;
   } 
 
   // Function for inserting user details into DB.
-  public function insertuserdetails($fname, $lname, $email, $pass)
+  public function insertUserDetails($fname, $lname, $email, $pass)
   {
     $result = mysqli_query($this->connection,"INSERT INTO `user` (`fname`, `lname`, `emailid`, `password`) VALUES ('$fname','$lname','$email','$pass')");
     return $result;
@@ -31,40 +32,40 @@ class source
   } 
   
   // Fetching details of user added blog from blog table by provided user id.
-  public function selectblog($id, $offset, $no_of_records_per_page)
+  public function selectBlog($id, $offset, $no_of_records_per_page)
   { 
     $result = mysqli_query($this->connection,"SELECT id, Heading, content FROM blog where userid=$id ORDER BY id DESC LIMIT $offset, $no_of_records_per_page");
     return $result;
   }
 
   // Counting number of blog user have added.
-  public function countblog($id)
+  public function countBlog($id)
   {
     $result = mysqli_query($this->connection,"SELECT COUNT(*) FROM blog where userid=$id");
     return $result;
   }
 
   // Counting all the blogs presesnt in DB.
-  public function countallblog()
+  public function countAllBlog()
   {
     $result = mysqli_query($this->connection,"SELECT COUNT(*) FROM blog");
     return $result;
   }
-  public function insertblog($id, $heading, $content)
+  public function insertBlog($id, $heading, $content)
   {
     $result = mysqli_query($this->connection,"Insert into `blog` (`userid`, `Heading`, `content`) VALUES ('$id','$heading','$content')");
     return $result;
   } 
   
   // Getting details from a DB table of a specified user.
-  public function blogbyid($id)
+  public function blogById($id)
   {
     $result = mysqli_query($this->connection,"SELECT * from blog where id='$id'");
     return $result;
   }
 
   // Deleting a blog.
-  public function delete($id)
+  public function deleteBlog($id)
   {
     $result = mysqli_query($this->connection,"DELETE from blog where id='$id'");
     return $result;
