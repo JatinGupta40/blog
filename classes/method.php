@@ -1,9 +1,11 @@
 <?php
 
-include_once('classes/source.php');
+namespace methodQuery;
+use connectionDB\connection;
+require_once($_SERVER['DOCUMENT_ROOT'] . "/blogging/classes/connection.php");
 
 // Function for Methods.
-class method extends sourceQuery\source 
+class method extends connection
 {
   // Funcion for fetching array.
   public function numRows($query)

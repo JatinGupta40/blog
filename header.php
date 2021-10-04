@@ -3,7 +3,18 @@
   {
     session_start();
   }
-include 'init.php';
+
+include_once 'classes/connection.php';
+include_once 'classes/blog.php';
+include_once 'classes/carousel.php';
+include_once 'classes/user.php';
+include_once 'classes/method.php';
+
+//$connection = new connection;
+$blog = new blogQuery\blog;
+$carousel = new carouselQuery\carousel;
+$user = new userQuery\user;
+$method = new methodQuery\method;
 
 ?>
 

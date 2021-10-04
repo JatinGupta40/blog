@@ -1,6 +1,14 @@
 <?php
 include_once 'header.php';
-include ("init.php");
+
+include_once 'classes/blog.php';
+include_once 'classes/carousel.php';
+include_once 'classes/user.php';
+include_once 'classes/method.php';
+$blog = new blogQuery\blog;
+$carousel = new carouselQuery\carousel;
+$user = new userQuery\user;
+$method = new methodQuery\method;
 
     // Successfully registered message for new registered user only.
     if ($_SESSION['success'] == 1) 
@@ -25,11 +33,12 @@ include ("init.php");
     // To Check who logged in, either the user or admin 
     if($_SESSION['email'] == "admin@gmail.com")
     {
-      $adminquery = $source->blog();
+      // Fetching from the user table.
+      $adminquery = $blog->blog();
       if($adminquery->num_rows > 0)
       {
         // Here, fetch function is called from source file and method class.
-        while($row = $method->fetch($adminquery))
+        while($row = $method->fetchArray($adminquery))
         {
           // Fetching details from DB
           $id = $row['id'];
@@ -45,7 +54,20 @@ include ("init.php");
             echo $content;
       ?>
             </p>
-            <p><a href="article.php?Heading=<?php echo $heading; ?>&id=<?php echo $id;?>">Read More</a></p>
+            <p>
+              <div class="editdelete">
+                <div class="editdeletebutton">
+                  <a href="article.php?Heading=<?php echo $heading; ?>&id=<?php echo $id;?>"><button type="submit" class="" name="submit"> View </button></a>
+                </div>    
+                <div class="editdeletebutton">
+                  <a href="editblog.php?id=<?php echo $id;?>">
+                  <button type="submit"  class="" name="submit"> Edit </button></a>
+                </div>
+                <div class="editdeletebutton">
+                  <a href="deleteblog.php?Heading=<?php echo $heading; ?>&id=<?php echo $id;?>"><button type="submit" class="" name="submit"> Delete </button></a>
+                </div>
+              </div>  
+            </p>
           </div>
       <?php
         }
@@ -66,10 +88,10 @@ include ("init.php");
       // For accessing the id of the logged in user to be used as reference for getting Heading and content data to be fetched from the blog table.
 
       // Checking the logged in user is registered user and not is not an  admin.
-      $userquery = $source->checkemail($email);
+      $userquery = $user->checkEmail($email);
       if ($userquery->num_rows > 0)      
       {
-        while ($row1 = $method->fetch($userquery))
+        while ($row1 = $method->fetchArray($userquery))
         {   
           // Id fetching from DB table of user.
           $id = $row1['id']; 
@@ -93,17 +115,17 @@ include ("init.php");
         
         
       // Counting the number of blogs user have of his own.
-      $result = $source->countblog($id); // Mapping it to db.
-      $total_rows = $method->fetch($result)[0];
+      $result = $blog->countBlog($id); // Mapping it to db.
+      $total_rows = $method->fetchArray($result)[0];
 
       // Total number of pages to be made with respect to 5 blogs per page.
       $total_pages = ceil($total_rows / $no_of_records_per_page);  // The ceil function round off the value.
             
       // Fetching data from DB table blog.
-      $result = $source->selectblog($id, $offset, $no_of_records_per_page);
+      $result = $blog->selectBlog($id, $offset, $no_of_records_per_page);
       if ($result->num_rows > 0)      
       {
-        while ($row = $method->fetch($result))
+        while ($row = $method->fetchArray($result))
         {
           $heading = $row['Heading'];
           $content = $row['content'];

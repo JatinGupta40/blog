@@ -1,6 +1,14 @@
 <?php 
 include './header.php';
-include ("init.php");
+
+include_once 'classes/blog.php';
+include_once 'classes/carousel.php';
+include_once 'classes/user.php';
+include_once 'classes/method.php';
+$blog = new blogQuery\blog;
+$carousel = new carouselQuery\carousel;
+$user = new userQuery\user;
+$method = new methodQuery\method;
 
   // Getting id of blog.
   $id = $_GET['id']; 
@@ -11,12 +19,12 @@ include ("init.php");
   <div class="blogbox">
   <?php 
     // Getting field DB table.     
-    $result = $source->blogbyid($id);
+    $result = $blog->blogById($id);
     {
       if($result->num_rows > 0)
       {
         // Fetching details from blog table with respect to blog-id.
-        while ($row = $method->fetch($result))
+        while ($row = $method->fetchArray($result))
         {
           $id = $row['id'];
           $title = $row['Heading'];
@@ -26,8 +34,20 @@ include ("init.php");
       }
     }
   ?>
-    <h2>Analytics</h2 >
-    <img class="blogimage"  src="images/<?php echo $logo; ?>" alt="image" >
+    <h2><?php echo $title; ?></h2>
+    <?php
+      // Checking if the user has uploaded any image or not.
+      if ($logo == "")
+      {
+
+      }
+      else 
+      {
+    ?>
+        <img class="blogimage"  src="images/<?php echo $logo; ?>" alt="image" >
+    <?php
+      }
+    ?>
     <p><?php echo $content;?></p>
   </div>
    

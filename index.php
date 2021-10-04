@@ -1,18 +1,25 @@
 <?php include './header.php';
-include 'connection.php';
-include 'init.php';
 
-$result1 = $conn->query("SELECT * FROM carousel");
+include_once 'classes/blog.php';
+include_once 'classes/carousel.php';
+include_once 'classes/user.php';
+include_once 'classes/method.php';
+$blog = new blogQuery\blog;
+$carousel = new carouselQuery\carousel;
+$user = new userQuery\user;
+$method = new methodQuery\method;
+
+$result1 = $carousel->carousel("SELECT * FROM carousel");
 ?>
 
 <!-- Carousel Start -->
 
-      <div id="demo" class="carousel slide" data-ride="carousel">
+      <div class="demo carousel slide" data-ride="carousel">
         <!-- Indicators -->
         <ul class="carousel-indicators">
-          <li data-target="#demo" data-slide-to="0" class="active"></li>
-          <li data-target="#demo" data-slide-to="1"></li>
-          <li data-target="#demo" data-slide-to="2"></li>
+          <li data-target=".demo" data-slide-to="0" class="active"></li>
+          <li data-target=".demo" data-slide-to="1"></li>
+          <li data-target=".demo" data-slide-to="2"></li>
         </ul> 
 
         <!-- The slideshow -->
@@ -42,10 +49,10 @@ $result1 = $conn->query("SELECT * FROM carousel");
         </div>
 
         <!-- Left and right controls -->
-        <a class="carousel-control-prev" href="#demo" data-slide="prev">
+        <a class="carousel-control-prev" href=".demo" data-slide="prev">
           <span class="carousel-control-prev-icon"></span>
         </a>
-        <a class="carousel-control-next" href="#demo" data-slide="next">
+        <a class="carousel-control-next" href=".demo" data-slide="next">
           <span class="carousel-control-next-icon"></span>
         </a>
       </div>
@@ -67,16 +74,16 @@ $result1 = $conn->query("SELECT * FROM carousel");
   $offset = ($pageno-1) * $no_of_records_per_page;
 
   // Counting the number of blogs user have of his own
-  $result = $source->countallblog(); 
-  $total_rows = $method->fetch($result)[0];
+  $result = $blog->countAllBlog(); 
+  $total_rows = $method->fetchArray($result)[0];
 
   // CEIL is used to roundoff.
   $total_pages = ceil($total_rows / $no_of_records_per_page);
-  $result = $source->fetchblogpaging($offset, $no_of_records_per_page);
+  $result = $blog->fetchBlogPaging($offset, $no_of_records_per_page);
   
   if($result->num_rows > 0)
   {
-    while ($row = mysqli_fetch_assoc($result))
+    while ($row = $method->fetchAssoc($result))
     {
       $id = $row['id'];
       $heading = $row['Heading'];
@@ -87,6 +94,7 @@ $result1 = $conn->query("SELECT * FROM carousel");
         <p>
         <?php 
         { 
+          // Showing only 150  words from content of blog.
           $content = substr($content,0,150);
           echo $content; 
         }

@@ -1,6 +1,13 @@
 <?php
     include ("header.php");
-    include 'init.php';
+    include_once 'classes/blog.php';
+    include_once 'classes/carousel.php';
+    include_once 'classes/user.php';  
+    include_once 'classes/method.php';
+    $blog = new blogQuery\blog;
+    $carousel = new carouselQuery\carousel;
+    $user = new userQuery\user;
+    $method = new methodQuery\method;
     $a = $_SESSION['fname'];
     $id = $_SESSION['id'];
     
@@ -8,7 +15,7 @@
     {
       $heading = $_POST['heading'];
       $content = $_POST['content']; 
-      $result = $source->insertblog($id, $heading, $content);
+      $result = $blog->insertBlog($id, $heading, $content);
       header("location:blogslogin.php");
     }
 
