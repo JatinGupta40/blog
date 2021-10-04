@@ -58,6 +58,8 @@ $result1 = $carousel->carousel("SELECT * FROM carousel");
       </div>
 <!-- Carousel ends -->
 
+
+
 <?php
 
     if (isset($_GET['pageno'])) 

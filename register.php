@@ -1,6 +1,13 @@
 <?php include 'header.php'; 
-// include("connection.php"); 
-include("init.php"); 
+ 
+    include_once 'classes/blog.php';
+    include_once 'classes/carousel.php';
+    include_once 'classes/user.php';
+    include_once 'classes/method.php';
+    $blog = new blogQuery\blog;
+    $carousel = new carouselQuery\carousel;
+    $user = new userQuery\user;
+    $method = new methodQuery\method;
 
    if (isset($_POST['submit'])) 
    {
@@ -90,10 +97,10 @@ include("init.php");
       else 
       {
         // Checking the entered email id with the existing email id's.
-        $sql = $source->checkemail($email); 
+        $sql = $user->checkEmail($email); 
         if(!empty($sql))
         {
-          $row = $method->numrows($sql);
+          $row = $method->numRows($sql);
           if($row >=  1)
           {
             $errors['email'] = 'This email id is already taken';
@@ -104,7 +111,7 @@ include("init.php");
       if(!count($errors)>0) 
       {    
 
-        if($source->insertuserdetails($fname, $lname, $email, $pass))
+        if($user->insertUserDetails($fname, $lname, $email, $pass))
         {
           $alert = true;
           $_SESSION['fname'] = $fname;

@@ -1,6 +1,13 @@
 <?php 
     include "header.php";
-    include 'init.php';
+    include_once 'classes/blog.php';
+    include_once 'classes/carousel.php';
+    include_once 'classes/user.php';
+    include_once 'classes/method.php';
+    $blog = new blogQuery\blog;
+    $carousel = new carouselQuery\carousel;
+    $user = new userQuery\user;
+    $method = new methodQuery\method;
 
     // Fetching ID of user whose blog is needed to be edited.
     $a = $_GET['id'];
@@ -64,10 +71,10 @@
     }
 ?>
 <?php 
-    $result = $source->selectblogedit($a);
+    $result = $blog->selectBlogEdit($a);
       if($result->num_rows > 0)
       {
-        while ($row = $method->fetchassoc($result))
+        while ($row = $method->fetchAssoc($result))
         {
           $id = $row['id'];
           $title = $row['Heading'];

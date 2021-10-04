@@ -1,7 +1,16 @@
 <?php
     include 'header.php';
     include('connection.php');
-    include('init.php');
+    include_once 'classes/blog.php';
+    include_once 'classes/carousel.php';
+    include_once 'classes/user.php';
+    include_once 'classes/method.php';
+
+    $blog = new blogQuery\blog;
+    $carousel = new carouselQuery\carousel;
+    $user = new userQuery\user;
+    $method = new methodQuery\method;
+    
     if (isset($_POST['password']) && $_POST['reset_link_token'] && $_POST['email']) 
     {
       $email = $_POST['email'];
@@ -53,11 +62,11 @@
           echo '<div class="alert alert-danger">' . $value . '</div>';
         }
         // Getting token and email of user.
-        $query = $source->selecttoken($code, $email);
+        $query = $user->selectToken($code, $email);
         $curDate = date("Y-m-d H:i:s");
-        if ($method->numrows($query) > 0) 
+        if ($method->numRows($query) > 0) 
         {
-          $row = $method->fetch($query);
+          $row = $method->fetchArray($query);
           if ($row['exp_date'] >= $curDate) 
           { 
 ?>
@@ -77,12 +86,12 @@
 <?php
         $email = $_POST['email'];
         $code = $_POST['reset_link_token'];
-        $query = $source->selecttoken($code, $email);
-        $row = $method->numrows($query);
+        $query = $user->selectToken($code, $email);
+        $row = $method->numRows($query);
         if ($row) 
         {
           $password = md5($password);
-          $source->updatepwd($password, $email);
+          $user->updatePassword($password, $email);
           header("Refresh:5; url=login.php");
 ?>
           <div class="alert alert-success">
@@ -100,14 +109,13 @@
     
     if ($_GET['key'] && $_GET['code']) 
     {
-      include('connection.php');
       $email = $_GET['key'];
       $code = $_GET['code'];
-      $query = mysqli_query($conn,"SELECT * FROM `user` WHERE `reset_link_token`='" . $code . "' and `emailid`='" . $email . "';");
+      $query = $user->selectToken($code, $email);
       $curDate = date("Y-m-d H:i:s");
-      if (mysqli_num_rows($query) > 0) 
+      if ($method->numRows($query) > 0) 
       {
-        $row = mysqli_fetch_array($query);
+        $row = $method->fetchArray($query);
         if ($row['exp_date'] >= $curDate) 
         { 
 ?>

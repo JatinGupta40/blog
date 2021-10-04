@@ -1,5 +1,12 @@
 <?php include 'header.php';
-      include 'init.php'; 
+      include_once 'classes/blog.php';
+      include_once 'classes/carousel.php';
+      include_once 'classes/user.php';
+      include_once 'classes/method.php';
+      $blog = new blogQuery\blog;
+      $carousel = new carouselQuery\carousel;
+      $user = new userQuery\user;
+      $method = new methodQuery\method; 
 
 $id = $_SESSION['id'];
 
@@ -30,7 +37,7 @@ if(isset($_POST['upload']))
         // Move file into the folder - image is the name of the filed we have taken
         if(move_uploaded_file($_FILES["image"]["tmp_name"],$location)) 
         {
-          $run = $source->uploadimage($id, $locationdb, $title, $author);
+          $run = $carousel->uploadImage($id, $locationdb, $title, $author);
           if($run)
           {
             header('location:uploadedimages.php');

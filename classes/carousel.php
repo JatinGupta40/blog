@@ -14,28 +14,28 @@ class carousel extends connection
   }
   
   // Uploading Image for Carousel.
-  public function uploadimage($id, $locationdb, $title, $author)
+  public function uploadImage($id, $locationdb, $title, $author)
   {
     $result = mysqli_query($this->connection,"INSERT INTO `carousel`(`userid`, `image`, `title`, `imageby`) VALUES ($id, '$locationdb', '$title', '$author')");
     return $result;
   }
 
   // Getting details of the Image uploaded by specific user and checked for Carousel.
-  public function selectimage($tick)
+  public function selectImage($tick)
   {
     $result = mysqli_query($this->connection,"select * from `carousel` where image = '$tick'");
     return $result;
   }
   
   // Updating carousel checked value to true when the tick the image.
-  public function updateimage($tick)
+  public function updateImage($tick)
   {
     $result = mysqli_query($this->connection,"UPDATE carousel SET checked = TRUE  WHERE image = '$tick'");
     return $result;
   }
 
   // Deleting carousel checked image.
-  public function deleteimage($tick)
+  public function deleteImage($tick)
   {
     $result = mysqli_query($this->connection,"DELETE FROM `carousel` WHERE image = '$tick'");
     return $result;

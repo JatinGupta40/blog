@@ -1,6 +1,14 @@
 <?php
     include 'header.php';
-    include 'init.php';
+    include_once 'classes/blog.php';
+    include_once 'classes/carousel.php';
+    include_once 'classes/user.php';
+    include_once 'classes/method.php';
+    $blog = new blogQuery\blog;
+    $carousel = new carouselQuery\carousel;
+    $user = new userQuery\user;
+    $method = new methodQuery\method;
+
     use PHPMailer\PHPMailer\PHPMailer;
     use PHPMailer\PHPMailer\SMTP;
     use PHPMailer\PHPMailer\Exception;
@@ -13,8 +21,8 @@
       if($_POST['email'])
         {
           $email = $_POST['email']; // User entered Email.
-          $result = $source->checkemail($email);  // Check email in DB.
-          $row = $method->fetchassoc($result); // Fetching details.
+          $result = $user->checkEmail($email);  // Check email in DB.
+          $row = $method->fetchAssoc($result); // Fetching details.
           if($row) 
           {
 		        $code = md5('email').rand(10,100); 
@@ -22,7 +30,7 @@
             $expFormat = mktime(date("H"), date("i"), date("s"), date("m") ,date("d")+1, date("Y"));
             $expDate = date("Y-m-d H:i:s",$expFormat);
             $password = ""; // Making Password empty.
-            $update = $source->updatetoken($password, $code, $expDate, $email);
+            $update = $user->updateToken($password, $code, $expDate, $email);
             $link = "<a href='https://localhost/blogging/newpwd.php?key=".$email."&code=".$code."'>Click To Reset password</a>";
             require 'vendor/autoload.php';
             $mail = new PHPMailer();

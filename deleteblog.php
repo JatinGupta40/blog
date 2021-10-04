@@ -1,7 +1,13 @@
 <?php 
 include './header.php';
-include ("init.php");
-
+include_once 'classes/blog.php';
+include_once 'classes/carousel.php';
+include_once 'classes/user.php';
+include_once 'classes/method.php';
+$blog = new blogQuery\blog;
+$carousel = new carouselQuery\carousel;
+$user = new userQuery\user;
+$method = new methodQuery\method;
   // Getting id of blog.
   $id = $_GET['id']; 
    
@@ -11,7 +17,7 @@ include ("init.php");
 
   if($_POST['submit'] == 'yes')
   {
-    $sql = $source->delete($id);
+    $sql = $blog->delete($id);
   }
   elseif(isset($_POST['no']))
   {
