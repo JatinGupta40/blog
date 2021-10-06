@@ -413,7 +413,7 @@ h1, h2, h3, h4, h5, h6, p, a {
   .myblog{margin-left: 5vw;}
 }
 
-.input-error{ border-color: $red; color: $red;}
+.input-error{ border-color: $red !important; color: $red;}
 
 .warning
   {
@@ -475,48 +475,55 @@ h1, h2, h3, h4, h5, h6, p, a {
     }
   }
 
+<<<<<<< Updated upstream
 // Carousel Start
+=======
+// Carousel 
+>>>>>>> Stashed changes
 
 
 .carousel {
     position: relative;
 }
 
-.demo {
-  .carousel-inner{
-      position: relative;
-      width: 94%;
-      overflow: hidden;
-      border-radius: 10px;
-      margin-left: 40px;
-      margin-top: 30px;
-      box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
-
-      .carousel-item {
-          width: 100%;
-          height: 80vh;
-          img {
-              width: 100%;
-              position: absolute;
-              height: 80vh;
-              vertical-align: middle;
-              border-style: none;
-              border: 0;
-          }
-          h1  
-          {
-            position: relative;
-            text-align: center;
-            color: $bg;
-            margin-top: 32vh;
-          }
-          h3
-          {
-            position: relative;
-            text-align: center;
-            color: $bg;
-          }
+.demo 
+{
+  .carousel-inner
+  {
+    position: relative;
+    width: 94%;
+    overflow: hidden;
+    border-radius: 10px;
+    margin-left: 40px;
+    margin-top: 30px;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+    .carousel-item 
+    {
+      width: 100%;
+      height: 80vh;
+      img 
+      {
+        width: 100%;
+        position: absolute;
+        height: 80vh;
+        vertical-align: middle;
+        border-style: none;
+        border: 0;
       }
+      h1  
+      {
+        position: relative;
+        text-align: center;
+        color: $bg;
+        margin-top: 32vh;
+      }
+      h3
+      {
+        position: relative;
+        text-align: center;
+        color: $bg;
+      }
+    }
   }
 }
 .carousel.pointer-event {
@@ -838,12 +845,12 @@ touch-action: pan-y;
     {
       background-color: $bg;
       border: 1px solid $searchbutton;
-      //width: 20%;
       border-radius: 10px;
     }
   }
 }
 
+<<<<<<< Updated upstream
 .newsletter
 {
   width: 100%;
@@ -854,7 +861,54 @@ touch-action: pan-y;
   }
 }
 
+=======
+// Newsletter
+.newsletter
+{
+  background-color: $color-accent;
+  margin-top: 3vh;
+  border-radius: 50px;
+  padding-bottom: 3vh;
+  h2
+  {
+    text-align: center;
+    padding: 1rem;
+  }
+  form
+  {
+    display: flex;
+    justify-content: center;
+    input
+    {
+      border: 1px solid $newsletterinputborder;
+      color: $newsletterinput;
+      padding: .375rem .75rem;
+      border-radius: .25rem 1.25rem;
+      margin: 5px;
+    }
+    button
+    {
+      background-color:$bg;
+      width: 15%;
+      margin: 5px;
+      border-color: $footula;
+      border-radius: 20px;
+      font-size: $footer18;
+      padding: 10px;
+    }
+  }
+}
+>>>>>>> Stashed changes
 
+.alert-danger
+{
+  border-color: $dangerred !important;
+  color: $red;
+  display: flex;
+  font-size: 20px;
+  padding: 15px;
+  justify-content: center;
+}
 
 /*--------------------------------------------------------------
 # Footer

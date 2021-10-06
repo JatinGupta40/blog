@@ -7,17 +7,21 @@
    {
      $data = 
        [
-         'fname' => $_POST['fname'], //post fname is coming from the UI and getting stored into fname
+         'fname' => $_POST['fname'], // Post fname is coming from the UI and getting stored into fname.
          'lname'=> $_POST['lname'],
          'email' => $_POST['email'],
-         'pass' => md5($_POST['password']), //password is from UI that getting stored in pass
+         'pass' => md5($_POST['password']), // Password is from UI that getting stored in pass.
          'repass' => md5($_POST['repassword'])
        ];
        echo $_POST['password'];
        echo $_POST['repassword'];
       
       // Validation.
+<<<<<<< Updated upstream
       if (!empty($data['fname']))  // Fname
+=======
+      if (!empty($data['fname']))  // Fname.
+>>>>>>> Stashed changes
       {
         $fname = htmlspecialchars($data['fname']);
       }
@@ -26,7 +30,11 @@
         $fname = null;
       }
       
+<<<<<<< Updated upstream
       if (!empty($data['lname']))  // Lname
+=======
+      if (!empty($data['lname']))  // Lname.
+>>>>>>> Stashed changes
       {
         $lname = htmlspecialchars($data['lname']);
       }
@@ -35,7 +43,11 @@
         $lname = null;
       }
     
+<<<<<<< Updated upstream
       if (!empty($data['email'])) // Email
+=======
+      if (!empty($data['email'])) // Email.
+>>>>>>> Stashed changes
       { 
         $email = htmlspecialchars($data['email']);
       }
@@ -44,7 +56,11 @@
         $email = null;
       }
    
+<<<<<<< Updated upstream
       if (!empty($data['pass'])) // Pass
+=======
+      if (!empty($data['pass'])) // Pass.
+>>>>>>> Stashed changes
       {
         $pass = htmlspecialchars($data['pass']);
       } 
@@ -53,7 +69,11 @@
         $pass = null;
       }
    
+<<<<<<< Updated upstream
       if (!empty($data['repass']))  // Repass
+=======
+      if (!empty($data['repass']))  // Repass.
+>>>>>>> Stashed changes
       {
         $repass = htmlspecialchars($data['repass']);
       }

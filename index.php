@@ -1,4 +1,5 @@
 <?php include './header.php';
+<<<<<<< Updated upstream
       include 'classes/method.php';
       
       // Creating Object.
@@ -7,6 +8,23 @@
   
       // Fetching carousel details from DB.
       $result1 = $source->carousel("SELECT * FROM carousel");
+=======
+
+include_once 'classes/blog.php';
+include_once 'classes/carousel.php';
+include_once 'classes/user.php';
+include_once 'classes/method.php';
+include_once 'classes/newsletter.php';
+$blog = new blogQuery\blog;
+$carousel = new carouselQuery\carousel;
+$user = new userQuery\user;
+$method = new methodQuery\method;
+$newsletter = new newsletterQuery\newsletter;
+
+// Carousel.
+$result1 = $carousel->carousel("SELECT * FROM carousel");
+
+>>>>>>> Stashed changes
 ?>
 
 <!-- Carousel Start -->
@@ -57,10 +75,121 @@
 
 <!-- Newsletter Start. -->
 
+<<<<<<< Updated upstream
       <div class = "container newsletter">
         <h3>*TO get updates when we add new post for you. Dont forgot to subscribe us.*</h3>
         <div>  
           <?php
+=======
+<!-- Newsletter start -->
+<?php
+
+// NEWSLETTER Logic.
+// User logged in or not.
+if(isset($_SESSION['loggedin']))
+  {
+    if(isset($_POST['subscribe']))
+    {
+      
+      
+    }
+  }
+  else
+  {
+    // Validation and inserting into subscription table of DB.
+    if(isset($_POST['subscribe']))
+    {
+      if(!empty($_POST['newsletteremail']))
+      {
+        $newsletteremail = $_POST['newsletteremail'];
+        // Checking if entered emailid is already present in our system or not. 
+        $newsletterquery = $newsletter->subscribe($newsletteremail);
+        //print_r($newsletterquery);
+        if($method->numRows($newsletterquery))
+        {
+          echo '<div class="alert-danger"> This email id is already subscribed for Newsletter. Please try with some different Newsletter.</div>';
+        }
+        else
+        {
+          $newsletter->insert($newsletteremail);
+          echo '<div class="alert alert-success"><b>Thank You for Subscribing.</b></div>';
+        }
+      }
+      else
+      {
+       $newsletteremail = null; 
+      }
+      $errors = array();
+      if($newsletteremail == null) 
+      {
+        $errors['newsletteremail'] = '* Email-Id is required. *';
+      }
+      
+    }    
+  }
+  
+?>
+    <div class="container newsletter">
+      <h2>* To get updates of our newly updated or added blogs, Please Subscribe. * </h2>
+      <form action="" method="POST">
+        <?php 
+          // If user is logged in then, no need to show the input box.
+          if(isset($_SESSION['loggedin']))
+          {
+            $email = $_SESSION['email'];
+            $newsletterquery = $newsletter->subscribe($email);
+            // Check if the user has details in subscribe table or not.
+            if($method->numRows($newsletterquery) < 1)
+            {
+        ?>
+              <button type = "submit" name="usersubscribe">Subscribe</button>  
+        <?php
+            }
+            else
+            {
+              // If user is logged-in and has details in subscribe table then check if user has already subscribed or not.
+              $row = $method->fetchAssoc($newsletterquery);
+              if($row['subscribe'] == 1)
+              {
+        ?> 
+                <button type = "submit" name="userunsubscribe">Un-Subscribe</button>
+        <?php
+              }
+              else
+              {
+        ?>
+                <button type = "submit" name="usersubscribe">Subscribe</button>
+        <?php
+              }
+            }
+          }
+          // Non- Logged-in User.
+          else
+          {
+        ?>
+          <input type= "text" class="<?php if (isset($errors['newsletteremail'])) : ?>input-error<?php endif; ?>" name="newsletteremail" value="" placeholder="xyz@gmail.com">
+          <button type="submit" name="subscribe">Subscribe</button>
+        <?php         
+          }
+        ?>
+      </form>
+      <?php
+        // Validation Error
+        if(isset($errors))
+        {
+          if (count($errors) > 0) 
+          {
+            foreach ($errors as $key => $value) 
+            {
+              echo '<div class="alert-danger"><b>' . $value . '</b></div>';
+            }
+          }
+        }
+      ?>
+    </div>
+
+<!-- Newsletter ends -->
+>>>>>>> Stashed changes
 
             if(isset($_SESSION['loggedin']))
             {

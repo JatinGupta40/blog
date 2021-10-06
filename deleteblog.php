@@ -40,7 +40,7 @@ include 'classes/method.php';
     // Getting field DB table.     
     $result = $source->blogById($id);
     {
-      if($result->num_rows > 0)
+      if($result-> $method->numRows() > 0)
       {
         // Fetching details from blog table with respect to blog-id.
         while ($row = $method->fetchArray($result))
