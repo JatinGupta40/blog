@@ -1,14 +1,4 @@
 <?php include './header.php';
-<<<<<<< Updated upstream
-      include 'classes/method.php';
-      
-      // Creating Object.
-      $method = new method;
-      $source = new sourceQuery\source;
-  
-      // Fetching carousel details from DB.
-      $result1 = $source->carousel("SELECT * FROM carousel");
-=======
 
 include_once 'classes/blog.php';
 include_once 'classes/carousel.php';
@@ -24,12 +14,11 @@ $newsletter = new newsletterQuery\newsletter;
 // Carousel.
 $result1 = $carousel->carousel("SELECT * FROM carousel");
 
->>>>>>> Stashed changes
 ?>
 
 <!-- Carousel Start -->
 
-      <div id="" class="carousel demo slide" data-ride="carousel">
+      <div class="demo carousel slide" data-ride="carousel">
         <!-- Indicators -->
         <ul class="carousel-indicators">
           <li data-target=".demo" data-slide-to="0" class="active"></li>
@@ -71,29 +60,35 @@ $result1 = $carousel->carousel("SELECT * FROM carousel");
           <span class="carousel-control-next-icon"></span>
         </a>
       </div>
-<!-- Carousel ends. -->
+<!-- Carousel ends -->
 
-<!-- Newsletter Start. -->
 
-<<<<<<< Updated upstream
-      <div class = "container newsletter">
-        <h3>*TO get updates when we add new post for you. Dont forgot to subscribe us.*</h3>
-        <div>  
-          <?php
-=======
 <!-- Newsletter start -->
 <?php
 
 // NEWSLETTER Logic.
 // User logged in or not.
 if(isset($_SESSION['loggedin']))
-  {
+  { 
+    $email = $_SESSION['email'];
+    // Logged in user.
     if(isset($_POST['subscribe']))
     {
-      
-      
+      $subscribe = $newsletter->insert($email); 
+      echo '<div class="alert alert-success"><b>Thank You for Subscribing.</b></div>'; 
+    }
+    if(isset($_POST['usersubscribe']))
+    {
+      $unsubscribe = $newsletter->updatesubscribe($email);
+      echo '<div class="alert alert-success"><b>Thank You for Subscribing again !.</b></div>'; 
+    }
+    if(isset($_POST['userunsubscribe']))
+    {
+      $unsubscribe = $newsletter->updateunsubscribe($email);
+      echo '<div class="alert alert-success"><b>You are successfully Un-Subscribed for Newsletter.</b></div>'; 
     }
   }
+  // Non- logged in user.
   else
   {
     // Validation and inserting into subscription table of DB.
@@ -101,13 +96,12 @@ if(isset($_SESSION['loggedin']))
     {
       if(!empty($_POST['newsletteremail']))
       {
-        $newsletteremail = $_POST['newsletteremail'];
+        $newsletteremail = $_POST['newsletteremail']; 
         // Checking if entered emailid is already present in our system or not. 
         $newsletterquery = $newsletter->subscribe($newsletteremail);
-        //print_r($newsletterquery);
         if($method->numRows($newsletterquery))
         {
-          echo '<div class="alert-danger"> This email id is already subscribed for Newsletter. Please try with some different Newsletter.</div>';
+          echo '<div class="alert-danger"> This email-id is already subscribed for Newsletter. Please try with some different email-id.</div>';
         }
         else
         {
@@ -115,6 +109,7 @@ if(isset($_SESSION['loggedin']))
           echo '<div class="alert alert-success"><b>Thank You for Subscribing.</b></div>';
         }
       }
+      // Validation.
       else
       {
        $newsletteremail = null; 
@@ -124,11 +119,11 @@ if(isset($_SESSION['loggedin']))
       {
         $errors['newsletteremail'] = '* Email-Id is required. *';
       }
-      
-    }    
+    }
   }
   
 ?>
+  <!-- Newsletter Form  -->
     <div class="container newsletter">
       <h2>* To get updates of our newly updated or added blogs, Please Subscribe. * </h2>
       <form action="" method="POST">
@@ -138,32 +133,33 @@ if(isset($_SESSION['loggedin']))
           {
             $email = $_SESSION['email'];
             $newsletterquery = $newsletter->subscribe($email);
-            // Check if the user has details in subscribe table or not.
+            // If user is details are not there in subscribe table or not.
             if($method->numRows($newsletterquery) < 1)
-            {
+            { 
         ?>
-              <button type = "submit" name="usersubscribe">Subscribe</button>  
+              <button type = "submit" name="subscribe">Subscribe</button>  
         <?php
             }
+            // If user details are there in the subscribe table.
             else
             {
-              // If user is logged-in and has details in subscribe table then check if user has already subscribed or not.
+              // Check if user has already subscribed or not.
               $row = $method->fetchAssoc($newsletterquery);
               if($row['subscribe'] == 1)
               {
         ?> 
-                <button type = "submit" name="userunsubscribe">Un-Subscribe</button>
+                <button type = "submit" name="userunsubscribe"><b>Un-Subscribe</b></button>
         <?php
               }
               else
               {
         ?>
-                <button type = "submit" name="usersubscribe">Subscribe</button>
+                <button type = "submit" name="usersubscribe"><b>Subscribe</b></button>
         <?php
               }
             }
           }
-          // Non- Logged-in User.
+          // Non logged-in User.
           else
           {
         ?>
@@ -189,23 +185,8 @@ if(isset($_SESSION['loggedin']))
     </div>
 
 <!-- Newsletter ends -->
->>>>>>> Stashed changes
 
-            if(isset($_SESSION['loggedin']))
-            {
-
-            }
-            else
-            {
-
-            }
-          ?>
-        </div> 
-      </div>
-
-<!-- Newsletter Ends. -->
-
-  <?php
+<?php
 
     if (isset($_GET['pageno'])) 
     {
@@ -221,12 +202,12 @@ if(isset($_SESSION['loggedin']))
   $offset = ($pageno-1) * $no_of_records_per_page;
 
   // Counting the number of blogs user have of his own
-  $result = $source->countAllBlog(); 
+  $result = $blog->countAllBlog(); 
   $total_rows = $method->fetchArray($result)[0];
 
   // CEIL is used to roundoff.
   $total_pages = ceil($total_rows / $no_of_records_per_page);
-  $result = $source->fetchBlogPaging($offset, $no_of_records_per_page);
+  $result = $blog->fetchBlogPaging($offset, $no_of_records_per_page);
   
   if($result->num_rows > 0)
   {
@@ -241,6 +222,7 @@ if(isset($_SESSION['loggedin']))
         <p>
         <?php 
         { 
+          // Showing only 150  words from content of blog.
           $content = substr($content,0,150);
           echo $content; 
         }

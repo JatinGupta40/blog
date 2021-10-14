@@ -1,8 +1,14 @@
 <?php include 'header.php'; 
-      include 'classes/method.php';
-      $method = new method;
-      $source = new sourceQuery\source;
-    
+ 
+    include_once 'classes/blog.php';
+    include_once 'classes/carousel.php';
+    include_once 'classes/user.php';
+    include_once 'classes/method.php';
+    $blog = new blogQuery\blog;
+    $carousel = new carouselQuery\carousel;
+    $user = new userQuery\user;
+    $method = new methodQuery\method;
+
    if (isset($_POST['submit'])) 
    {
      $data = 
@@ -13,15 +19,9 @@
          'pass' => md5($_POST['password']), // Password is from UI that getting stored in pass.
          'repass' => md5($_POST['repassword'])
        ];
-       echo $_POST['password'];
-       echo $_POST['repassword'];
       
       // Validation.
-<<<<<<< Updated upstream
-      if (!empty($data['fname']))  // Fname
-=======
       if (!empty($data['fname']))  // Fname.
->>>>>>> Stashed changes
       {
         $fname = htmlspecialchars($data['fname']);
       }
@@ -30,11 +30,7 @@
         $fname = null;
       }
       
-<<<<<<< Updated upstream
-      if (!empty($data['lname']))  // Lname
-=======
       if (!empty($data['lname']))  // Lname.
->>>>>>> Stashed changes
       {
         $lname = htmlspecialchars($data['lname']);
       }
@@ -43,11 +39,7 @@
         $lname = null;
       }
     
-<<<<<<< Updated upstream
-      if (!empty($data['email'])) // Email
-=======
       if (!empty($data['email'])) // Email.
->>>>>>> Stashed changes
       { 
         $email = htmlspecialchars($data['email']);
       }
@@ -56,11 +48,7 @@
         $email = null;
       }
    
-<<<<<<< Updated upstream
-      if (!empty($data['pass'])) // Pass
-=======
       if (!empty($data['pass'])) // Pass.
->>>>>>> Stashed changes
       {
         $pass = htmlspecialchars($data['pass']);
       } 
@@ -69,11 +57,7 @@
         $pass = null;
       }
    
-<<<<<<< Updated upstream
-      if (!empty($data['repass']))  // Repass
-=======
       if (!empty($data['repass']))  // Repass.
->>>>>>> Stashed changes
       {
         $repass = htmlspecialchars($data['repass']);
       }
@@ -91,10 +75,6 @@
       {
         $errors['lname'] = 'Lname is required.';
       }   
-      if ($email == null) 
-      {
-        $errors['email'] = 'Email-Id is required.';
-      } 
       if($pass == null) 
       {
         $errors['pass'] = 'Password is required.';
@@ -110,15 +90,16 @@
           $errors['check'] = 'Password and Confirm Password does not matched.';
         }
       } 
-  
+      if ($email == null) 
+      {
+        $errors['email'] = 'Email-Id is required.';
+      }   
       else 
       {
-        echo $email;
         // Checking the entered email id with the existing email id's.
-        $sql = $source->checkEmail($email); 
+        $sql = $user->checkEmail($email); 
         if(!empty($sql))
         {
-          echo "ada";
           $row = $method->numRows($sql);
           if($row >=  1)
           {
@@ -129,18 +110,17 @@
       // Register User.
       if(!count($errors)>0) 
       {    
-          echo "pass",$pass;
-        if($source->insertUserDetails($fname, $lname, $email, $pass))
+
+        if($user->insertUserDetails($fname, $lname, $email, $pass))
         {
           $alert = true;
           $_SESSION['fname'] = $fname;
           $_SESSION['lname'] = $lname;
           $_SESSION['email'] = $email;
           $_SESSION['password'] = $password;
-          echo $_SESSION['password'];
           $success = true;
           $_SESSION['success'] = $success ;
-         // header('location:blogslogin.php');
+          header('location:blogslogin.php');
         }
         else
         {       
@@ -163,34 +143,29 @@ if (isset($errors)) {
      <article class="regform">
        <form method="POST">
          <h2><u>Create Account</u></h2>
-           <!-- First Name -->
            <div class="formcontent">
              <i class="fa fa-user"></i>
                <input type="text" name="fname" placeholder = "First Name" class=" <?php if (isset($errors['fname'])) : ?> input-error<?php endif ; ?>" value="<?php if (isset($_POST['fname'])) { echo $fname; } ?>">
            </div>
            
-           <!-- Last Name -->
            <div class="formcontent">
              <i class="fa fa-user"></i> 
              <input type="text" name="lname" placeholder = "Last Name" class=" <?php if (isset($errors['lname']) || isset($errors['lname'])): ?>input-error<?php endif; ?>" value="<?php if (isset($_POST['lname'])) { echo $lname; } ?>">
            </div>
             
-           <!-- Email -->
            <div class="formcontent">
              <i class="fa fa-user"></i>
              <input type="text" name="email" placeholder = "xzy@gmail.com" class=" <?php if (isset($errors['check']) || isset($errors['email'])): ?>input-error<?php endif; ?>" value="<?php if (isset($_POST['email'])) { echo $email; } ?>">
            </div>
          
-           <!-- Password -->
            <div class="formcontent">
              <i class="fa fa-lock"></i>
              <input type="password" name="password" placeholder = "*****" class="<?php if (isset($errors['check']) || isset($errors['pass'])): ?>input-error<?php endif; ?>" value="<?php if (isset($_POST['pass'])) {  echo $pass; } ?>">
            </div>
             
-           <!-- Confirm Password -->
            <div class="formcontent">
              <i class="fa fa-lock"></i>
-             <input type="password" name="repassword" placeholder = "*****"  class="<?php if (isset($errors['check']) || isset($errors['repass'])): ?>input-error<?php endif; ?>" value="<?php if (isset($_POST['repass'])) {  echo $repass; } ?>">
+             <input type="password" name="repassword" placeholder = "*****"  class="<?php if (isset($errors['check']) || isset($errors['pass'])): ?>input-error<?php endif; ?>" value="<?php if (isset($_POST['pass'])) {  echo $pass; } ?>">
            </div>
            <button type="submit" name="submit" class="" >Create Account</button>
            <div class="formcontent">      

@@ -1,10 +1,13 @@
 <?php include 'header.php';
-include 'classes/method.php';
-      
-// Creating Object.
-$method = new method;
-$source = new sourceQuery\source;
-include 'connection.php';?>
+include_once 'classes/blog.php';
+include_once 'classes/carousel.php';
+include_once 'classes/user.php';
+include_once 'classes/method.php';
+$blog = new blogQuery\blog;
+$carousel = new carouselQuery\carousel;
+$user = new userQuery\user;
+$method = new methodQuery\method;
+?>
 <?php 
     // Logged-in user Id
     $id = $_SESSION['id'];  
@@ -16,13 +19,13 @@ include 'connection.php';?>
           $check = $_POST['checkbox1'];
           foreach($check as $key => $value)
             {  
-              // Fetching the details of image thats is checked/ Selected.
+              // Fetching the details of image thats is checked/Selected.
               $tick = $check[$key];
-              $res1  = $source->selectImage($tick);
+              $res1  = $carousel->selectImage($tick);
               if($res1 -> num_rows > 0)
               {
                 // Updating the value to true on selected image by the user.
-                $sql = $source->updateImage($tick);
+                $sql = $carousel->updateImage($tick);
                 header('location:index.php');
               }
               else
@@ -46,10 +49,10 @@ include 'connection.php';?>
           foreach($check as $key => $value)
             {  
               $tick = $check[$key];
-              $res1 = $source->selectImage($tick);  // Fetching the details of image.
+              $res1 = $carousel->selectImage($tick);  // Fetching the details of image.
               if($res1 -> num_rows > 0)
               {
-                $sql = $source->deleteImage($tick);  // Updating the value to true on selected image by the user.
+                $sql = $carousel->deleteImage($tick);  // Updating the value to true on selected image by the user.
               }
             }    
           }
@@ -68,7 +71,7 @@ include 'connection.php';?>
     <div class="uploadimageheading">
       <h2>Please Select the Images to be shown on your Carousel - </h2> 
     </div>
-    <form action="" method="POST">
+    <form action="" method="POST ">
     
 <?php
 

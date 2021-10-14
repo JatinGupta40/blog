@@ -4,6 +4,18 @@
     session_start();
   }
 
+include_once 'classes/connection.php';
+include_once 'classes/blog.php';
+include_once 'classes/carousel.php';
+include_once 'classes/user.php';
+include_once 'classes/method.php';
+
+//$connection = new connection;
+$blog = new blogQuery\blog;
+$carousel = new carouselQuery\carousel;
+$user = new userQuery\user;
+$method = new methodQuery\method;
+
 ?>
 
 <!DOCTYPE html>
@@ -47,17 +59,16 @@
               if(isset($_SESSION['loggedin']) || isset($_SESSION['success']))
               {
               ?>
-                <!-- If user is logged in -->  
                 <li class="active"><a><u>Hello - <?php echo ucfirst($_SESSION['fname'])," ", ucfirst($_SESSION['lname']);?></u></a></li>
                 <li><a href="personalisedcarousel.php">Carousel</a></li>
                 <li><a href="blogslogin.php">My Blogs</a></li>
                 <li><a href="logout.php">Logout</a></li>
+                     
               <?php 
               }
               else
               {
               ?>
-                <!-- If user is logged off -->
                 <li><a href="register.php"><i class="fa fa-user" aria-hidden="true"></i> &nbsp Register</a></li>
                 <li><a href="login.php"><i class="fa fa-user" aria-hidden="true"></i> &nbsp Login</a></li>
               <?php
@@ -75,9 +86,10 @@
         </div>
       </header>
       <!-- End Header -->
+     
 
 <script>
-// For hamburger responsive.
+// For hamburger responsive/   
 flag = false;
 document.querySelector('.icon').addEventListener('click', () => {
     if (!flag) {

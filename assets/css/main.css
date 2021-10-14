@@ -388,6 +388,12 @@ h1, h2, h3, h4, h5, h6, p, a {
     font-size: 20px;
   }
 }
+.carouselinputbox {
+  padding: 9px;
+  border: 1px solid;
+  background-color: aliceblue;
+}
+
 .field {
   margin: 2.5vw;
 }
@@ -760,13 +766,6 @@ h1, h2, h3, h4, h5, h6, p, a {
 }
 
 .newsletter {
-<<<<<<< Updated upstream
-  width: 100%;
-  background-color: pink;
-}
-.newsletter h3 {
-  text-align: center;
-=======
   background-color: pink;
   margin-top: 3vh;
   border-radius: 50px;
@@ -804,7 +803,6 @@ h1, h2, h3, h4, h5, h6, p, a {
   font-size: 20px;
   padding: 15px;
   justify-content: center;
->>>>>>> Stashed changes
 }
 
 /*--------------------------------------------------------------

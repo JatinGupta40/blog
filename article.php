@@ -1,9 +1,10 @@
 <?php 
-  include './header.php';
-  include 'classes/method.php';
-  $method = new method;
-  $source = new sourceQuery\source;
-    
+include './header.php';
+
+include_once 'classes/blog.php';
+include_once 'classes/method.php';
+$blog = new blogQuery\blog;
+$method = new methodQuery\method;
 
   // Getting id of blog.
   $id = $_GET['id']; 
@@ -14,7 +15,7 @@
   <div class="blogbox">
   <?php 
     // Getting field DB table.     
-    $result = $source->blogById($id);
+    $result = $blog->blogById($id);
     {
       if($result->num_rows > 0)
       {
@@ -29,8 +30,20 @@
       }
     }
   ?>
-    <h2>Analytics</h2 >
-    <img class="blogimage"  src="images/<?php echo $logo; ?>" alt="image" >
+    <h2><?php echo $title; ?></h2>
+    <?php
+      // Checking if the user has uploaded any image or not.
+      if ($logo == "")
+      {
+
+      }
+      else 
+      {
+    ?>
+        <img class="blogimage"  src="images/<?php echo $logo; ?>" alt="image" >
+    <?php
+      }
+    ?>
     <p><?php echo $content;?></p>
   </div>
    

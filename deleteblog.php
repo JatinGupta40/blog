@@ -1,10 +1,13 @@
 <?php 
 include './header.php';
-include 'classes/method.php';
-// Creating object of classes.
-  $method = new method;
-  $source = new sourceQuery\source;
-
+include_once 'classes/blog.php';
+include_once 'classes/carousel.php';
+include_once 'classes/user.php';
+include_once 'classes/method.php';
+$blog = new blogQuery\blog;
+$carousel = new carouselQuery\carousel;
+$user = new userQuery\user;
+$method = new methodQuery\method;
   // Getting id of blog.
   $id = $_GET['id']; 
    
@@ -12,17 +15,20 @@ include 'classes/method.php';
 
 <?php 
 
-  // if($_POST['yes'])
-  // {
-  //   $sql = $source->delete($id);
-  // }
-  // elseif(isset($_POST['no']))
-  // {
+  if($_POST['submit'] == 'yes')
+  {
+    $sql = $blog->delete($id);
+  }
+  elseif(isset($_POST['no']))
+  {
 
-  // }
+  }
+
 
 
 ?>
+
+
   <!-- Form for deleting a blog; -->
   <div class="container deleteblog">
     <form action ="" method = "POST">

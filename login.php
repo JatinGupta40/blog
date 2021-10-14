@@ -1,10 +1,13 @@
 <?php include './header.php'; 
-      include 'classes/method.php';
-      // Creating Object. 
-      $method = new method;
-      $source = new sourceQuery\source;
-  
-    
+      include_once 'classes/blog.php';
+      include_once 'classes/carousel.php';
+      include_once 'classes/user.php';
+      include_once 'classes/method.php';
+      $blog = new blogQuery\blog;
+      $carousel = new carouselQuery\carousel;
+      $user = new userQuery\user;
+      $method = new methodQuery\method;
+
     if(isset($_POST['submit']))
     {
       $data =
@@ -47,7 +50,7 @@
         // Encrypting the User entered password to verify with the DB password.
         $passuser = md5($data['pass']);
         // Checking whether entered email is present in the DB or not
-        $sql = $source->checkEmail($email);
+        $sql = $user->checkEmail($email);
         if($sql->num_rows > 0)
         {
           $row = $method->fetchAssoc($sql);
