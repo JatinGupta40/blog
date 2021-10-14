@@ -68,7 +68,6 @@
         { 
           $userid = $email['id'];
           $link = "<a href='https://localhost/blogging/article.php?Heading=".$heading."&id=".$id."'>New Post</a>";
-          //$unsubscribe = $newsletter->updateunsubscribe($email);
           $unsubscribe = "<a href='https://localhost/blogging/unsubscribe.php?id=".$userid."'>Unsubscribe</a>";
           require 'vendor/autoload.php';
           $mail = new PHPMailer();
@@ -89,7 +88,7 @@
           $mail->AddAddress($email['emailid']);
           $mail->Subject  =  'NEW POST';
           $mail->IsHTML(true);
-          $mail->Body = 'Click On This Link to Reset Password '.$link.' '.$unsubscribe.'';
+          $mail->Body = 'Click On This Link to Reset Password '.$link.'. '.$unsubscribe.'';
           
           $mail->Send();
         }
