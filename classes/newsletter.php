@@ -40,6 +40,13 @@ class newsletter extends connection
     return $result;
   } 
 
+  // Checking email-id is already registered or not..
+  public function id($id)
+  {
+    $result = mysqli_query($this->connection,"SELECT * from newsletter where id = '$id' ");
+    return $result;
+  } 
+
 }
   
 
