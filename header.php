@@ -29,20 +29,24 @@ $method = new methodQuery\method;
       <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css">
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
       <link rel="stylesheet" href="assets/css/main.css?nounce=<?php echo time(); ?>">
-      <!-- <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+      <!-- Vendor CSS Files -->
+      <link href="assets/vendor/aos/aos.css" rel="stylesheet">
       <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
       <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
       <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
       <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
       <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-      <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet"> -->
+      <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+      
+      <link rel="stylesheet" href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css">
+      <link rel="stylesheet" href="/vendors/formvalidation/dist/css/formValidation.min.css">
 
    </head>
    <body>
     
       <!-- ======= Header start ======= -->
+    <div>
       <header>
         <div class="header">  
           <div class="headcontent">
@@ -50,7 +54,7 @@ $method = new methodQuery\method;
               <i class="fa fa-bars"></i>
             </a> 
             <h1><a href="index.php">Blogging</a></h1>
-            <i class="bi bi-list mobile-nav-toggle" style="color:black;"></i>    
+            <!-- <i class="bi bi-list mobile-nav-toggle" style="color:black;"></i>     -->
           </div>
           <div class="navbar">
             <nav>
@@ -85,6 +89,7 @@ $method = new methodQuery\method;
           </div>
         </div>
       </header>
+    </div>
       <!-- End Header -->
      
 

@@ -169,7 +169,7 @@ if (isset($errors)) {
            </div>
            <button type="submit" name="submit" class="" >Create Account</button>
            <div class="formcontent">      
-             <p class="text-center">Have an account? <a class="" style="cursor:pointer;" href="login.php"><u><b>Login <b></u></a></p>
+             <p>Have an account? <a class="" style="cursor:pointer;" href="login.php"><u><b>Login <b></u></a></p>
            </div>
        </form>
      </article>

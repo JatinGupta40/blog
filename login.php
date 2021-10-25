@@ -106,13 +106,13 @@
       <article class="card-body mx-auto" style="max-width: 400px;">
          <h4 class="card-title mt-3 text-center">LOGIN</h4>
          <form method="POST">
-            <div class="form-group input-group">
+            <div class="form-group input-group mb-3">
                <div class="input-group-prepend">
                   <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
                </div>
                <input type="text" name="email" class="form-control <?php if (isset($errors['check']) || isset($errors['email'])) : ?>input-error<?php endif; ?>" placeholder = "xzy@gmail.com" value="<?php if (isset($_POST['email'])) { echo $email; } ?>">
             </div>
-            <div class="form-group input-group">
+            <div class="form-group input-group mb-3">
                <div class="input-group-prepend">
                   <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
                </div>

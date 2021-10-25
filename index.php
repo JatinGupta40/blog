@@ -125,6 +125,7 @@ if(isset($_SESSION['loggedin']))
 ?>
   <!-- Newsletter Form  -->
     <div class="container newsletter">
+      <div class="row"><div class ="">
       <h2>* To get updates of our newly updated or added blogs, Please Subscribe. * </h2>
       <form action="" method="POST">
         <?php 
@@ -163,8 +164,10 @@ if(isset($_SESSION['loggedin']))
           else
           {
         ?>
-          <input type= "text" class="<?php if (isset($errors['newsletteremail'])) : ?>input-error<?php endif; ?>" name="newsletteremail" value="" placeholder="xyz@gmail.com">
-          <button type="submit" name="subscribe">Subscribe</button>
+        <div class="col">
+          <input type= "text" class="row-sm-6 <?php if (isset($errors['newsletteremail'])) : ?>input-error<?php endif; ?>" name="newsletteremail" value="" placeholder="xyz@gmail.com">
+          <button class="row-sm-6" type="submit" name="subscribe">Subscribe</button>
+        </div>
         <?php         
           }
         ?>
@@ -182,6 +185,7 @@ if(isset($_SESSION['loggedin']))
           }
         }
       ?>
+      </div></div>
     </div>
 
 <!-- Newsletter ends -->

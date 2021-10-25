@@ -68,7 +68,7 @@ if(isset($_POST['upload']))
 
 
 <!-- Image Upload form -->
-<div class="upload">
+<div class="container upload">
     <div class="carouselinputbox">
         <form method="POST" enctype="multipart/form-data">   
         <!-- enctype on the above line is used when the file is needed to be uploaded. It provides the file/files deatils -->

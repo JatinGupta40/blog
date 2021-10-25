@@ -78,6 +78,10 @@ $method = new methodQuery\method;
     // For Displaying the Uploaded images of the user.
     if($result->num_rows > 0)
       {
+        ?>
+        <div class="container">
+          <div class="row">
+            <?php
         while ($row = mysqli_fetch_assoc($result))
           {
             $id = $row['id'];
@@ -87,18 +91,19 @@ $method = new methodQuery\method;
             $image=$row['image'];
             $checked = $row['checked'];
 ?>
-          <div class="box">
-            <div class="carouselbox">
-              
+        
+            <div class="carouselbox col-md-6">
               <input type="checkbox" class="cardcheckbox" name="checkbox1[]"value="<?php echo $image ?>" <?php if($checked==1) :?> checked <?php endif; ?>  >  <!--  -->
               <img src = "<?php echo $image; ?>"></label></input>
               <div class="centered"><?php echo strtoupper($title);?></div>
               <div class="centered1"><?php echo strtoupper($imageby);?></div>
             </div>
-          </div>
+        
 <?php
             }
 ?>
+  </div>
+        </div>
           <div class="carouselbutton">
             <input type="submit" name="submit" value="Submit"></input>
             <input type="submit" name="delete" value="Delete"></input>

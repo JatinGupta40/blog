@@ -9,7 +9,7 @@ body
 *{ margin: 0; padding: 0;}
 
 a {
-  text-decoration: none;
+  text-decoration: none !important;
   color: $a !important;
   }
 
@@ -34,9 +34,9 @@ h1, h2, h3, h4, h5, h6, p, a {
 
 
 .headcontent
-  {  
+{  
     display: flex; 
-    width: 40%;
+    width: 25%;
   h1 
   { 
     padding-left: 50px; 
@@ -46,60 +46,37 @@ h1, h2, h3, h4, h5, h6, p, a {
   }
 }
  
-.searchbar 
-  {
-    padding-top: 1vh; 
-    width: 25%;
-    font-size: $nav20;
-    input, button 
-      { 
-        height: 35px; 
-      }
-    input 
-      { 
-        width: 74%;
-      }
-    button
-      { 
-        background-color: $bg;
-        border: 1px solid $searchbutton; 
-        width: 20%; 
-        border-radius: 10px;
-      } 
-  }
- 
-//a:not(:first-child)  for displaying the first list element of navbar. should be added before display none
-
 .navbar
+{
+  width:45%;  
+  position: relative; 
+  overflow: hidden; 
+  float: right;
+  display: block;
+  font-size: $footer18;
+  ul
   {
-    width:35%;  
-    position: relative; 
-    overflow: hidden; 
+    // margin: 0;
+    // padding: 0;
+    display: flex;
+    list-style: none;
+    align-items: center;
     float: right;
-    display: block;
-    font-size: $footer18;
-    ul {
-      margin: 0;
-      padding: 0;
-      display: flex;
-      list-style: none;
-      align-items: center;
-      float: right;
-    }
-    li
-      {
-        padding: 0 0 0 15px; 
-        height: 20px;
-       // color: $bg;
-      }
   }
+  li
+  {
+    padding: 0 0 0 15px; 
+    height: 20px;
+    // color: $bg;
+  }
+}
 
 .navbar ul li a:hover
-  {
-    border-bottom: 3px solid $blue;
-    transition: all 0.3s ease-in-out 0s;
-    padding-bottom: 1vh;
-  }
+{
+  border-bottom: 3px solid $blue;
+  transition: all 0.3s ease-in-out 0s;
+  padding-bottom: 1vh;
+}
 
 .navbar a:not(:first-child), .navbar a:focus 
   {
@@ -107,7 +84,6 @@ h1, h2, h3, h4, h5, h6, p, a {
     align-items: center;
     justify-content: space-between;
     padding: 0px 0 5px 0px;
-    /* font-size: 15px; */
     font-weight: 500;
     color: $black;
     white-space: nowrap;
@@ -121,7 +97,33 @@ h1, h2, h3, h4, h5, h6, p, a {
   margin-left: 5px;
 }
 
+.searchbar 
+  {
+    padding-top: 2vh; 
+    width: 30%;
+    input, button 
+      { 
+        height: 35px; 
+        padding: 0 10px 0 10px;
+        border-radius: 10px;
+        
+      }
+    input 
+      { 
+        width: 60%;
+       // border-radius: 10px;
 
+      }
+    button
+      { 
+        background-color: $bg;
+        border: 1px solid $searchbutton; 
+       // padding: 0 10px 0 10px;
+        
+      } 
+  }
+ 
+//a:not(:first-child)  for displaying the first list element of navbar. should be added before display none
 
 @media (max-width:540px)
   {
@@ -137,7 +139,7 @@ h1, h2, h3, h4, h5, h6, p, a {
   .searchbar 
     { 
       width: 95%; 
-      padding-top: 2vh; 
+      padding-top: 3vh; 
     }
   .searchbar input
     {
@@ -204,14 +206,14 @@ h1, h2, h3, h4, h5, h6, p, a {
       width: 100%; 
       display: flex; 
       margin-top: 0px; 
-      background-color:$black; 
+      background-color:$hamburgerbackground; 
       display: none;
       position: relative;
       flex-wrap: wrap;
       font-size: $nav20;
       align-items: center;
       justify-content: space-between;
-      padding: 2vh 0 5vh 0 !important;
+      padding: 2vh 0 10vh 0 !important;
     ul
       { 
         display: block;
@@ -434,7 +436,7 @@ h1, h2, h3, h4, h5, h6, p, a {
 
 .upload
 {
-  padding: 4vw 35vw 4vw 35vw;
+  padding: 5vh 0 5vh 0;
   font-size: $nav20;    
 }
 
@@ -447,7 +449,7 @@ h1, h2, h3, h4, h5, h6, p, a {
     }
 }
 
-
+// Add image to Carousel.
 .carouselinputbox
   {
     padding: 9px;
@@ -470,9 +472,7 @@ h1, h2, h3, h4, h5, h6, p, a {
     }
   }
 
-// Carousel 
-
-
+// Carousel. 
 .carousel {
     position: relative;
 }
@@ -526,11 +526,13 @@ touch-action: pan-y;
   box-sizing: border-box;
 }
 
-
+// Media-query for carousel.
 @media (max-width:540px)
 { 
-  #demo {
-    .carousel-inner{
+  .demo 
+  {
+    .carousel-inner
+    {
       position: relative;
       width: 94%;
       overflow: hidden;
@@ -538,7 +540,8 @@ touch-action: pan-y;
       margin-left: 3vw;
       margin-top: 30px;
       box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
-      .carousel-item{
+      .carousel-item
+      {
         width: 100%;
         height: 29vh;
         img 
@@ -553,10 +556,9 @@ touch-action: pan-y;
     }
   }
 }
-
+// Media-query for carousel ends.
 
 .row {
-    margin-left: 10% !important;
     .col {
         img 
         {
@@ -589,15 +591,66 @@ touch-action: pan-y;
     }
 }
 
+// Login envelope.
+.input-group-prepend
+{
+  span{
+    height: 40px;
+  }
+}
+// Newsletter.
+@media (max-width:540px)
+{
+  .row{
+    margin-left: 0;
+  } 
+  
+}
+
+// Newsletter
+.newsletter
+{
+  background-color: $color-accent;
+  margin-top: 3vh;
+  border-radius: 50px;
+  padding-bottom: 3vh;
+  h2
+  {
+    text-align: center;
+    padding: 1rem;
+    font-size: $footer18;
+  }
+  form
+  {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    input
+    {
+      border: 1px solid $newsletterinputborder;
+      color: $newsletterinput;
+      padding: .375rem .75rem;
+      border-radius: .25rem 1.25rem;
+      margin: 5px;
+    }
+    button
+    {
+      background-color:$bg;
+      //width: 15%;
+      margin: 5px;
+      border-color: $footula;
+      border-radius: 20px;
+      font-size: $footer18;
+      padding: 10px;
+    }
+  }
+}
+
+
 // carousel ends
 
-.box 
+// Carousel Uploaded Images.
 
-  {
-    display: inline-block;
-    width: 49%;
-    //height: 20rem;
-  }
   .carouselbox
   {
     padding: 5vh 0 1vh 0;
@@ -650,12 +703,11 @@ touch-action: pan-y;
 
 .carouselbutton
 {
-    margin: 20px 0 50px 0;   
-    text-align: center;
-    input
-    {
-    height: 5vh;
-    width: 5vw;
+  margin: 20px 0 50px 0;   
+  text-align: center;
+  input
+  {
+    padding: 10px 15px 10px 15px;
     font-size: $size;
     cursor: pointer;
     border-radius: 80px;
@@ -663,15 +715,13 @@ touch-action: pan-y;
     border: 1px solid $buttonborder;
   }
 }
+// Carousel Uploaded Images.
 
-@media (max-width:411px){
-  .box 
+@media (max-width:411px)
+{
+  .carouselbox
   {
-    padding: 5vw;
-    width: 90%;
-  }
-  .carouselbox{
-    padding: 0;
+    padding: 1vh;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -687,43 +737,32 @@ touch-action: pan-y;
     }
   
   }
-  .centered {
+  .centered 
+  {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, 0%);
   }
-  .centered1 {
+  .centered1 
+  {
     position: absolute;
     top: 60%;
     left: 50%;
     transform: translate(-55%, -50%);
   }
 
-  .cardcheckbox {
+  .cardcheckbox 
+  {
     opacity: 0;
-    }
-    .cardcheckbox,
-    .cardcheckbox:checked {
-        opacity: 1;
-        position: absolute;
-        top: 85%;
-        left: 47%;
-    }
-
-.carouselbutton{
-    margin: 20px 0 50px 0;   
-    text-align: center;
-    input{
-    height: 5vh;
-    width: 25vw;
-    font-size: $size;
-    border-radius: 80px;
-    cursor: pointer;
-    background-color: $bg;
-    border: 1px solid $buttonborder;
   }
-}
+  .cardcheckbox, .cardcheckbox:checked 
+  {
+    opacity: 1;
+    position: absolute;
+    top: 85%;
+    left: 47%;
+  }
 }
 
 @-webkit-keyframes fadeEffect {
@@ -805,20 +844,51 @@ touch-action: pan-y;
       margin-top: 0.6vh;
     }
   }
-.registrationpage{padding: 5% 30% 10% 30%;}
+.registrationpage
+{
+  padding: 5% 30% 10% 30%;
+}
 
-.regform{width: 100%; background: $lightblue; }
-.regform h2{margin-top: 2vh;    text-align: center;
-    padding: 2vh;}
-.formcontent {padding:2vh; margin-left: 25vh;}
-.formcontent input{height: 2em;}
-.regform button{ border: 1px solid $searchbutton; margin-left: 34vh; background: $bg; border-radius: 5px; padding: 10px; }
+.regform
+{
+  width: 100%; 
+  background: $lightblue; 
+ h2
+ {
+   margin-top: 2vh; 
+   text-align: center;
+   padding: 2vh;
+ }
+ button
+ { 
+   border: 1px solid $searchbutton; 
+   margin-left: 34vh; 
+   background: $bg; 
+   border-radius: 5px; 
+   padding: 10px; 
+ }
+}
+
+.formcontent
+{
+  padding:2vh; 
+  margin-left: 25vh;
+  input
+  {
+    height: 2em;
+  }
+  p
+  { 
+    margin-left: 40px;    
+  }
+}
+
 
 
 @media (max-width:417px){
     .registrationpage{padding: 5% 10% 10% 10%;}
-    .formcontent {padding:2vh; margin-left: 0vh;}
-    .regform button{ margin-left: 5vh; }
+    .formcontent {padding:2vh; margin-left: 3vh;}
+    .regform button{ margin-left: 12vh; }
 }
 
 .newpwd
@@ -841,42 +911,6 @@ touch-action: pan-y;
   }
 }
 
-// Newsletter
-.newsletter
-{
-  background-color: $color-accent;
-  margin-top: 3vh;
-  border-radius: 50px;
-  padding-bottom: 3vh;
-  h2
-  {
-    text-align: center;
-    padding: 1rem;
-  }
-  form
-  {
-    display: flex;
-    justify-content: center;
-    input
-    {
-      border: 1px solid $newsletterinputborder;
-      color: $newsletterinput;
-      padding: .375rem .75rem;
-      border-radius: .25rem 1.25rem;
-      margin: 5px;
-    }
-    button
-    {
-      background-color:$bg;
-      width: 15%;
-      margin: 5px;
-      border-color: $footula;
-      border-radius: 20px;
-      font-size: $footer18;
-      padding: 10px;
-    }
-  }
-}
 
 /*--------------------------------------------------------------
 # Footer
@@ -896,16 +930,6 @@ touch-action: pan-y;
   background: $footerbg;
 }
 
-.content
-  { 
-    margin-left: 25vh; 
-    display: flex;
-  }
-
-@media (max-width:414px)
-{ 
-  .content{ flex-direction: column; margin-left: 20px; }
-}
 
 .footer .footer-top .footer-contact {
   margin-bottom: 30px;
