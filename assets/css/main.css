@@ -14,7 +14,6 @@ body {
 
 a {
   text-decoration: none !important;
-  color: #171750 !important;
 }
 
 a:hover {
@@ -90,7 +89,7 @@ h1, h2, h3, h4, h5, h6, p, a {
 }
 
 .searchbar {
-  padding-top: 2vh;
+  padding-top: 3vh;
   width: 30%;
 }
 .searchbar input, .searchbar button {
@@ -104,6 +103,9 @@ h1, h2, h3, h4, h5, h6, p, a {
 .searchbar button {
   background-color: white;
   border: 1px solid green;
+}
+.searchbar button:hover {
+  background-color: green;
 }
 
 @media (max-width: 540px) {
@@ -263,6 +265,9 @@ h1, h2, h3, h4, h5, h6, p, a {
 .blogbox a {
   margin-bottom: 50px;
   color: #0000ff !important;
+}
+.blogbox a:hover {
+  color: brown;
 }
 
 .blogcontent {
@@ -534,6 +539,11 @@ h1, h2, h3, h4, h5, h6, p, a {
   border-radius: 20px;
   font-size: 18px;
   padding: 10px;
+  transition: padding 1s, transform 1s;
+}
+.newsletter form button:hover {
+  background-color: #777777;
+  transform: rotate(360deg);
 }
 
 .carouselbox {

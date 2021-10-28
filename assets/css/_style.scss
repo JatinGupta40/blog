@@ -8,10 +8,10 @@ body
 
 *{ margin: 0; padding: 0;}
 
-a {
+a 
+{
   text-decoration: none !important;
-  color: $a !important;
-  }
+}
 
 a:hover {
   color: $ahovercolor;
@@ -99,7 +99,7 @@ h1, h2, h3, h4, h5, h6, p, a {
 
 .searchbar 
   {
-    padding-top: 2vh; 
+    padding-top: 3vh; 
     width: 30%;
     input, button 
       { 
@@ -121,6 +121,10 @@ h1, h2, h3, h4, h5, h6, p, a {
        // padding: 0 10px 0 10px;
         
       } 
+    button:hover
+    {
+      background-color: $searchbutton;
+    }  
   }
  
 //a:not(:first-child)  for displaying the first list element of navbar. should be added before display none
@@ -156,8 +160,8 @@ h1, h2, h3, h4, h5, h6, p, a {
     } 
   }
 
-@media (max-width:997px){
-  
+@media (max-width:997px)
+{
   .navbar li{padding: 9px; height: 20px;}
 }
 
@@ -295,85 +299,88 @@ h1, h2, h3, h4, h5, h6, p, a {
   }
 
 .blogbox
-    { 
-        // height: 100%; 
-        border-bottom: 1px solid $blogbox; 
-        border-radius: 5px; 
-        margin-top:30px; 
-        margin-left: 8vw; 
-        margin-right: 8vw;
+{ 
+  border-bottom: 1px solid $blogbox; 
+  border-radius: 5px; 
+  margin-top:30px; 
+  margin-left: 8vw; 
+  margin-right: 8vw;
 
-    h2
-      {
-        margin-bottom:10px;
-      }
-    p
-      {
-        font-size: $pwd; 
-        line-height: 30px; 
-        margin-bottom: 10px;
-      }
-    a 
-      {
-        margin-bottom: 50px;
-        color: #0000ff !important ;
-      } 
-    
-    }
+  h2
+  {
+    margin-bottom:10px;
+  }
+  p
+  {
+    font-size: $pwd; 
+    line-height: 30px; 
+    margin-bottom: 10px;
+  }
+  a 
+  {
+    margin-bottom: 50px;
+    color: #0000ff !important ;
+  } 
+  a:hover
+  {
+    color: brown !important;
+  }
+}
  
 
 .blogcontent
-      { 
-          margin-top: 20px; 
-          border-radius: 5px; 
-          
-      h3
-        { 
-          padding: 0 0 0 0; 
-          text-align: left; 
-        }
-
-      p
-        { 
-          width:85%; 
-          line-height: 6vh; 
-          text-align: left; 
-          font-size: $blogcontent; 
-        }
-      }
+{ 
+  margin-top: 20px; 
+  border-radius: 5px; 
+        
+  h3
+  { 
+    padding: 0 0 0 0; 
+    text-align: left; 
+  }
+  
+  p
+  { 
+    width:85%; 
+    line-height: 6vh; 
+    text-align: left; 
+    font-size: $blogcontent; 
+  }
+}
 
 .blogcommentsection
-      {
-        margin-left: 8vw;
-        p 
-        { 
-          margin-top: 10px; 
-          margin-bottom: 0rem;
-        }
-        button
-        {
-          display: block; 
-          margin-left: 1px; 
-          background-color: $buttongrey; 
-          border: 0px; 
-          color: $black; 
-          font-weight: bold;
-        }
-      }
+{
+  margin-left: 8vw;
+  
+  p 
+  { 
+    margin-top: 10px; 
+    margin-bottom: 0rem;
+  }
+  button
+  {
+    display: block; 
+    margin-left: 1px; 
+    background-color: $buttongrey; 
+    border: 0px; 
+    color: $black; 
+    font-weight: bold;
+  }
+}
  
 .blogcommentbox
-      {
-        width: 50%; 
-        height: 8vh; 
-        margin-left: 1px;
-      }
+{
+  width: 50%; 
+  height: 8vh; 
+  margin-left: 1px;
+}
 
 .blogimage
-      {
-        max-width: 40%; 
-        height: auto; 
-        margin-bottom: 10px;
-      }
+{
+  max-width: 40%; 
+  height: auto; 
+  margin-bottom: 10px;
+}
 
 
 .registrationpage{padding: 5vh;}
@@ -642,6 +649,12 @@ touch-action: pan-y;
       border-radius: 20px;
       font-size: $footer18;
       padding: 10px;
+      transition: padding 1s, transform 1s;
+    }
+    button:hover
+    {
+      background-color: $footula;
+      transform: rotate(360deg);
     }
   }
 }

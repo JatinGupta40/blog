@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 27, 2021 at 04:48 PM
+-- Generation Time: Oct 25, 2021 at 02:35 PM
 -- Server version: 10.4.20-MariaDB
 -- PHP Version: 7.4.21
 
@@ -40,24 +40,33 @@ CREATE TABLE `blog` (
 --
 
 INSERT INTO `blog` (`id`, `userid`, `Heading`, `image`, `content`) VALUES
-(1, 27, 'Automobile', '', 'AAAAAAA AAAAAAAAAAAAAA AAAAAAAAAAAAA AAAAAAAAAAA AAAAAAAAAAA AAAAAAAAAAAA AAAAAAAAAAAAA AAAAAAAAAAAA AAAAAAAA '),
+(1, 27, 'Automobile', '', 'AAAAAAA AAAAAAAAAAAAAA AAAAAAAAAAAAA AAAAAAAAAAA AAAAAAAA '),
 (2, 42, 'Analytics ABCD', '', 'hello Jatin'),
-(4, 27, 'hello', '', 'SDSADASD'),
-(5, 27, 'hello', '', 'jatin\r\n'),
-(6, 42, 'M', '', 'N'),
-(7, 42, 'N', '', 'M'),
 (8, 42, 'abcd', '', 'efgh'),
-(9, 42, 'ijkl', '', 'mnop'),
-(10, 42, 'qrst', '', 'uvwx'),
 (11, 42, 'yz', '', 'ab'),
 (12, 42, '1234', '', '5678'),
-(13, 42, '9101112', '', '13141516'),
 (14, 42, 'Avengers', '', 'Mazaa nhi aya'),
 (15, 42, 'Spider Man - No Way ', 'lakec.jpg', 'Bye God Trailer dekh ke mazaa agya'),
 (16, 78, 'How Do You do', '', 'NAMASTE\r\nVADAKKAM\r\nJAI SHRI KRISHNA'),
 (18, 27, 'TATA', '', 'SAFARI GOLD'),
-(19, 82, 'adAD', '', 'aASDA'),
-(20, 42, 'MN', '', 'MMMMKKKKK');
+(23, 27, 'TATA ', '', 'Punch\r\n'),
+(24, 27, 'M', '', 'MJ '),
+(25, 27, 'QED42', '', 'JATIN GUPTA'),
+(29, 27, 'Holy Post', '', 'Dussehra'),
+(44, 27, 'Holy Post', '', 'Diwali'),
+(45, 27, 'Holy Post', '', 'Holi'),
+(55, 27, 'HOHOHO', '', 'HOHOHOHOHOHOHOHOHOHOHOHO'),
+(73, 27, 'nana', '', 'patekar'),
+(74, 27, 'QED42', '', 'Drupal'),
+(80, 27, 'asda', '', 'SDsad'),
+(81, 27, 'Holy Post', '', 'aswd'),
+(82, 42, 'asd', '', 'qwe'),
+(83, 42, 'asd', '', 'asd'),
+(88, 27, 'check', '', 'check'),
+(90, 27, 'check', '', 'adasdasd'),
+(91, 27, 'check', '', 'adasdasd'),
+(92, 27, 'check', '', 'adasdasd'),
+(93, 27, 'adasdasd', '', 'jajaja');
 
 -- --------------------------------------------------------
 
@@ -79,11 +88,34 @@ CREATE TABLE `carousel` (
 --
 
 INSERT INTO `carousel` (`id`, `userid`, `image`, `title`, `imageby`, `checked`) VALUES
-(13, 27, 'images/upload/20aee3a5f4643755a79ee5f6a73050acsunsetc.jpg', 'hello', 'J', 0),
-(14, 27, 'images/upload/dd458505749b2941217ddd59394240e8images.jpg', 'Long Drive', 'JATIN', 1),
-(15, 27, 'images/upload/66808e327dc79d135ba18e051673d906images.jpg', 'Long Drive', 'Jatin', 1),
 (17, 30, 'images/upload/38db3aed920cf82ab059bfccbd02be6asunsetc.jpg', 'Vacation', 'Beach and Sunset', 0),
-(18, 42, 'images/upload/20aee3a5f4643755a79ee5f6a73050acsunsetc.jpg', 'HELLOOO', 'MN', 1);
+(84, 27, 'images/upload/05049e90fa4f5039a8cadc6acbb4b2ccsafari-goldblack-desktop.jpg', 'Black', 'Gold', 1),
+(86, 27, 'images/upload/c399862d3b9d6b76c8436e924a68c45bsafari-goldwhite-desktop.jpg', 'TATA ', 'White Gold', 1),
+(88, 27, 'images/upload/c0f168ce8900fa56e57789e2a2f2c9d0safari-gold-d-banner1.jpg', 'SAFARI', 'SUV', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `newsletter`
+--
+
+CREATE TABLE `newsletter` (
+  `id` int(11) NOT NULL,
+  `userid` int(225) NOT NULL,
+  `emailid` varchar(225) NOT NULL,
+  `subscribe` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `newsletter`
+--
+
+INSERT INTO `newsletter` (`id`, `userid`, `emailid`, `subscribe`) VALUES
+(2, 0, 'gupta@gmail.com', 0),
+(3, 0, 'gupta40@gmail.com', 0),
+(9, 0, 'gupta.jatin40@gmail.com', 1),
+(10, 0, 'gupta.jatin4595@gmail.com', 0),
+(11, 0, 'mn@gmail.com', 1);
 
 -- --------------------------------------------------------
 
@@ -109,7 +141,7 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id`, `fname`, `lname`, `emailid`, `password`, `subscription`, `comment`, `reset_link_token`, `exp_date`) VALUES
 (27, 'Jatin', 'Gupta', 'gupta.jatin40@gmail.com', 'd9a9046d60f3ec4358ba9e9594d5f1a7', 0, '', '', '0000-00-00 00:00:00'),
-(29, 'Jatin', 'Gupta', 'admin@gmail.com', '21232f297a57a5a743894a0e4a801fc3', 0, '', '', '0000-00-00 00:00:00'),
+(29, 'admin', '', 'admin@gmail.com', '21232f297a57a5a743894a0e4a801fc3', 0, '', '', '0000-00-00 00:00:00'),
 (30, 'Libbna', 'Mathew', 'libbnamathew@gmail.com', '6177eaba04a520a95be90b340b149b8a', 0, '', '', '0000-00-00 00:00:00'),
 (42, 'm', 'n', 'mn@gmail.com', '412566367c67448b599d1b7666f8ccfc', 0, '', '', '0000-00-00 00:00:00'),
 (43, 'Hemant', 'Gupta', 'hemant@gmail.com', '17563740df9a804bc5e3b31c5cb58984', 0, '', '', '0000-00-00 00:00:00'),
@@ -119,10 +151,9 @@ INSERT INTO `user` (`id`, `fname`, `lname`, `emailid`, `password`, `subscription
 (81, 'anju', 'Gupta', 'anju@gmail.com', 'c9b313a695b0e925eef0a30310f80ee6', 0, '', '', '0000-00-00 00:00:00'),
 (82, 'Libbna', 'Mathew', 'libbna260296@gmail.com', '6177eaba04a520a95be90b340b149b8a', 0, '', '', '0000-00-00 00:00:00'),
 (83, 'Vandana', 'Gupta', 'vandanagupta@gmail.com', '79c64644698d33279d6d6f0d7ec18b21', 0, '', '', '0000-00-00 00:00:00'),
-(90, 'y', 'y', 'yy@gmail.com', '3e44107170a520582ade522fa73c1d15', 0, '', '', '0000-00-00 00:00:00'),
-(91, 'y', 'y', 'yyy@gmail.com', '2fb1c5cf58867b5bbc9a1b145a86f3a0', 0, '', '', '0000-00-00 00:00:00'),
-(92, 'y', 'y', 'yyyy@gmail.com', '2fb1c5cf58867b5bbc9a1b145a86f3a0', 0, '', '', '0000-00-00 00:00:00'),
-(93, 'Jatin', 'Gupta', 'gupta.jatin@gmail.com', '6c5d8d55f80196ef98e2af6f62c8db6e', 0, '', '', '0000-00-00 00:00:00');
+(120, 'Krishan', 'Gupta', 'kkgupta29@gmail.com', '69fb127376c7bcd05caee9bed739c23f', 0, '', '', '0000-00-00 00:00:00'),
+(121, 'omkar', 'd', 'om@gmail.com', 'd58da82289939d8c4ec4f40689c2847e', 0, '', '', '0000-00-00 00:00:00'),
+(132, 'M', 'J', 'mj@gmail.com', '007de96adfa8b36dc2c8dd268d039129', 0, '', '', '0000-00-00 00:00:00');
 
 --
 -- Indexes for dumped tables
@@ -143,6 +174,13 @@ ALTER TABLE `carousel`
   ADD KEY `userid` (`userid`);
 
 --
+-- Indexes for table `newsletter`
+--
+ALTER TABLE `newsletter`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id` (`id`);
+
+--
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
@@ -156,19 +194,25 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `blog`
 --
 ALTER TABLE `blog`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
 
 --
 -- AUTO_INCREMENT for table `carousel`
 --
 ALTER TABLE `carousel`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
+
+--
+-- AUTO_INCREMENT for table `newsletter`
+--
+ALTER TABLE `newsletter`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=133;
 
 --
 -- Constraints for dumped tables
