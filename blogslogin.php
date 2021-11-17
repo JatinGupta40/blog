@@ -1,181 +1,207 @@
 <?php
-include_once 'header.php';
-include ("connection.php");
-//session_start();
-    
-    
-    if ($_SESSION['success'] == 1) //successfully registered message for new registered user only
-    {
-        echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
-        <strong>Successfully Registered!</strong></div>';
-        echo $_SESSION['success'];
-        echo $_SESSION['fname'];
-        echo $_SESSION['lname'];
-        echo $_SESSION['email'];
 
+require_once ($_SERVER['DOCUMENT_ROOT'] .'/header.php');
+require_once ($_SERVER['DOCUMENT_ROOT'] .'/classes/blog.php');
+require_once ($_SERVER['DOCUMENT_ROOT'] .'/classes/carousel.php');
+require_once ($_SERVER['DOCUMENT_ROOT'] .'/classes/user.php');
+require_once ($_SERVER['DOCUMENT_ROOT'] .'/classes/method.php');
+$blog = new blogQuery\blog;
+$carousel = new carouselQuery\carousel;
+$user = new userQuery\user;
+$method = new methodQuery\method;
+
+
+    // Successfully registered message for new registered user only.
+    if ($_SESSION['success'] == 1) 
+    {
+      echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+      <strong>Successfully Registered!</strong></div>';
     }
     else
     {
-
+      // Nothing to show.
     }
-
-    if($_SERVER["REQUEST_METHOD"] == "POST") //for edit  
-    {
-             include("connection.php"); 
-    }
-  
-
 ?>
     <div class="addblog">
-        <h2><a href="createblog.php">Add Blog</a></h2>
-        <h2><a href="personalisedcarousel.php">Personalise Carousel</a></h2>
+      <h2><a href="createblog">Add Blog</a></h2>
+      <h2><a href="personalisedcarousel">Personalise Carousel</a></h2>
     </div>
     <hr>
     <div class="myblog">
-        <h2><u>My Blogs</u> <i class="fas fa-caret-down"></i></h2>
+      <h2><u>My Blogs</u> <i class="fas fa-caret-down"></i></h2>
     </div>
-<?php
-    if ($_SESSION['email'] == "admin@gmail.com")
+    <?php
+    // To Check who logged in, either the user or admin 
+    if($_SESSION['email'] == "admin@gmail.com")
     {
-        $sql = "select * from blog ORDER BY id DESC";
-        $result = $conn->query($sql);
-        if ($result->num_rows > 0)      
+      // Fetching from the user table.
+      $adminquery = $blog->blog();
+      if($adminquery->num_rows > 0)
+      {
+        // Here, fetch function is called from source file and method class.
+        while($row = $method->fetchArray($adminquery))
         {
-            //$data = array();
-            while ($row = mysqli_fetch_assoc($result))
-            {
-            // $id = $row['id'];
-            $heading = $row['Heading'];
-            $content = $row['content'];
-?>
-            <div class="blogbox">
-                    <h3><?php echo $heading; ?></h3>
-                    <p>
-<?php
-                    {
-                        $content = substr($content, 0, 150); //trimming down the content to 150 words only
-                        echo $content;
-                        // echo $i;
-                    }
-?>
-                    </p>
-            </div>
-<?php
-            }
-        }
-        else
-        {
-?>
-            <div class="">
-                <h5>You have not added any Blog yet.</h5>
-                <p>(To create click on the Add Blog button above.)</p>
-            </div>
-<?php        
-        }
-    }
-    else
-    {
-        $email = $_SESSION['email'];
-        $sql1 = "select * from user where emailid = '$email'"; //for accessing the id of the logged in user to be used as reference for getting Heading and content data to be fetched from the blog table
-        $result1 = $conn->query($sql1);
-        //echo $email;
-        // print_r($result1); 
-        //die();
-        if ($result1->num_rows > 0)      
-        {
-            //$data = array();
-            while ($row1 = mysqli_fetch_assoc($result1))
-            {
-                $id = $row1['id']; //id fetching from db table OF user
-                $_SESSION['fname'] = $row1['fname'];
-                $_SESSION['id'] = $row1['id'];
-
-            }
-        }
-        if (isset($_GET['pageno'])) {
-            $pageno = $_GET['pageno'];
-        } 
-        else 
-        {
-            $pageno = 1;
-
-        }
-
-        // Number of blogs to be shown on a single page.
-        $no_of_records_per_page = 5;  
-        $offset = ($pageno-1) * $no_of_records_per_page;
-        // echo $offset;
-
-        // Fetching data from db table blog.
-        $sql = "select id, Heading, content FROM blog where userid=$id ORDER BY id DESC LIMIT $offset, $no_of_records_per_page"; 
-        $total_pages_sql = "SELECT COUNT(*) FROM blog where userid=$id"; // counting the number of blogs user have of his own.
-        $result = mysqli_query($conn,$total_pages_sql); //mapping it to db.
-        $total_rows = mysqli_fetch_array($result)[0];
-        //echo $total_rows;
-        $total_pages = ceil($total_rows / $no_of_records_per_page);
-        $result = $conn->query($sql);
-        //echo $total_pages; //total number of pages to be made with respect to 5 blogs per page.
-        if ($result->num_rows > 0)      
-        {
-            while ($row = mysqli_fetch_assoc($result))
-            {
-            //  echo implode(" ",$row);// $id = $row['id']; //string conversion.
-            $heading = $row['Heading'];
-            $content = $row['content'];
-            $_SESSION['heading'] = $row['Heading'];
-            $id = $row['id'];
-
-?>
-            <div class="" style="margin-top:20px;">
-                <div class="blogbox">
-                    <h3><?php echo $heading; ?></h3>
-                    <p>
-                    <?php
-                        {
-                            //$content = substr($content, 0, 150);
-                            echo $content;
-                            // echo $i;
-                        }
-                    ?>
-                    <div class="editdelete">
-                        <div class="editdeletebutton">
-                            <a href="editblog.php?id=<?php echo $id;?>">
-                            <button type="submit"  class="" name="submit"> Edit </button></a>
-                        </div>
-                        <div class="editdeletebutton">
-                            <a href="deleteblog.php"><button type="submit" class="" name="submit"> Delete </button></a>
-                        </div>
-                    </div>
-                    </p>
+          // Fetching details from DB
+          $id = $row['id'];
+          $heading = $row['Heading'];
+          $content = $row['content'];
+          $cleanurl = $row['cleanurl']
+      ?>
+          <div class="blogbox">
+            <h3><?php echo $heading; ?></h3>
+            <p>
+      <?php
+            // Trimming down the content to 150 words only.
+            $content = substr($content, 0, 150); 
+            echo $content;
+      ?>
+            </p>
+            <p>
+              <div class="editdelete">
+                <div class="editdeletebutton">
+                  <a href="article/<?php echo $id;?>/<?php echo $heading; ?>"><button type="submit" class="" name="submit"> View </button></a>
+                </div>    
+                <div class="editdeletebutton">
+                  <a href="editblog/<?php echo $id;?>">
+                  <button type="submit"  class="" name="submit"> Edit </button></a>
                 </div>
-            </div>
-<?php
-            }
+                <div class="editdeletebutton">
+                  <a href="deleteblog/<?php echo $id;?>/<?php echo $heading; ?>"><button type="submit" class="" name="submit"> Delete </button></a>
+                </div>
+              </div>  
+            </p>
+          </div>
+      <?php
         }
-        else
-        {
+      }
+      else
+      {
 ?>
         <div class="">
-            <h5>You have not added any Blog yet.</h5>
-            <p>(To create click on the '<u>Add Blog</u>' button above.)</p>
+          <h5>You have not added any Blog yet.</h5>
+          <p>(To create click on the Add Blog button above.)</p>
         </div>
+<?php        
+      }
+    }   
+    // If the logged-in user is not admin.
+    else
+    {
+      $email = $_SESSION['email'];
+      // For accessing the id of the logged in user to be used as reference for getting Heading and content data to be fetched from the blog table.
+
+      // Checking the logged in user is registered user and not is not an  admin.
+      $userquery = $user->checkEmail($email);
+      if ($userquery->num_rows > 0)      
+      {
+        while ($row1 = $method->fetchArray($userquery))
+        {   
+          // Id fetching from DB table of user.
+          $id = $row1['id']; 
+          $_SESSION['fname'] = $row1['fname'];
+          $_SESSION['id'] = $row1['id'];
+        }
+      }
+        
+      if (isset($_GET['pageno'])) 
+      {
+        $pageno = $_GET['pageno'];
+      } 
+      else 
+      { 
+        $pageno = 1;
+      }
+
+      // Number of blogs to be shown on a single page.
+      $no_of_records_per_page = 5;  
+      $offset = ($pageno-1) * $no_of_records_per_page;
+        
+        
+      // Counting the number of blogs user have of his own.
+      $result = $blog->countBlog($id); // Mapping it to db.
+      $total_rows = $method->fetchArray($result)[0];
+
+      // Total number of pages to be made with respect to 5 blogs per page.
+      $total_pages = ceil($total_rows / $no_of_records_per_page);  // The ceil function round off the value.
+            
+      // Fetching data from DB table blog.
+      $result = $blog->selectBlog($id, $offset, $no_of_records_per_page);
+      if ($result->num_rows > 0)      
+      {
+        while ($row = $method->fetchArray($result))
+        {
+          $id = $row['id'];
+          $heading = $row['Heading'];
+          $content = $row['content'];
+          $cleanurl = $row['cleanurl'];
+?>
+          <div class="" style="margin-top:20px;">
+            <div class="blogbox">
+              <h3><?php echo $heading; ?></h3>
+                <p>
+                  <?php
+                  {
+                    echo $content;
+                  }
+                  ?>
+                  <!-- If cleanurl is provided then cleanurl is shown in the url else the heading will be shown. -->
+                  <?php 
+                  if($cleanurl=="")
+                  {
+                    $heading;
+                  }
+                  else
+                  {
+                    $heading = $cleanurl;
+                  }
+                  
+                  ?>
+                  <div class="editdelete">
+                    <div class="editdeletebutton">
+                      <a href="article/<?php echo $id; ?>/<?php echo $heading; ?>"><button type="submit" class="" name="submit"> View </button></a>
+                    </div>    
+                    <div class="editdeletebutton">
+                      <?php echo '<a href="/editblog/' . $id .'"</a>'?>
+                                          
+                      <button type="submit"  class="" name="submit"> Edit </button></a>
+                    </div>
+                    <div class="editdeletebutton">
+                      <a href="deleteblog/<?php echo $id;?>/<?php echo $heading; ?>"><button type="submit" class="" name="submit"> Delete </button></a>
+                    </div>
+                  </div>
+                </p>
+            </div>
+          </div>
 <?php
         }
-    }
-
-    
+      }
+      else
+      {
 ?>
-<div class="paging">
-<ul>
-        <li><a href="?pageno=1">First</a></li>
+        <div class="">
+          <h5>You have not added any Blog yet.</h5>
+          <p>(To create click on the '<u>Add Blog</u>' button above.)</p>
+        </div>
+<?php
+      }
+    }
+?>
+
+    <div class="paging">
+      <ul>
+        <li>
+          <a href="?pageno=1">First</a>
+        </li>
         <li class="<?php if($pageno <= 1){ echo 'disabled'; } ?>">
             <a href="<?php if($pageno <= 1){ echo '#'; } else { echo "?pageno=".($pageno - 1); } ?>">Prev</a>
         </li>
         <li class="<?php if($pageno >= $total_pages){ echo 'disabled'; } ?>">
             <a href="<?php if($pageno >= $total_pages){ echo '#'; } else { echo "?pageno=".($pageno + 1); } ?>">Next</a>
         </li>
-        <li><a href="?pageno=<?php echo $total_pages; ?>">Last</a></li>
-    </ul>
-</div>
+        <li>
+          <a href="?pageno=<?php echo $total_pages; ?>">Last</a>
+        </li>
+      </ul>
+    </div>
 
 <?php include 'footer.php'; ?>

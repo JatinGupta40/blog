@@ -1,21 +1,23 @@
 <?php 
 
-include "connection.php";
-$a = isset($_GET['pwd']);
-echo $a;
-echo "asd";
-if(isset($_POST['submit']))
+  require_once ($_SERVER['DOCUMENT_ROOT'] .'/classes/blog.php'); 
+  require_once ($_SERVER['DOCUMENT_ROOT'] .'/classes/carousel.php');
+  require_once ($_SERVER['DOCUMENT_ROOT'] .'/classes/user.php');
+  require_once ($_SERVER['DOCUMENT_ROOT'] .'/classes/method.php');
+  
+  $blog = new blogQuery\blog;
+  $carousel = new carouselQuery\carousel;
+  $user = new userQuery\user;
+  $method = new methodQuery\method;
+    $a = isset($_GET['pwd']);
+    if(isset($_POST['submit']))
         {
             if(isset($_POST['pwd']) && isset($_POST['reset_link_token']) && $_POST['email'])
                 {
-                    echo $_POST['pwd'];
-                echo "hello";
+                echo $_POST['pwd'];
                 $email = $_POST['email'];
-                echo $email;
                 $code = $_POST['reset_link_token'];
-                echo $code;
                 $password = md5($_POST['password']);
-                echo $password;
                 $query = mysqli_query($conn,"SELECT * FROM `user` WHERE `reset_link_token`='".$code."' and `emailid`='".$email."'");
                 $row = mysqli_num_rows($query);
                     if($row)

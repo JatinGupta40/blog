@@ -1,108 +1,249 @@
-<?php include 'header.php';
- 
-include 'connection.php';
+<?php 
 
-$result1 = $conn->query("SELECT * FROM carousel where checked = 1");
+require_once ($_SERVER['DOCUMENT_ROOT'] .'/header.php');
+require_once ($_SERVER['DOCUMENT_ROOT'] .'/classes/blog.php');
+require_once ($_SERVER['DOCUMENT_ROOT'] .'/classes/carousel.php');
+require_once ($_SERVER['DOCUMENT_ROOT'] .'/classes/user.php');
+require_once ($_SERVER['DOCUMENT_ROOT'] .'/classes/method.php');
+require_once ($_SERVER['DOCUMENT_ROOT'] .'/classes/newsletter.php');
+
+$blog = new blogQuery\blog;
+$carousel = new carouselQuery\carousel;
+$user = new userQuery\user;
+$method = new methodQuery\method;
+$newsletter = new newsletterQuery\newsletter;
+
+// Carousel.
+$result1 = $carousel->carousel("SELECT * FROM carousel");
 
 ?>
 
 <!-- Carousel Start -->
 
-<div id="demo" class="carousel slide" data-ride="carousel">
-
-           <!-- Indicators -->
+      <div class="demo carousel slide" data-ride="carousel">
+        <!-- Indicators -->
         <ul class="carousel-indicators">
-            <li data-target="#demo" data-slide-to="0" class="active"></li>
-            <li data-target="#demo" data-slide-to="1"></li>
-            <li data-target="#demo" data-slide-to="2"></li>
+          <li data-target=".demo" data-slide-to="0" class="active"></li>
+          <li data-target=".demo" data-slide-to="1"></li>
+          <li data-target=".demo" data-slide-to="2"></li>
         </ul> 
 
-          <!-- The slideshow -->
+        <!-- The slideshow -->
+        <div class="carousel-inner">
+        <?php
+          $i = 0;
+          foreach ($result1 as $row) 
+          {
+            $actives = '';
+            if ($i == 0) 
+            {
+              $actives = 'active';
+            }
+              $img = $row['image'];
+              $title = $row['title'];
+              $imageby = $row['imageby'];
+        ?>
+            <div class="carousel-item <?= $actives; ?>">
+              <img src="<?= $img; ?>">
+              <h1><?= $title; ?></h1>
+              <h3><?= $imageby; ?></h3>
+            </div>
+            <?php 
+              $i++;
+          } 
+            ?>
+        </div>
 
-          <div class="carousel-inner">
-              <?php
-                $i = 0;
-                foreach ($result1 as $row) {
-                    $actives = '';
-                    if ($i == 0) {
-                        $actives = 'active';
-                    }
-                      $img = $row['image'];
-                      $title = $row['title'];
-                      $imageby = $row['imageby'];
-                ?>
-                  <div class="carousel-item <?= $actives; ?>">
-                      <img src="<?= $img; ?>">
-                      <h1><?= $title; ?></h1>
-                      <h3><?= $imageby; ?></h3>
-                  </div>
-              <?php $i++;
-                } ?>
-
-          </div>
-
-          <!-- Left and right controls -->
-          <a class="carousel-control-prev" href="#demo" data-slide="prev">
-              <span class="carousel-control-prev-icon"></span>
-          </a>
-          <a class="carousel-control-next" href="#demo" data-slide="next">
-              <span class="carousel-control-next-icon"></span>
-          </a>
-
+        <!-- Left and right controls -->
+        <a class="carousel-control-prev" href=".demo" data-slide="prev">
+          <span class="carousel-control-prev-icon"></span>
+        </a>
+        <a class="carousel-control-next" href=".demo" data-slide="next">
+          <span class="carousel-control-next-icon"></span>
+        </a>
       </div>
-
-
-
-
 <!-- Carousel ends -->
+
+
+<!-- Newsletter start -->
 <?php
 
-if (isset($_GET['pageno'])) 
-   {
+// NEWSLETTER Logic.
+// User logged in or not.
+if(isset($_SESSION['loggedin']))
+  { 
+    $email = $_SESSION['email'];
+    // Logged in user.
+    if(isset($_POST['subscribe']))
+    {
+      $subscribe = $newsletter->insert($email); 
+      echo '<div class="alert alert-success"><b>Thank You for Subscribing.</b></div>'; 
+    }
+    if(isset($_POST['usersubscribe']))
+    {
+      $unsubscribe = $newsletter->updatesubscribe($email);
+      echo '<div class="alert alert-success"><b>Thank You for Subscribing again !.</b></div>'; 
+    }
+    if(isset($_POST['userunsubscribe']))
+    {
+      $unsubscribe = $newsletter->updateunsubscribe($email);
+      echo '<div class="alert alert-success"><b>You are successfully Un-Subscribed for Newsletter.</b></div>'; 
+    }
+  }
+  // Non- logged in user.
+  else
+  {
+    // Validation and inserting into subscription table of DB.
+    if(isset($_POST['subscribe']))
+    {
+      if(!empty($_POST['newsletteremail']))
+      {
+        $newsletteremail = $_POST['newsletteremail']; 
+        // Checking if entered emailid is already present in our system or not. 
+        $newsletterquery = $newsletter->subscribe($newsletteremail);
+        if($method->numRows($newsletterquery))
+        {
+          echo '<div class="alert-danger"> This email-id is already subscribed for Newsletter. Please try with some different email-id.</div>';
+        }
+        else
+        {
+          $newsletter->insert($newsletteremail);
+          echo '<div class="alert alert-success"><b>Thank You for Subscribing.</b></div>';
+        }
+      }
+      // Validation.
+      else
+      {
+       $newsletteremail = null; 
+      }
+      $errors = array();
+      if($newsletteremail == null) 
+      {
+        $errors['newsletteremail'] = '* Email-Id is required. *';
+      }
+    }
+  }
+  
+?>
+  <!-- Newsletter Form  -->
+    <div class="container newsletter">
+      <div class="row"><div class ="">
+      <h2>* To get updates of our newly updated or added blogs, Please Subscribe. * </h2>
+      <form action="" method="POST">
+        <?php 
+          // If user is logged in then, no need to show the input box.
+          if(isset($_SESSION['loggedin']))
+          {
+            $email = $_SESSION['email'];
+            $newsletterquery = $newsletter->subscribe($email);
+            // If user is details are not there in subscribe table or not.
+            if($method->numRows($newsletterquery) < 1)
+            { 
+        ?>
+              <button type = "submit" name="subscribe">Subscribe</button>  
+        <?php
+            }
+            // If user details are there in the subscribe table.
+            else
+            {
+              // Check if user has already subscribed or not.
+              $row = $method->fetchAssoc($newsletterquery);
+              if($row['subscribe'] == 1)
+              {
+        ?> 
+                <button type = "submit" name="userunsubscribe"><b>Un-Subscribe</b></button>
+        <?php
+              }
+              else
+              {
+        ?>
+                <button type = "submit" name="usersubscribe"><b>Subscribe</b></button>
+        <?php
+              }
+            }
+          }
+          // Non logged-in User.
+          else
+          {
+        ?>
+        <div class="col">
+          <input type= "text" class="row-sm-6 <?php if (isset($errors['newsletteremail'])) : ?>input-error<?php endif; ?>" name="newsletteremail" value="" placeholder="xyz@gmail.com">
+          <button class="row-sm-6" type="submit" name="subscribe">Subscribe</button>
+        </div>
+        <?php         
+          }
+        ?>
+      </form>
+      <?php
+        // Validation Error
+        if(isset($errors))
+        {
+          if (count($errors) > 0) 
+          {
+            foreach ($errors as $key => $value) 
+            {
+              echo '<div class="alert-danger"><b>' . $value . '</b></div>';
+            }
+          }
+        }
+      ?>
+      </div></div>
+    </div>
+
+<!-- Newsletter ends -->
+
+<?php
+
+    if (isset($_GET['pageno'])) 
+    {
       $pageno = $_GET['pageno'];
-   } 
-else 
-   {
+     } 
+    else 
+    {
       $pageno = 1;
-   }
+    }
 
   // Number of blogs to be shown on a single page. For Pagination.
   $no_of_records_per_page = 5;  
   $offset = ($pageno-1) * $no_of_records_per_page;
-  $total_pages_sql = "SELECT COUNT(*) FROM blog"; //counting the number of blogs user have of his own
-  $result = mysqli_query($conn,$total_pages_sql); //mapping it to db
-  $total_rows = mysqli_fetch_array($result)[0];
+
+  // Counting the number of blogs user have of his own
+  $result = $blog->countAllBlog(); 
+  $total_rows = $method->fetchArray($result)[0];
+
+  // CEIL is used to roundoff.
   $total_pages = ceil($total_rows / $no_of_records_per_page);
-  $sql =  "select * from blog ORDER BY id DESC LIMIT $offset, $no_of_records_per_page";
-  $result = $conn->query($sql);
-    if($result->num_rows > 0)
+  $result = $blog->fetchBlogPaging($offset, $no_of_records_per_page);
+  
+  if($result->num_rows > 0)
+  {
+    while ($row = $method->fetchAssoc($result))
     {
-      //$data = array();
-      while ($row = mysqli_fetch_assoc($result))
-        {
-          $id = $row['id'];
-          $heading = $row['Heading'];
-          $content=$row['content'];
+      $id = $row['id'];
+      $heading = $row['Heading'];
+      $content=$row['content'];
 ?>
-        <div class="blogbox">
-          <h2><?php echo strtoupper($heading);?></h2>
-            <p><?php 
-                { $content = substr($content,0,150);
-                  echo $content; 
-                }
-              ?>
-          </p>
-          <p><a href="article.php?Heading=<?php echo $heading; ?>&id=<?php echo $id;?>">Read asdasdasdasd</a></p>
-        </div>
+      <div class="blogbox">
+        <h2><?php echo strtoupper($heading);?></h2>
+        <p>
+        <?php 
+        { 
+          // Showing only 150  words from content of blog.
+          $content = substr($content,0,150);
+          echo $content; 
+        }
+        ?>
+        </p>
+        <p><a href="article?Heading=<?php echo $heading; ?>&id=<?php echo $id;?>">Read More</a></p>
+      </div>
 <?php
-         }
-   }
+    }
+  }
   else
   {
     echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
       <strong>There are no posts added</strong> .</div>';
   }
-
 ?>
   <div class="paging">
     <ul>
@@ -116,8 +257,6 @@ else
       <li><a href="?pageno=<?php echo $total_pages; ?>">Last</a></li>
     </ul>
   </div>
-
-
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

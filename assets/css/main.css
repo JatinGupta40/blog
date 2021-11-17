@@ -14,8 +14,7 @@ body {
 }
 
 a {
-  text-decoration: none;
-  color: #171750 !important;
+  text-decoration: none !important;
 }
 
 a:hover {
@@ -40,54 +39,26 @@ h1, h2, h3, h4, h5, h6, p, a {
   position: relative;
 }
 
-/* .header a{  color: #47b2e4;} */
 .headcontent {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  width: 40%;
+  width: 25%;
 }
 
 .headcontent h1 {
-  padding-left: 50px;
-  padding-top: 0px;
+  text-align: center;
   width: 100%;
-  overflow: hidden;
-}
-
-.searchbar {
-  padding-top: 1vh;
-  width: 25%;
-  font-size: 20px;
-}
-
-.searchbar input, .searchbar button {
-  height: 35px;
-}
-
-.searchbar input {
-  width: 74%;
-}
-
-.searchbar button {
-  background-color: white;
-  border: 1px solid green;
-  width: 20%;
-  border-radius: 10px;
 }
 
 .navbar {
-  width: 35%;
-  position: relative;
+  width: 45%;
   overflow: hidden;
   float: right;
-  display: block;
   font-size: 18px;
 }
 
 .navbar ul {
-  margin: 0;
-  padding: 0;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -96,6 +67,10 @@ h1, h2, h3, h4, h5, h6, p, a {
       -ms-flex-align: center;
           align-items: center;
   float: right;
+}
+
+.navbar ul .active {
+  font-size: large;
 }
 
 .navbar li {
@@ -121,7 +96,6 @@ h1, h2, h3, h4, h5, h6, p, a {
       -ms-flex-pack: justify;
           justify-content: space-between;
   padding: 0px 0 5px 0px;
-  /* font-size: 15px; */
   font-weight: 500;
   color: #000000;
   white-space: nowrap;
@@ -135,6 +109,37 @@ h1, h2, h3, h4, h5, h6, p, a {
   margin-left: 5px;
 }
 
+.searchbar {
+  padding-top: 3vh;
+  width: 30%;
+}
+
+.searchbar form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.searchbar input, .searchbar button {
+  height: 35px;
+  padding: 0 10px 0 10px;
+  border-radius: 10px;
+}
+
+.searchbar input {
+  width: 60%;
+  margin-right: 1vw;
+}
+
+.searchbar button {
+  background-color: white;
+  border: 1px solid green;
+}
+
+.searchbar button:hover {
+  background-color: green;
+}
+
 @media (max-width: 540px) {
   .headcontent {
     width: 100%;
@@ -145,7 +150,7 @@ h1, h2, h3, h4, h5, h6, p, a {
   }
   .searchbar {
     width: 95%;
-    padding-top: 2vh;
+    padding-top: 3vh;
   }
   .searchbar input {
     width: 60%;
@@ -207,7 +212,7 @@ h1, h2, h3, h4, h5, h6, p, a {
     display: -ms-flexbox;
     display: flex;
     margin-top: 0px;
-    background-color: #000000;
+    background-color: #ced3ed;
     display: none;
     position: relative;
     -ms-flex-wrap: wrap;
@@ -219,7 +224,7 @@ h1, h2, h3, h4, h5, h6, p, a {
     -webkit-box-pack: justify;
         -ms-flex-pack: justify;
             justify-content: space-between;
-    padding: 2vh 0 5vh 0 !important;
+    padding: 2vh 0 10vh 0 !important;
   }
   .navbar ul {
     display: block;
@@ -312,6 +317,11 @@ h1, h2, h3, h4, h5, h6, p, a {
 
 .blogbox a {
   margin-bottom: 50px;
+  color: #0000ff !important;
+}
+
+.blogbox a:hover {
+  color: brown !important;
 }
 
 .blogcontent {
@@ -408,7 +418,7 @@ h1, h2, h3, h4, h5, h6, p, a {
 }
 
 .input-error {
-  border-color: #ff0000;
+  border-color: #ff0000 !important;
   color: #ff0000;
 }
 
@@ -430,7 +440,7 @@ h1, h2, h3, h4, h5, h6, p, a {
 }
 
 .upload {
-  padding: 4vw 35vw 4vw 35vw;
+  padding: 5vh 0 5vh 0;
   font-size: 20px;
 }
 
@@ -456,7 +466,6 @@ h1, h2, h3, h4, h5, h6, p, a {
 }
 
 .field button {
-  padding: 10px;
   border-radius: 5px;
   background: white;
   width: 5rem;
@@ -467,7 +476,7 @@ h1, h2, h3, h4, h5, h6, p, a {
   position: relative;
 }
 
-#demo .carousel-inner {
+.demo .carousel-inner {
   position: relative;
   width: 94%;
   overflow: hidden;
@@ -478,12 +487,12 @@ h1, h2, h3, h4, h5, h6, p, a {
           box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
 }
 
-#demo .carousel-inner .carousel-item {
+.demo .carousel-inner .carousel-item {
   width: 100%;
   height: 80vh;
 }
 
-#demo .carousel-inner .carousel-item img {
+.demo .carousel-inner .carousel-item img {
   width: 100%;
   position: absolute;
   height: 80vh;
@@ -492,14 +501,14 @@ h1, h2, h3, h4, h5, h6, p, a {
   border: 0;
 }
 
-#demo .carousel-inner .carousel-item h1 {
+.demo .carousel-inner .carousel-item h1 {
   position: relative;
   text-align: center;
   color: white;
   margin-top: 32vh;
 }
 
-#demo .carousel-inner .carousel-item h3 {
+.demo .carousel-inner .carousel-item h3 {
   position: relative;
   text-align: center;
   color: white;
@@ -516,7 +525,7 @@ h1, h2, h3, h4, h5, h6, p, a {
 }
 
 @media (max-width: 540px) {
-  #demo .carousel-inner {
+  .demo .carousel-inner {
     position: relative;
     width: 94%;
     overflow: hidden;
@@ -526,21 +535,17 @@ h1, h2, h3, h4, h5, h6, p, a {
     -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
             box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
   }
-  #demo .carousel-inner .carousel-item {
+  .demo .carousel-inner .carousel-item {
     width: 100%;
     height: 29vh;
   }
-  #demo .carousel-inner .carousel-item img {
+  .demo .carousel-inner .carousel-item img {
     width: 100%;
     height: 29vh;
     vertical-align: middle;
     border-style: none;
     border: 0;
   }
-}
-
-.row {
-  margin-left: 10% !important;
 }
 
 .row .col img {
@@ -575,9 +580,64 @@ h1, h2, h3, h4, h5, h6, p, a {
   font-size: 20px;
 }
 
-.box {
-  display: inline-block;
-  width: 49%;
+.input-group-prepend span {
+  height: 40px;
+}
+
+@media (max-width: 540px) {
+  .row {
+    margin-left: 0;
+  }
+}
+
+.newsletter {
+  background-color: pink;
+  margin-top: 3vh;
+  border-radius: 50px;
+  padding-bottom: 3vh;
+}
+
+.newsletter h2 {
+  text-align: center;
+  padding: 1rem;
+  font-size: 18px;
+}
+
+.newsletter form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  text-align: center;
+}
+
+.newsletter form input {
+  border: 1px solid #ced4da;
+  color: #495057;
+  padding: .375rem .75rem;
+  border-radius: .25rem 1.25rem;
+  margin: 5px;
+}
+
+.newsletter form button {
+  background-color: white;
+  margin: 5px;
+  border-color: #777777;
+  border-radius: 20px;
+  font-size: 18px;
+  padding: 10px;
+  -webkit-transition: padding 1s, -webkit-transform 1s;
+  transition: padding 1s, -webkit-transform 1s;
+  transition: padding 1s, transform 1s;
+  transition: padding 1s, transform 1s, -webkit-transform 1s;
+}
+
+.newsletter form button:hover {
+  background-color: #777777;
+  -webkit-transform: rotate(360deg);
+          transform: rotate(360deg);
 }
 
 .carouselbox {
@@ -642,8 +702,7 @@ h1, h2, h3, h4, h5, h6, p, a {
 }
 
 .carouselbutton input {
-  height: 5vh;
-  width: 5vw;
+  padding: 10px 15px 10px 15px;
   font-size: 16px;
   cursor: pointer;
   border-radius: 80px;
@@ -652,12 +711,8 @@ h1, h2, h3, h4, h5, h6, p, a {
 }
 
 @media (max-width: 411px) {
-  .box {
-    padding: 5vw;
-    width: 90%;
-  }
   .carouselbox {
-    padding: 0;
+    padding: 1vh;
     width: 100%;
     display: -webkit-box;
     display: -ms-flexbox;
@@ -695,35 +750,14 @@ h1, h2, h3, h4, h5, h6, p, a {
   .cardcheckbox {
     opacity: 0;
   }
-  .cardcheckbox,
-  .cardcheckbox:checked {
+  .cardcheckbox, .cardcheckbox:checked {
     opacity: 1;
     position: absolute;
     top: 85%;
     left: 47%;
   }
-  .carouselbutton {
-    margin: 20px 0 50px 0;
-    text-align: center;
-  }
-  .carouselbutton input {
-    height: 5vh;
-    width: 25vw;
-    font-size: 16px;
-    border-radius: 80px;
-    cursor: pointer;
-    background-color: white;
-    border: 1px solid darkgreen;
-  }
 }
 
-/* Change background color of buttons on hover */
-/* .tab button:hover {
-  background-color: rgb(151, 147, 147)151, 147, 147);
-} */
-/* Create an active/current tablink class */
-/* Style the tab content */
-/* Fade in tabs */
 @-webkit-keyframes fadeEffect {
   from {
     opacity: 0;
@@ -744,10 +778,31 @@ h1, h2, h3, h4, h5, h6, p, a {
 
 .createblog {
   margin-top: 10vh;
+  margin-bottom: 10vh;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+}
+
+.createblog label {
+  margin-top: 1vh;
+}
+
+.createblog button {
+  margin-top: 2vh;
+}
+
+.deleteblog {
+  margin-top: 10vh;
+  margin-right: 10vw;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+
+.deleteblog h3 {
+  margin-right: 1vw;
 }
 
 .forgotpwd {
@@ -779,22 +834,26 @@ h1, h2, h3, h4, h5, h6, p, a {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  width: 30%;
   padding-bottom: 2vh;
 }
 
 .editdeletebutton {
-  height: 30px;
   margin-right: 2vw;
 }
 
 .editdeletebutton button {
-  height: 5vh;
   width: 5vw;
+  padding: 1vh 0 1vh 0;
   font-size: 16px;
   border-radius: 80px;
+  text-align: center;
   background-color: white;
   border: 1px solid darkgreen;
+  margin-top: 0.6vh;
+}
+
+.editdeletebutton button:hover {
+  background-color: green;
 }
 
 .registrationpage {
@@ -812,6 +871,14 @@ h1, h2, h3, h4, h5, h6, p, a {
   padding: 2vh;
 }
 
+.regform button {
+  border: 1px solid green;
+  margin-left: 34vh;
+  background: white;
+  border-radius: 5px;
+  padding: 10px;
+}
+
 .formcontent {
   padding: 2vh;
   margin-left: 25vh;
@@ -821,12 +888,8 @@ h1, h2, h3, h4, h5, h6, p, a {
   height: 2em;
 }
 
-.regform button {
-  border: 1px solid green;
-  margin-left: 34vh;
-  background: white;
-  border-radius: 5px;
-  padding: 10px;
+.formcontent p {
+  margin-left: 40px;
 }
 
 @media (max-width: 417px) {
@@ -835,11 +898,32 @@ h1, h2, h3, h4, h5, h6, p, a {
   }
   .formcontent {
     padding: 2vh;
-    margin-left: 0vh;
+    margin-left: 3vh;
   }
   .regform button {
-    margin-left: 5vh;
+    margin-left: 12vh;
   }
+}
+
+.newpwd {
+  width: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.newpwd h2 {
+  margin: 5vh 0 0 5vh;
+}
+
+.newpwd .pwd {
+  margin: 25px;
+}
+
+.newpwd .pwd button {
+  background-color: white;
+  border: 1px solid green;
+  border-radius: 10px;
 }
 
 /*--------------------------------------------------------------
@@ -862,23 +946,6 @@ h1, h2, h3, h4, h5, h6, p, a {
 .footer-top {
   padding: 60px 0 30px 0;
   background: #e6e6e6;
-}
-
-.content {
-  margin-left: 25vh;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-@media (max-width: 414px) {
-  .content {
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
-    margin-left: 20px;
-  }
 }
 
 .footer .footer-top .footer-contact {

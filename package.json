@@ -17,6 +17,10 @@
   },
   "homepage": "https://github.com/JatinGupta40/blog#readme",
   "devDependencies": {
-    "gulp": "^4.0.2"
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^8.0.0",
+    "gulp-imagemin": "^5.0.3",
+    "gulp-sass": "^5.0.0",
+    "sass": "^1.42.1"
   }
 }
