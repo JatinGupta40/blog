@@ -33,16 +33,16 @@ $result = $conn->query($sql);
 
 ?>
          <div class="blogbox">
-               <h2><?php echo strtoupper($heading);?></h2>
-               <p><?php 
-                  { $content = substr($content,0,150);
-                     echo $content; 
-                     // echo $i;
-                  }
-                  ?>
-               </p>
-               <p><a href="article.php?Heading=<?php echo $heading; ?>&id=<?php echo $id;?>">Read More</a></p>
-         </div>
+          <h2><?php echo strtoupper($heading);?></h2>
+            <p><?php 
+                { $content = substr($content,0,150);
+                  echo $content; 
+                }
+              ?>
+          </p>
+          <p><a href="article.php?Heading=<?php echo $heading; ?>&id=<?php echo $id;?>">Read asdasdasdasd</a></p>
+        </div>
+
 <?php
          }
    }
