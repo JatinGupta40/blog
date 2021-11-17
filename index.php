@@ -92,7 +92,7 @@ else
                 }
               ?>
           </p>
-          <p><a href="article.php?Heading=<?php echo $heading; ?>&id=<?php echo $id;?>">Read More</a></p>
+          <p><a href="article.php?Heading=<?php echo $heading; ?>&id=<?php echo $id;?>">Read asdasdasdasd</a></p>
         </div>
 <?php
          }
