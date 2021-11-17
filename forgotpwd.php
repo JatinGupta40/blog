@@ -83,10 +83,13 @@
     }
     
     
+
+    
+    
 ?>
 
 <div>
-    <form class="forgotpwd" method="POST";>
+    <form class="form container forgotpwd" method="POST";>
     <label>Please Enter Your Registered Email Id :</label>
     <input class="<?php if(isset($a['email'])) : ?>input-error<?php endif; ?>" type="email" name="email" placeholder="abc@mail.com"></input>
     <button type="submit" name="submit">Submit</button>

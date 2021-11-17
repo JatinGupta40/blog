@@ -1,4 +1,4 @@
-<?php include 'header.php'; 
+<?php include './header.php'; 
 
 include("connection.php"); 
 
@@ -124,45 +124,45 @@ include("connection.php");
 if (isset($errors)) {
    if (count($errors) > 0) {
       foreach ($errors as $key => $value) {
-         echo '<div class="warning">' . $value . '</div>';
+         echo '<div class="alert alert-danger">' . $value . '</div>';
       }
    }
 }
 ?>
    <div class="registrationpage">
-      <article class="regform">
-         <form method="POST">
-            <h2><u>Create Account</u></h2>
+      <article class="form">
+         <h4 class="">Create Account</h4>
+            <form method="POST">
                <div class="formcontent">
-                   <i class="fa fa-user"></i>
-                   <input type="text" name="fname" placeholder = "First Name" class=" <?php if (isset($errors['fname'])) : ?> input-error<?php endif ; ?>" value="<?php if (isset($_POST['fname'])) { echo $fname; } ?>">
+                <i class="fa fa-user"></i>
+                <input type="text" name="fname" placeholder = "First Name" class=" <?php if (isset($errors['fname'])) : ?> input-error<?php endif ; ?>" value="<?php if (isset($_POST['fname'])) { echo $fname; } ?>">
                </div>
-            
-               <div class="formcontent">
-                  <i class="fa fa-user"></i> 
-                  <input type="text" name="lname" placeholder = "Last Name" class=" <?php if (isset($errors['lname']) || isset($errors['lname'])): ?>input-error<?php endif; ?>" value="<?php if (isset($_POST['lname'])) { echo $lname; } ?>">
-               </div>
-            
-               <div class="formcontent">
-                  <i class="fa fa-user"></i>
-                  <input type="text" name="email" placeholder = "xzy@gmail.com" class=" <?php if (isset($errors['check']) || isset($errors['email'])): ?>input-error<?php endif; ?>" value="<?php if (isset($_POST['email'])) { echo $email; } ?>">
-               </div>
-         
-               <div class="formcontent">
-                  <i class="fa fa-lock"></i>
+               <!-- form-group// -->
+               <div class="">
+               <i class="fa fa-user"></i> 
+               <input type="text" name="lname" placeholder = "Last Name" class=" <?php if (isset($errors['lname']) || isset($errors['lname'])): ?>input-error<?php endif; ?>" value="<?php if (isset($_POST['lname'])) { echo $lname; } ?>">
+            </div>
+            <!-- form-group// -->
+            <div class="">
+            <i class="fa fa-user"></i>
+               <input type="text" name="email" placeholder = "xzy@gmail.com" class=" <?php if (isset($errors['check']) || isset($errors['email'])): ?>input-error<?php endif; ?>" value="<?php if (isset($_POST['email'])) { echo $email; } ?>">
+            </div>
+         <!-- form-group// -->
+            <div class="">
+               <i class="fa fa-lock"></i>
                   <input type="password" name="password" placeholder = "*****" class="<?php if (isset($errors['check']) || isset($errors['pass'])): ?>input-error<?php endif; ?>" value="<?php if (isset($_POST['pass'])) {  echo $pass; } ?>">
-               </div>
-            
-               <div class="formcontent">
-                  <i class="fa fa-lock"></i>
+            </div>
+            <!-- form-group// -->
+            <div class="">
+               <i class="fa fa-lock"></i>
                   <input type="password" name="repassword" placeholder = "*****"  class="<?php if (isset($errors['check']) || isset($errors['pass'])): ?>input-error<?php endif; ?>" value="<?php if (isset($_POST['pass'])) {  echo $pass; } ?>">
-               </div>
-            
+            </div>
+            <!-- form-group// -->   
+            <div class="form-group">
                <button type="submit" name="submit" class="" >Create Account</button>
-            
-               <div class="formcontent">      
-                  <p class="text-center">Have an account? <a class="" style="cursor:pointer;" href="login.php"><u><b>Login <b></u></a></p>
-               </div>
+            </div>
+            <!-- form-group// -->      
+            <p class="text-center">Have an account? <a class="" style="cursor:pointer;" href="login.php"><u><b>Login <b></u></a></p>
          </form>
       </article>
    </div>

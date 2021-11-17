@@ -1,33 +1,22 @@
 <?php 
 include './header.php';
 include ("connection.php");
-
-   // Getting id of blog
-   $a = $_GET['id']; 
+//session_start();
+// if(empty($_GET['id']))
+// {
+   $a = $_GET['id'];
+   //echo $a;
+// }
+// // else{
+//    echo$_GET['content'];
+// }
 
 ?>
 
 <!-- blogs content start -->
 <div class="blogbox">
-         <?php //fetching heading and content using heading value     
-         
-         // Fetching the id and image from carousel
-            // $sql1 = "select * from carousel";
-            // $result1 = mysqli_query($conn,$sql1);
+         <?php //fetching heading and content using heading value           
             
-            // if($result1->num_rows > 0)
-            //    {
-            //       //print_r($result1);
-            //       while ($row1 = mysqli_fetch_assoc($result1))
-            //       {
-            //          $userid = $row1['userid'];
-            //          $image = $row1['image'];
-            //          //print_r($userid);
-            //          //print_r($image);
-            //       }
-            //    }
-            
-            // echo $a;
             $sql = "select * from blog where id='$a'";
             $result = mysqli_query($conn,$sql);
             {
@@ -40,7 +29,6 @@ include ("connection.php");
                      $id = $row['id'];
                      $title = $row['Heading'];
                      $content = $row['content'];
-                     $logo = $row['image'];
                      //print_r($content);
                   }
                }
@@ -50,8 +38,8 @@ include ("connection.php");
          
          
          ?>
-         <h2>Analytics</h2 >
-         <img class="blogimage"  src="images/<?php echo $logo; ?>" alt="image" >
+         <h2>Analytics</h2>
+         <img class="blogimage"  src="images/analyticblog.jpeg" alt="Responsive image" >
          <p><?php echo $content;?></p>
       </div>
       <!-- blogs content END -->
