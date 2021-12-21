@@ -21,13 +21,13 @@ class newsletter extends connection
   }
   
   // Updating UnSubscribe.
-  public function updateunsubscribe($email)
+  public function updateUnSubscribe($email)
   {
     $result = mysqli_query($this->connection,"UPDATE newsletter SET subscribe = FALSE where emailid = '$email'");
     return $result;
   }  
   // Updating Subscription.
-  public function updatesubscribe($email)
+  public function updateSubscribe($email)
   {
     $result = mysqli_query($this->connection,"UPDATE newsletter SET subscribe = TRUE WHERE emailid = '$email'");
     return $result;

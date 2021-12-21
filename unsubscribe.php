@@ -14,7 +14,7 @@
       $email = $newsletter->id($id);
       $email = mysqli_fetch_array($email);
       $email = $email['emailid'];
-      $unsubscribe = $newsletter->updateunsubscribe($email);
+      $unsubscribe = $newsletter->updateUnSubscribe($email);
     }
     else
     {

@@ -41,19 +41,34 @@
 
   <!-- Vendor JS Files -->
   
-  <script src="/assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/bootstrap.bundle.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="assets/vendor/waypoints/noframework.waypoints.js"></script> 
+  <script src="/assets/vendor/bootstrap/js/bootstrap.js"></script>
+  <script src="/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+  <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
   <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="/assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-  <script src="/assets/vendor/php-email-form/validate.js"></script>
-  <script src="/assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="/assets/vendor/waypoints/noframework.waypoints.js"></script> 
+ 
+
   
 
   <!-- Template Main JS File -->
   <script src="/assets/js/main.js"></script> 
+  
   <!-- without this file website is not getting opened and just showing the loading icon -->
 
+  <script type="text/javascript">
+    function getOption() {
+        selectElement = document.querySelector('.select1');
+        output = selectElement.value;
+        document.querySelector('.output').textContent = output;
+    }
+</script>
 
 </body>
 

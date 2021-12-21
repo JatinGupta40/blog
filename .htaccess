@@ -10,10 +10,32 @@ RewriteRule ^(.*)$ $1.php
 RewriteCond %{THE_REQUEST} "^[^ ]* .*?\.php[? ].*$"
 RewriteRule .* - [L,R=404] 
 
+# Adding en in the URL.
+RewriteRule ^(.*)/index/?$ index.php
+RewriteRule ^(.*)/personalisedcarousel/?$ personalisedcarousel.php
+RewriteRule ^(.*)/blogslogin/?$ blogslogin.php
+RewriteRule ^(.*)/createblog/?$ createblog.php
+RewriteRule ^(.*)/login/?$ login.php
+RewriteRule ^(.*)/register/?$ register.php
+RewriteRule ^(.*)/logout/?$ logout.php
+RewriteRule ^(.*)/forgotpwd/?$ forgotpwd.php
+RewriteRule ^(.*)/newpwd/?$ newpwd.php
+RewriteRule ^(.*)/search/?$ search.php
+RewriteRule ^(.*)/unsubscribe/?$ unsubscribe.php
+RewriteRule ^(.*)/updatepwd/?$ updatepwd.php
+RewriteRule ^(.*)/uploadedimages/?$ uploadedimages.php
+RewriteRule ^(.*)/dashboard/?$ dashboard.php
+
+
+
 # Removing ? , id, heading etc from URL
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-l
-RewriteRule ^article/(.+)/(.+)/?$ article.php?id=$1&Heading=$2
-RewriteRule ^editblog/(.+)/?$ editblog.php?id=$1
-RewriteRule ^deleteblog/(.+)/(.+)/?$ deleteblog.php?id=$1&Heading=$2
+RewriteRule ^(.*)/article/(.+)/(.+)/?$ article.php?id=$2&Heading=$3
+RewriteRule ^(.*)/createblog/(.+)/?$ createblog.php?prefix=$2
+RewriteRule ^(.*)/createblog/(.+)/?$ createblog.php?id=$2
+RewriteRule ^(.*)/editblog/(.+)/?$ editblog.php?id=$2
+RewriteRule ^(.*)/deleteblog/(.+)/(.+)/?$ deleteblog.php?id=$2&Heading=$3
+RewriteRule ^(.*)/search/(.+)/?$ search.php?search=$2
+
 # + in the above line means that you can use multiple aphates and numbers (jatin, 45).

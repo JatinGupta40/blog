@@ -4,18 +4,20 @@
   require_once ($_SERVER['DOCUMENT_ROOT'] .'/classes/blog.php');
   require_once ($_SERVER['DOCUMENT_ROOT'] .'/classes/method.php');
   require_once ($_SERVER['DOCUMENT_ROOT'] .'/classes/newsletter.php');
+  require_once ($_SERVER['DOCUMENT_ROOT'] .'/classes/language.php');
 
     $blog = new blogQuery\blog;
     $user = new userQuery\user;
     $method = new methodQuery\method;
     $newsletter = new newsletterQuery\newsletter;
+    $language = new languageQuery\language;
 
-    $a = $_SESSION['fname'];
-    $id = $_SESSION['id'];
-    
     use PHPMailer\PHPMailer\PHPMailer;
     use PHPMailer\PHPMailer\SMTP;
     use PHPMailer\PHPMailer\Exception;
+    
+    $a = $_SESSION['fname'];
+    $id = $_SESSION['id'];
     
     // From Validation 
     
@@ -51,7 +53,6 @@
         $cleanurl == null;
       }
       
-
       $errors = array();
       if($heading == null) 
       {
@@ -61,14 +62,30 @@
       {
         $errors['content'] = 'Content is required.';
       }
-
-
+      // If heading and content is empty or not, it will add to the DB.
       if(!empty($_POST['heading']) && !empty($_POST['content']))
       {
         // Inserting into DB.
-        echo $id, $heading, $content, $cleanurl;
-        $result = $blog->insertBlog($id, $heading, $content, $cleanurl);
-        //print_r($result->);
+        if($_GET['lang'])
+        {
+          $prefixlang = $_GET['lang'];
+        }
+        else
+        {
+          $prefixlang = $_COOKIE['cookiename'];
+        }
+        
+        // If blogid is there(from translation)
+        if($_GET['id'])
+        {
+          $blogid = $_GET['id'];
+          $result = $blog->insertBlogID($id, $blogid, $prefixlang, $heading, $content, $cleanurl);
+        }
+        else
+        {
+          $result = $blog->insertBlog($id, $prefixlang, $heading, $content, $cleanurl);
+        }
+
         // Send mail to the subscribed user.
         $subscribe = $newsletter->mail();
         // Fetching the id for this new uploaded blog.
@@ -79,7 +96,7 @@
           $row = $method->fetchArray($query);
           $id = $row['id'];
         } 
-        
+        // For Newsletter, Each time user add blog, email will go the subscribed users regarding the added blog.
         while($email = $method->fetchAssoc($subscribe))
         { 
           $userid = $email['id'];
@@ -105,10 +122,9 @@
           $mail->Subject  =  'NEW POST';
           $mail->IsHTML(true);
           $mail->Body = 'Click On This Link to Reset Password '.$link.'. '.$unsubscribe.'';
-          
           $mail->Send();
         }
-        //header('location:blogslogin');
+      //header("Location:/".$_COOKIE['cookiename']."/blogslogin"); 
       }
       // Displaying Error message.
       if (isset($errors)) {
@@ -118,22 +134,34 @@
             }
          }
       }
-      
-        
     }
 ?>
-
+    
+    <div class="container languageoption">
+      <h5>Now you can add your Blog in different languages also - </h5>
+      <?php 
+        $lang = $language->allLang();
+        while($row = $lang->fetch_assoc())
+        {
+          $prefix = $row['prefix'];
+      ?>
+          <ul><li><a href="<?php echo $_COOKIE['cookiename']; ?>/createblog<?php if($_GET['id']){ echo "/".$_GET['id']; }?>?lang=<?php echo $prefix ?>"><?php echo "- ",$row['Name'];?></a></li></ul>  
+      <?php
+        }
+      ?>
+    </div>
+ 
 <div class="container d-flex align-items-center createblog">
   <form method="POST" style="width:50%">
-    <h3 class="form-caption">Edit Article</h3>
+    <h3 class="form-caption">Add Article</h3>
     <hr>
     <div class="form-group">
       <label>Title/Heading</label>
-      <input type="title" name="heading" class="form-control <?php if(isset($errors['heading'])) : ?> input-error<?php endif ; ?>" value="<?php if (isset($_POST['heading'])) { echo $heading; } ?>">
+      <input type="title" name="heading" class="form-control <?php if(isset($errors['heading'])) : ?> input-error<?php endif ; ?>" value="<?php echo $heading; ?>" placeholder="Heading">
     </div>
     <div class="form-group">
       <label for="">Content</label>
-      <textarea type="content" name="content" rows="8" class="form-control <?php if(isset($errors['heading'])) : ?> input-error<?php endif ; ?>" value="<?php if (isset($_POST['content'])) { echo $content; } ?>"></textarea>
+      <textarea type="content" name="content" rows="8" class="form-control <?php if(isset($errors['content'])) : ?> input-error<?php endif ; ?>" value="<?php echo $content; ?>" placeholder="Content"></textarea>
     </div>
     <div class="form-group">
       <label>Custom Clean URL :</label>

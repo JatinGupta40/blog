@@ -6,17 +6,31 @@ require_once ($_SERVER['DOCUMENT_ROOT'] .'/classes/carousel.php');
 require_once ($_SERVER['DOCUMENT_ROOT'] .'/classes/user.php');
 require_once ($_SERVER['DOCUMENT_ROOT'] .'/classes/method.php');
 require_once ($_SERVER['DOCUMENT_ROOT'] .'/classes/newsletter.php');
+require_once ($_SERVER['DOCUMENT_ROOT'] .'/classes/language.php');
+require_once ($_SERVER['DOCUMENT_ROOT'] .'/model/stringmodel.php');
+
 
 $blog = new blogQuery\blog;
 $carousel = new carouselQuery\carousel;
 $user = new userQuery\user;
 $method = new methodQuery\method;
 $newsletter = new newsletterQuery\newsletter;
+$language = new languageQuery\language;
+$stringmodel = new stringQuery\stringmodel;
 
 // Carousel.
 $result1 = $carousel->carousel("SELECT * FROM carousel");
 
-?>
+// Checking if the cache is already been set or not, so that the cache will not be made each time user comes to this home page.
+// Cookie is set for #30 days and "/" refers here that this cookie is availale for all the website pages.
+if($_COOKIE['cookiename'] == "")
+{
+  setcookie('cookiename',$cookiename,time() + (86400 * 30), "/");
+}
+else
+{
+}
+?>  
 
 <!-- Carousel Start -->
 
@@ -81,12 +95,12 @@ if(isset($_SESSION['loggedin']))
     }
     if(isset($_POST['usersubscribe']))
     {
-      $unsubscribe = $newsletter->updatesubscribe($email);
+      $unsubscribe = $newsletter->updateSubscribe($email);
       echo '<div class="alert alert-success"><b>Thank You for Subscribing again !.</b></div>'; 
     }
     if(isset($_POST['userunsubscribe']))
     {
-      $unsubscribe = $newsletter->updateunsubscribe($email);
+      $unsubscribe = $newsletter->updateUnSubscribe($email);
       echo '<div class="alert alert-success"><b>You are successfully Un-Subscribed for Newsletter.</b></div>'; 
     }
   }
@@ -140,7 +154,7 @@ if(isset($_SESSION['loggedin']))
             if($method->numRows($newsletterquery) < 1)
             { 
         ?>
-              <button type = "submit" name="subscribe">Subscribe</button>  
+              <button class="row-sm-6 btn" type = "submit" name="subscribe">Subscribe</button>  
         <?php
             }
             // If user details are there in the subscribe table.
@@ -151,13 +165,13 @@ if(isset($_SESSION['loggedin']))
               if($row['subscribe'] == 1)
               {
         ?> 
-                <button type = "submit" name="userunsubscribe"><b>Un-Subscribe</b></button>
+                <button class="row-sm-6 btn" type = "submit" name="userunsubscribe"><b>Un-Subscribe</b></button>
         <?php
               }
               else
               {
         ?>
-                <button type = "submit" name="usersubscribe"><b>Subscribe</b></button>
+                <button class="row-sm-6 btn" type = "submit" name="usersubscribe"><b>Subscribe</b></button>
         <?php
               }
             }
@@ -168,7 +182,7 @@ if(isset($_SESSION['loggedin']))
         ?>
         <div class="col">
           <input type= "text" class="row-sm-6 <?php if (isset($errors['newsletteremail'])) : ?>input-error<?php endif; ?>" name="newsletteremail" value="" placeholder="xyz@gmail.com">
-          <button class="row-sm-6" type="submit" name="subscribe">Subscribe</button>
+          <button class="row-sm-6 btn" type="submit" name="subscribe">Subscribe</button>
         </div>
         <?php         
           }
@@ -206,45 +220,111 @@ if(isset($_SESSION['loggedin']))
   // Number of blogs to be shown on a single page. For Pagination.
   $no_of_records_per_page = 5;  
   $offset = ($pageno-1) * $no_of_records_per_page;
-
+  
   // Counting the number of blogs user have of his own
   $result = $blog->countAllBlog(); 
   $total_rows = $method->fetchArray($result)[0];
-
   // CEIL is used to roundoff.
   $total_pages = ceil($total_rows / $no_of_records_per_page);
-  $result = $blog->fetchBlogPaging($offset, $no_of_records_per_page);
-  
-  if($result->num_rows > 0)
-  {
-    while ($row = $method->fetchAssoc($result))
-    {
-      $id = $row['id'];
-      $heading = $row['Heading'];
-      $content=$row['content'];
+  // Fetching blogs of language whose prefix is available in cookie.
+  $ck = $_COOKIE['cookiename'];
+  $result = $blog->fetchBlogPaging($ck, $offset, $no_of_records_per_page);
 ?>
-      <div class="blogbox">
-        <h2><?php echo strtoupper($heading);?></h2>
-        <p>
-        <?php 
-        { 
-          // Showing only 150  words from content of blog.
-          $content = substr($content,0,150);
-          echo $content; 
-        }
+
+  <!-- Displaying all the Blogs. -->
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <?php
+        if($result->num_rows > 0)
+        {
+          while ($row = $method->fetchAssoc($result))
+          {
+            $id = $row['id'];
+            $heading = $row['Heading'];
+            $content=$row['content'];
         ?>
-        </p>
-        <p><a href="article?Heading=<?php echo $heading; ?>&id=<?php echo $id;?>">Read More</a></p>
+            <div class="blogbox">
+              <h2><?php echo strtoupper($heading);?></h2>
+              <p>
+        <?php 
+              // Showing only 150  words from content of blog.
+              $content = substr($content,0,150);
+              echo $content; 
+        ?>
+              </p>
+              <p><a href="<?php echo $_COOKIE['cookiename']; ?>/article/<?php echo $id;?>/<?php echo $heading; ?>"><?php $stringmodel->stringTranslate('Read More'); ?></a></p>
+            </div>
+        <?php
+          }
+        ?>  
       </div>
-<?php
-    }
-  }
-  else
-  {
-    echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
-      <strong>There are no posts added</strong> .</div>';
-  }
-?>
+      
+     
+      <!-- Listing all the available languages. -->
+      <div class="col-md-4">
+        <div class="languagemenu">
+          <form action = "/langsubmit" method = "POST">
+            <label class="m-lg-2"><b><u>Change Language :</u></b></label>
+        <?php 
+            $lang = $language->allLang();
+            while($row = $lang->fetch_assoc())
+            { 
+              $prefix = $row['prefix'];
+        ?>
+              <ul>
+                <li> 
+                  <input type="submit" name="lang" class="btn btn-primary btn-md" value = "<?php echo $row['Name']," "; ?>"></input>
+                </li>
+              </ul>  
+        <?php
+            }
+        ?>
+          </form>
+        </div>
+      </div>
+      <?php
+        }
+        else
+        {
+      ?>    
+          <div class="col-md-8">
+      <?php
+          echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+          <strong>There are no posts added</strong> .</div>';
+      ?>  
+      </div>
+      <!-- Listing all the available languages. -->
+      <div class="col-md-4">
+        <div class="languagemenu">
+          <form action = "/langsubmit" method = "POST">
+        <?php 
+            $lang = $language->allLang();
+            while($row = $lang->fetch_assoc())
+            { 
+              $prefix = $row['prefix'];
+
+        ?>
+              <ul>
+                <li> 
+                  <input type="submit" name="lang" class="btn btn-primary btn-md" value = "<?php echo $row['Name']," "; ?>"></input>
+                </li>
+              </ul>  
+        <?php
+            }
+        ?>
+          </form>
+        </div>
+      </div>
+      <?php      
+          
+        }
+
+      ?>
+    </div>
+  </div>
+
+
   <div class="paging">
     <ul>
       <li><a href="?pageno=1">First</a></li>

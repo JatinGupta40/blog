@@ -3,49 +3,74 @@
 require_once ($_SERVER['DOCUMENT_ROOT'] .'/header.php');
 require_once ($_SERVER['DOCUMENT_ROOT'] .'/classes/blog.php');
 require_once ($_SERVER['DOCUMENT_ROOT'] .'/classes/method.php');
+require_once ($_SERVER['DOCUMENT_ROOT'] .'/classes/language.php');
 
 $blog = new blogQuery\blog;
 $method = new methodQuery\method;
+$language = new languageQuery\language;
 
   // Getting id of blog.
   $id = $_GET['id']; 
+  echo $cookiename;
 ?>
-  <!-- Blogs content start. -->
 
-  <div class="blogbox">
-  <?php 
-    // Getting field DB table.     
-    $result = $blog->blogById($id);
-    {
-      if($result->num_rows > 0)
-      {
-        // Fetching details from blog table with respect to blog-id.
-        while ($row = $method->fetchArray($result))
+
+<div class="container languageoption">
+      <h5>Now you can add your Blog in different languages also - </h5>
+      <?php 
+        $lang = $language->allLang();
+        while($row = $lang->fetch_assoc())
         {
-          $id = $row['id'];
-          $title = $row['Heading'];
-          $content = $row['content'];
-          $logo = $row['image'];
+          $prefix = $row['prefix'];
+      ?>
+          <ul><li><a href="<?php echo $_COOKIE['cookiename']; ?>/createblog?id=<?php echo $id;?>&lang=<?php echo $prefix ?>"><?php echo "- ",$row['Name'];?></a></li></ul>  
+      <?php
         }
-      }
-    }
-  ?>
-    <h2><?php echo $title; ?></h2>
-    <?php
-      // Checking if the user has uploaded any image or not.
-      if ($logo == "")
-      {
+      ?>
+    </div>
+  
+  <!-- Blogs content start. -->
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <?php 
+        // Getting field DB table.     
+        $result = $blog->blogById($id);
+        {
+          if($result->num_rows > 0)
+          {
+          // Fetching details from blog table with respect to blog-id.
+            while ($row = $method->fetchArray($result))
+            {
+              $id = $row['id'];
+              $title = $row['Heading'];
+              $content = $row['content'];
+              $logo = $row['image'];
+            }
+          }
+        }
+        ?>
+        <div class="blogbox">
+          <h2><?php echo $title; ?></h2>
+          <?php
+            // Checking if the user has uploaded any image or not.
+            if ($logo == "")
+            {
 
-      }
-      else 
-      {
-    ?>
-        <img class="blogimage"  src="images/<?php echo $logo; ?>" alt="image" >
-    <?php
-      }
-    ?>
-    <p><?php echo $content;?></p>
+            }
+            else 
+            {
+          ?>
+              <img class="blogimage"  src="images/<?php echo $logo; ?>" alt="image" >
+          <?php
+            }
+          ?>
+              <p><?php echo $content;?></p>
+        </div>
+      </div>
+    </div>
   </div>
+      
    
   <!-- Blogs content END -->
   <div class="blogcommentsection">

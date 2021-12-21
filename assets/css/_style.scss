@@ -302,9 +302,7 @@ h1, h2, h3, h4, h5, h6, p, a {
   border-bottom: 1px solid $blogbox; 
   border-radius: 5px; 
   margin-top:30px; 
-  margin-left: 8vw; 
-  margin-right: 8vw;
-
+  
   h2
   {
     margin-bottom:10px;
@@ -318,14 +316,43 @@ h1, h2, h3, h4, h5, h6, p, a {
   a 
   {
     margin-bottom: 50px;
-    color: #0000ff !important ;
+    color: $blue !important ;
   } 
   a:hover
   {
-    color: brown !important;
+    color:$brown !important;
   }
 }
  
+.languagemenu
+{
+  margin-top: 30px;
+  border-radius: 5px;
+  background: $langmenuback;  
+  padding: 25px 0 25px 0;
+  width: 50%;
+  float: right;
+  input
+  {
+    padding: 0 0 0 5px; 
+    background-color: $langred;   
+  }
+}
+
+.languageoption 
+{
+  margin-top: 50px;
+  background: $langmenuback;
+  border-radius: 5px;
+  padding: 15px 0 0 0;
+  ul
+  {
+    white-space:nowrap; 
+    display: inline-block;
+    list-style-type: none;
+    text-align: center;
+  }
+}
 
 .blogcontent
 { 
@@ -428,9 +455,7 @@ h1, h2, h3, h4, h5, h6, p, a {
 .success
 {
   background-color: $success;
-  //border-color: #c3e6cb;
   height: 1rem;
-  /* border-color: 1px solid green; */
   padding: 13px;
   
 }
@@ -642,12 +667,10 @@ touch-action: pan-y;
     button
     {
       background-color:$bg;
-      //width: 15%;
       margin: 5px;
       border-color: $footula;
       border-radius: 20px;
       font-size: $footer18;
-      padding: 10px;
       transition: padding 1s, transform 1s;
     }
     button:hover
@@ -657,8 +680,6 @@ touch-action: pan-y;
     }
   }
 }
-
-
 // carousel ends
 
 // Carousel Uploaded Images.
@@ -805,9 +826,6 @@ touch-action: pan-y;
 .deleteblog
 {
   margin-top: 10vh;
-  //margin-left: 10vw;
-  margin-right: 10vw;
-  display: inline-flex;
   h3
   {
     margin-right: 1vw;
@@ -850,11 +868,11 @@ touch-action: pan-y;
 
 .editdeletebutton
   {
-    margin-right: 2vw;
+    margin-right: 1vw;
   button
     {
-      width: 5vw;
-      padding: 1vh 0 1vh 0;
+      width: 8vw;
+      padding: 1vh;
       font-size: $size;
       border-radius: 80px;
       text-align: center;
@@ -906,8 +924,6 @@ touch-action: pan-y;
   }
 }
 
-
-
 @media (max-width:417px){
     .registrationpage{padding: 5% 10% 10% 10%;}
     .formcontent {padding:2vh; margin-left: 3vh;}
@@ -934,6 +950,34 @@ touch-action: pan-y;
   }
 }
 
+.dashboardlanguagebg
+{
+  background-color: $whitegrey;
+  //height: 70vh;
+  padding: 10vh 0 10vh 0;
+  font-size: 1.5rem;
+  ul
+  {
+    display: inline-block;
+    list-style-type: none;
+    color: $dangerred;
+  }
+  .lang
+  {
+    input
+    {
+      width: 30%;
+      margin-bottom: 2vh;
+    }
+  }
+  .editdeletecheckbox
+  {
+    input
+    {
+      margin-bottom: 2vh;
+    }
+  }
+}
 
 /*--------------------------------------------------------------
 # Footer
@@ -1021,7 +1065,7 @@ touch-action: pan-y;
 
 .footer .footer-top .footer-links ul a:hover {
   text-decoration: none;
-  color: #47b2e4;
+  color: $footul;
 }
 
 .footer .footer-top .social-links img {

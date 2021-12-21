@@ -74,7 +74,8 @@
         $res = $blog->updateBlog($title, $content, $cleanurl, $a);
         if ($res === TRUE) 
         {
-          header('Location:/blogslogin');
+          $cookie = $_COOKIE['cookiename'];
+          header('Location:$cookie/blogslogin');
         }
         else 
         {

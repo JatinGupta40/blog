@@ -12,7 +12,7 @@ $user = new userQuery\user;
 $method = new methodQuery\method;
   // Getting id of blog.
   $id = $_GET['id']; 
-  $id = substr($id, strrpos($id, '/') + 1);
+  //$id = substr($id, strrpos($id, '/') + 1);
 ?>
 
 <?php 
@@ -20,11 +20,11 @@ $method = new methodQuery\method;
   if($_POST['submit'] == 'yes')
   {
     $sql = $blog->deleteBlog($id);
-    header('Location:/blogslogin');
+    header("Location:/".$_COOKIE['cookiename']."/blogslogin");
   }
   elseif($_POST['submit'] == "no")
   {
-    header('Location:/blogslogin');  
+    header("Location:/".$_COOKIE['cookiename']."/blogslogin");  
   }
 ?>
 

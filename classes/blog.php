@@ -14,6 +14,13 @@ class blog extends connection
     return $result;
   } 
   
+  // Getting Blogs for Paging.
+  public function fetchBlogPaging($ck, $offset, $no_of_records_per_page)
+  {
+    $result = mysqli_query($this->connection,"select * from blog where language='$ck' ORDER BY id DESC LIMIT $offset, $no_of_records_per_page");
+    return $result;
+  }
+  
   // Getting details from a DB table of a specified user.
   public function blogById($id)
   {
@@ -42,13 +49,21 @@ class blog extends connection
     return $result;
   }
   
-  // Inserting blog.
-  public function insertBlog($id, $heading, $content, $cleanurl)
+  // Inserting blog having blogid.
+  public function insertBlogID($id, $blogid, $lang, $heading, $content, $cleanurl)
   {
-    $result = mysqli_query($this->connection,"INSERT INTO blog (userid, Heading, content, cleanurl) VALUES ('$id', '$heading', '$content', '$cleanurl')");
+    echo "ad",$blogid;
+ //   echo $lang;
+    $result = mysqli_query($this->connection,"INSERT INTO blog (userid, base_blog_id, language, Heading, content, cleanurl) VALUES ('$id', '$blogid', '$lang', '$heading', '$content', '$cleanurl')");
     return $result;
   } 
-  
+
+  // Inserting blog.
+  public function insertBlog($id, $lang, $heading, $content, $cleanurl)
+  {
+    $result = mysqli_query($this->connection,"INSERT INTO blog (userid, language, Heading, content, cleanurl) VALUES ('$id', '$lang', '$heading', '$content', '$cleanurl')");
+    return $result;
+  } 
   // Deleting a blog.
   public function deleteBlog($id)
   {
@@ -71,12 +86,6 @@ class blog extends connection
     return $result;
   }
 
-  // Getting Blogs for Paging.
-  public function fetchBlogPaging($offset, $no_of_records_per_page)
-  {
-    $result = mysqli_query($this->connection,"select * from blog ORDER BY id DESC LIMIT $offset, $no_of_records_per_page");
-    return $result;
-  }
   
 }
   

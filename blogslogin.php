@@ -23,8 +23,8 @@ $method = new methodQuery\method;
     }
 ?>
     <div class="addblog">
-      <h2><a href="createblog">Add Blog</a></h2>
-      <h2><a href="personalisedcarousel">Personalise Carousel</a></h2>
+      <h2><a href="<?php echo $_COOKIE['cookiename']?>/createblog">Add Blog</a></h2>
+      <h2><a href="<?php echo $_COOKIE['cookiename']?>/personalisedcarousel">Personalise Carousel</a></h2>
     </div>
     <hr>
     <div class="myblog">
@@ -47,7 +47,7 @@ $method = new methodQuery\method;
           $content = $row['content'];
           $cleanurl = $row['cleanurl']
       ?>
-          <div class="blogbox">
+          <div class="container blogbox">
             <h3><?php echo $heading; ?></h3>
             <p>
       <?php
@@ -59,14 +59,14 @@ $method = new methodQuery\method;
             <p>
               <div class="editdelete">
                 <div class="editdeletebutton">
-                  <a href="article/<?php echo $id;?>/<?php echo $heading; ?>"><button type="submit" class="" name="submit"> View </button></a>
+                  <a href="<?php echo $_COOKIE['cookiename']; ?>/article/<?php echo $id;?>/<?php echo $heading; ?>"><button type="submit" class="" name="submit"> View </button></a>
                 </div>    
                 <div class="editdeletebutton">
-                  <a href="editblog/<?php echo $id;?>">
+                  <a href="<?php echo $_COOKIE['cookiename']; ?>/editblog/<?php echo $id;?>">
                   <button type="submit"  class="" name="submit"> Edit </button></a>
                 </div>
                 <div class="editdeletebutton">
-                  <a href="deleteblog/<?php echo $id;?>/<?php echo $heading; ?>"><button type="submit" class="" name="submit"> Delete </button></a>
+                  <a href="<?php echo $_COOKIE['cookiename']; ?>/deleteblog/<?php echo $id;?>/<?php echo $heading; ?>"><button type="submit" class="" name="submit"> Delete </button></a>
                 </div>
               </div>  
             </p>
@@ -136,7 +136,7 @@ $method = new methodQuery\method;
           $cleanurl = $row['cleanurl'];
 ?>
           <div class="" style="margin-top:20px;">
-            <div class="blogbox">
+            <div class="container blogbox">
               <h3><?php echo $heading; ?></h3>
                 <p>
                   <?php
@@ -158,15 +158,17 @@ $method = new methodQuery\method;
                   ?>
                   <div class="editdelete">
                     <div class="editdeletebutton">
-                      <a href="article/<?php echo $id; ?>/<?php echo $heading; ?>"><button type="submit" class="" name="submit"> View </button></a>
+                      <a href="<?php echo $_COOKIE['cookiename']; ?>/createblog/<?php echo $id; ?>"><button type="submit" class="" name="submit"> Translate </button></a>
+                    </div>  
+                    <div class="editdeletebutton">
+                      <a href="<?php echo $_COOKIE['cookiename']; ?>/article/<?php echo $id; ?>/<?php echo $heading; ?>"><button type="submit" class="" name="submit"> View </button></a>
                     </div>    
                     <div class="editdeletebutton">
-                      <?php echo '<a href="/editblog/' . $id .'"</a>'?>
-                                          
-                      <button type="submit"  class="" name="submit"> Edit </button></a>
+                      <a href="<?php echo $_COOKIE['cookiename']; ?>/editblog/<?php echo $id ?>">                    
+                      <button type="submit" class="" name="submit"> Edit </button></a>
                     </div>
                     <div class="editdeletebutton">
-                      <a href="deleteblog/<?php echo $id;?>/<?php echo $heading; ?>"><button type="submit" class="" name="submit"> Delete </button></a>
+                      <a href="<?php echo $_COOKIE['cookiename']; ?>/deleteblog/<?php echo $id;?>/<?php echo $heading; ?>"><button type="submit" class="" name="submit"> Delete </button></a>
                     </div>
                   </div>
                 </p>
