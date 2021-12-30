@@ -27,13 +27,20 @@ class language extends connection
   }
   
   // Adding New Language.
-  public function addLang($name, $prefix)
+  public function addLang($name, $languagedirection, $prefix)
   {
-    $result = mysqli_query($this->connection,"INSERT INTO language(Name, prefix, lang_default) VALUE ('$name', '$prefix', '0')");
+    $result = mysqli_query($this->connection,"INSERT INTO language(Name, languagedirection, prefix, lang_default) VALUE ('$name', '$languagedirection', '$prefix', '0')");
     return $result;
   }
     
-     
+  // Checking Language direction via cookie.
+  public function checkLangDirection($cookiename)
+  {
+    $result = mysqli_query($this->connection,"SELECT languagedirection from language where prefix = '$cookiename'");
+    return $result;
+  }
+    
+        
 }
   
 

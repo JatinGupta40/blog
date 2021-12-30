@@ -322,6 +322,10 @@ h1, h2, h3, h4, h5, h6, p, a {
   color: #964B00 !important;
 }
 
+.rtlright ul {
+  margin-right: 2vw;
+}
+
 .languagemenu {
   margin-top: 30px;
   border-radius: 5px;
@@ -332,7 +336,7 @@ h1, h2, h3, h4, h5, h6, p, a {
 }
 
 .languagemenu input {
-  padding: 0 0 0 5px;
+  padding: 0 5px 0 5px;
   background-color: #c13d3d;
 }
 
@@ -419,11 +423,6 @@ h1, h2, h3, h4, h5, h6, p, a {
 .addblog a {
   margin-right: 5vh;
   color: #aa39f1;
-}
-
-.myblog {
-  margin-left: 8vw;
-  margin-top: 2vh;
 }
 
 @media (max-width: 417px) {

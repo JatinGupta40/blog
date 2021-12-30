@@ -30,6 +30,16 @@ if(isset($_POST['submit']))
     {
       $name == null;
     }
+
+    if(!empty($_POST['languagedirection'] && ($POST['languagedirection'] == RTL || rtl || ltr || LTR)))
+    {
+      $languagedirection = $_POST['languagedirection'];
+    }
+    else 
+    {
+      $languagedirection == null;
+    }
+    
     if(!empty($_POST['prefix']))
     {
       $prefix = $_POST['prefix'];
@@ -48,6 +58,10 @@ if(isset($_POST['submit']))
     {
       $errors['prefix'] = 'Prefix is required.';
     }
+    if($prefix == null) 
+    {
+      $errors['languagedirection'] = 'Language Direction is required.';
+    }
     
     // Adding into DB.
     if(!empty($name) && !empty($prefix))
@@ -60,7 +74,8 @@ if(isset($_POST['submit']))
       }
       else
       {
-        $result = $language->addLang($name, $prefix);
+        // Adding New Language.
+        $result = $language->addLang($name, strtolower($languagedirection), $prefix);
         header('location:/', $_COOKIE['cookiename'],'/dashboard');
       }
     } 
@@ -92,13 +107,14 @@ if(isset($_POST['submit']))
         }
       ?>
       <div class="row">
-        <div class="col-md-6 lang">
+        <div class="col-md-8 lang">
           <h5>Add Language : </h5>
           <input type="text" class="form-control <?php if ($errors['check']) : ?>input-error<?php endif; ?>" name = "name" value="<?php if ($errors['name']) { echo $name; } ?>" placeholder = "Language Name"></input>
+          <input type="text" class="form-control <?php if ($errors['check']) : ?>input-error<?php endif; ?>" name = "languagedirection" value="<?php if ($errors['languagedirection']) { echo $languagedirection; } ?>" placeholder = "LTR or RTL"></input>
           <input type="text" class="form-control <?php if ($errors['check']) : ?>input-error<?php endif; ?>" name = "prefix" value="<?php if ($errors['prefix']) { echo $prefix; } ?>" placeholder = "Prefix"></input>
           <button name="submit" class="btn btn-primary btn-lg">SUBMIT</button> 
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
           <select class="" id="myselection">
             <option value="1">First</option>
             <option value="2">Second</option>

@@ -103,32 +103,32 @@
  }
 ?>
 <!-- LOGIN PART -->
-<div id="Login" class="tabcontent">
-   <div class="loginpage card bg-light">
-      <article class="card-body mx-auto" style="max-width: 400px;">
-         <h4 class="card-title mt-3 text-center">LOGIN</h4>
-         <form method="POST">
-            <div class="form-group input-group mb-3">
-               <div class="input-group-prepend">
-                  <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
-               </div>
-               <input type="text" name="email" class="form-control <?php if (isset($errors['check']) || isset($errors['email'])) : ?>input-error<?php endif; ?>" placeholder = "xzy@gmail.com" value="<?php if (isset($_POST['email'])) { echo $email; } ?>">
+<div class="tabcontent">
+  <div class="loginpage card bg-light">
+    <article class="card-body mx-auto" style="max-width: 400px;">
+      <h4 class="card-title mt-3 text-center">LOGIN</h4>
+        <form dir="<?php echo $rtl; ?>" method="POST">
+          <div class="form-group input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
             </div>
-            <div class="form-group input-group mb-3">
-               <div class="input-group-prepend">
-                  <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
-               </div>
-               <input type="password" name="pass" class="form-control <?php if (isset($errors['check']) || isset($errors['pass'])) : ?>input-error<?php endif; ?>" placeholder = "*****" value="<?php if (isset($_POST['pass'])) { echo $pass; } ?>">
+            <input type="text" name="email" class="form-control <?php if (isset($errors['check']) || isset($errors['email'])) : ?>input-error<?php endif; ?>" placeholder = "xzy@gmail.com" value="<?php if (isset($_POST['email'])) { echo $email; } ?>">
+          </div>
+          <div class="form-group input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
             </div>
-            <div class="form-group">
-               <button type="submit" class="btn btn-primary btn-block" name="submit"> LOGIN  </button>
-            </div>
-            <div class="form-group" style="text-align:center;">
-               <a href="forgotpwd"><p>Forgotten Password?</p></a> 
-            </div>
-         </form>
-      </article>
-   </div>
+            <input type="password" name="pass" class="form-control <?php if (isset($errors['check']) || isset($errors['pass'])) : ?>input-error<?php endif; ?>" placeholder = "*****" value="<?php if (isset($_POST['pass'])) { echo $pass; } ?>">
+          </div>
+          <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-block" name="submit"> LOGIN  </button>
+          </div>
+          <div class="form-group" style="text-align:center;">
+            <a href="forgotpwd"><p>Forgotten Password?</p></a> 
+          </div>
+        </form>
+    </article>
+  </div>
 </div>
 
 

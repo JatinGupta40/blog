@@ -149,41 +149,41 @@ if (isset($errors)) {
    }
 }
 ?>
-   <div class="registrationpage">
-     <article class="regform">
-       <form method="POST">
-         <h2><u>Create Account</u></h2>
-           <div class="formcontent">
-             <i class="fa fa-user"></i>
-               <input type="text" name="fname" placeholder = "First Name" class=" <?php if (isset($errors['fname'])) : ?> input-error<?php endif ; ?>" value="<?php if (isset($_POST['fname'])) { echo $fname; } ?>">
-           </div>
+  <div class="registrationpage">
+    <article class="container regform">
+      <form dir="<?php echo $rtl; ?>" method="POST">
+        <h2><u>Create Account</u></h2>
+          <div class="formcontent">
+            <i class="fa fa-user"></i>
+              <input type="text" name="fname" placeholder = "First Name" class=" <?php if (isset($errors['fname'])) : ?> input-error<?php endif ; ?>" value="<?php if (isset($_POST['fname'])) { echo $fname; } ?>">
+          </div>
            
-           <div class="formcontent">
-             <i class="fa fa-user"></i> 
-             <input type="text" name="lname" placeholder = "Last Name" class=" <?php if (isset($errors['lname']) || isset($errors['lname'])): ?>input-error<?php endif; ?>" value="<?php if (isset($_POST['lname'])) { echo $lname; } ?>">
-           </div>
+          <div class="formcontent">
+            <i class="fa fa-user"></i> 
+            <input type="text" name="lname" placeholder = "Last Name" class=" <?php if (isset($errors['lname']) || isset($errors['lname'])): ?>input-error<?php endif; ?>" value="<?php if (isset($_POST['lname'])) { echo $lname; } ?>">
+          </div>
             
-           <div class="formcontent">
-             <i class="fa fa-user"></i>
-             <input type="text" name="email" placeholder = "xzy@gmail.com" class=" <?php if (isset($errors['check']) || isset($errors['email'])): ?>input-error<?php endif; ?>" value="<?php if (isset($_POST['email'])) { echo $email; } ?>">
-           </div>
+          <div class="formcontent">
+            <i class="fa fa-user"></i>
+            <input type="text" name="email" placeholder = "xzy@gmail.com" class=" <?php if (isset($errors['check']) || isset($errors['email'])): ?>input-error<?php endif; ?>" value="<?php if (isset($_POST['email'])) { echo $email; } ?>">
+          </div>
          
-           <div class="formcontent">
-             <i class="fa fa-lock"></i>
-             <input type="password" name="password" placeholder = "*****" class="<?php if (isset($errors['check']) || isset($errors['pass'])): ?>input-error<?php endif; ?>" value="<?php if (isset($_POST['pass'])) {  echo $pass; } ?>">
-           </div>
+          <div class="formcontent">
+            <i class="fa fa-lock"></i>
+            <input type="password" name="password" placeholder = "*****" class="<?php if (isset($errors['check']) || isset($errors['pass'])): ?>input-error<?php endif; ?>" value="<?php if (isset($_POST['pass'])) {  echo $pass; } ?>">
+          </div>
             
-           <div class="formcontent">
-             <i class="fa fa-lock"></i>
-             <input type="password" name="repassword" placeholder = "*****"  class="<?php if (isset($errors['check']) || isset($errors['pass'])): ?>input-error<?php endif; ?>" value="<?php if (isset($_POST['pass'])) {  echo $pass; } ?>">
-           </div>
-           <button type="submit" name="submit" class="" >Create Account</button>
-           <div class="formcontent">      
-             <p>Have an account? <a class="" style="cursor:pointer;" href="login"><u><b>Login <b></u></a></p>
-           </div>
-       </form>
-     </article>
-   </div>
+          <div class="formcontent">
+            <i class="fa fa-lock"></i>
+            <input type="password" name="repassword" placeholder = "*****"  class="<?php if (isset($errors['check']) || isset($errors['pass'])): ?>input-error<?php endif; ?>" value="<?php if (isset($_POST['pass'])) {  echo $pass; } ?>">
+          </div>
+          <button type="submit" name="submit" class="" >Create Account</button>
+          <div class="formcontent">      
+            <p>Have an account? <a class="" style="cursor:pointer;" href="<?php echo $_COOKIE['cookiename'];  ?>/login"><u><b>Login <b></u></a></p>
+          </div>
+      </form>
+    </article>
+  </div>
    <!-- card.// -->
 
 

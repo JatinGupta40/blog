@@ -50,7 +50,7 @@ $language = new languageQuery\language;
           }
         }
         ?>
-        <div class="blogbox">
+        <div dir="<?php echo $rtl;?>" class="blogbox">
           <h2><?php echo $title; ?></h2>
           <?php
             // Checking if the user has uploaded any image or not.

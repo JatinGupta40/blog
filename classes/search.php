@@ -14,7 +14,6 @@ class search extends connection
     // For cookie/language name english.
     if($_COOKIE['cookiename'] == "en")
     {
-    //echo $_COOKIE['cookiename'];
       $result = mysqli_query($this->connection,"SELECT * FROM blog WHERE Heading LIKE '%$search%' OR content LIKE '%$search%'");
       return $result;
     }

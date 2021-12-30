@@ -11,16 +11,34 @@ require_once ($_SERVER['DOCUMENT_ROOT'] .'/classes/carousel.php');
 require_once ($_SERVER['DOCUMENT_ROOT'] .'/classes/user.php');
 require_once ($_SERVER['DOCUMENT_ROOT'] .'/classes/method.php');
 require_once ($_SERVER['DOCUMENT_ROOT'] .'/model/stringmodel.php');
+require_once ($_SERVER['DOCUMENT_ROOT'] .'/classes/language.php');
 
 $blog = new blogQuery\blog;
 $carousel = new carouselQuery\carousel;
 $user = new userQuery\user;
 $method = new methodQuery\method;
 $stringmodel = new stringQuery\stringmodel;
+$language = new languageQuery\language;
+
 ?>
 
 <!DOCTYPE html>
-   <head>
+<!-- For RTL. -->
+<?php
+  $languagecheck = $language->checkLangDirection($_COOKIE['cookiename']);
+  $fetch = $method->fetchArray($languagecheck)[0];
+  if($fetch == "rtl")
+  {
+    $rtldir = "rtlright"; // Used as Class to rectify the css that shows all the available language (Index Page).
+    $rtl = "rtl";
+  }
+  else
+  {
+    $rtl = " ";
+    $rtldir = " ";
+  } 
+?>  
+<head>
       <meta charset="utf-8">
       <meta content="width=device-width, initial-scale=1.0" name="viewport">
       <base href="http://blog/">
@@ -63,10 +81,11 @@ $stringmodel = new stringQuery\stringmodel;
             <a href="javascript:void(0);" class="menu-toggle icon" >
               <i class="fa fa-bars"></i>
             </a> 
-            <h1><a href="<?php echo $_COOKIE['cookiename']; ?>/index">Blogging</a></h1>
+            <h1><a href="<?php echo $_COOKIE['cookiename']; ?>/index"><?php $stringmodel->stringTranslate('Blogging'); ?></a></h1>
             <!-- <i class="bi bi-list mobile-nav-toggle" style="color:black;"></i>     -->
           </div>
-          <div class="navbar">
+          <!-- In 'dir' the $rtl is coming from top for the language whose directions is RTL. -->
+          <div dir="<?php echo $rtldir ; ?>" class="navbar">
             <nav>
               <ul>
               <?php 
@@ -102,7 +121,7 @@ $stringmodel = new stringQuery\stringmodel;
           </div>
           <div class="searchbar"> 
             <form action="<?php echo $_COOKIE['cookiename']; ?>/search/<?php echo $_POST['search'] ?>">
-              <input class="form-control" type="text" name="search" placeholder="<?php $stringmodel->stringTranslate('Search'); ?>" value="<?php echo $_GET['search'];  ?>">
+              <input dir = "<?php echo $rtl; ?>" class="form-control" type="text" name="search" placeholder="<?php $stringmodel->stringTranslate('Search'); ?>" value="<?php echo $_GET['search'];  ?>">
               <button><?php $stringmodel->stringTranslate('Search'); ?></button>
             </form>
           </div>

@@ -30,6 +30,7 @@ if($_COOKIE['cookiename'] == "")
 else
 {
 }
+  
 ?>  
 
 <!-- Carousel Start -->
@@ -181,7 +182,7 @@ if(isset($_SESSION['loggedin']))
           {
         ?>
         <div class="col">
-          <input type= "text" class="row-sm-6 <?php if (isset($errors['newsletteremail'])) : ?>input-error<?php endif; ?>" name="newsletteremail" value="" placeholder="xyz@gmail.com">
+          <input dir="<?php echo $rtl;?>" type= "text" class="row-sm-6 <?php if (isset($errors['newsletteremail'])) : ?>input-error<?php endif; ?>" name="newsletteremail" value="" placeholder="xyz@gmail.com">
           <button class="row-sm-6 btn" type="submit" name="subscribe">Subscribe</button>
         </div>
         <?php         
@@ -244,7 +245,7 @@ if(isset($_SESSION['loggedin']))
             $heading = $row['Heading'];
             $content=$row['content'];
         ?>
-            <div class="blogbox">
+            <div dir="<?php echo $rtl;?>" class="blogbox ">
               <h2><?php echo strtoupper($heading);?></h2>
               <p>
         <?php 
@@ -263,9 +264,9 @@ if(isset($_SESSION['loggedin']))
      
       <!-- Listing all the available languages. -->
       <div class="col-md-4">
-        <div class="languagemenu">
+        <div dir="<?php echo $rtl;?>" class="<?php echo $rtldir; ?> languagemenu">
           <form action = "/langsubmit" method = "POST">
-            <label class="m-lg-2"><b><u>Change Language :</u></b></label>
+            <label class="m-lg-2"><b><u><?php $stringmodel->stringTranslate('Change Language'); ?> -</u></b></label>
         <?php 
             $lang = $language->allLang();
             while($row = $lang->fetch_assoc())
@@ -290,36 +291,11 @@ if(isset($_SESSION['loggedin']))
       ?>    
           <div class="col-md-8">
       <?php
-          echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
-          <strong>There are no posts added</strong> .</div>';
+            echo '<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>There are no posts added</strong>.</div>';
       ?>  
-      </div>
-      <!-- Listing all the available languages. -->
-      <div class="col-md-4">
-        <div class="languagemenu">
-          <form action = "/langsubmit" method = "POST">
-        <?php 
-            $lang = $language->allLang();
-            while($row = $lang->fetch_assoc())
-            { 
-              $prefix = $row['prefix'];
-
-        ?>
-              <ul>
-                <li> 
-                  <input type="submit" name="lang" class="btn btn-primary btn-md" value = "<?php echo $row['Name']," "; ?>"></input>
-                </li>
-              </ul>  
-        <?php
-            }
-        ?>
-          </form>
-        </div>
-      </div>
+          </div>
       <?php      
-          
         }
-
       ?>
     </div>
   </div>

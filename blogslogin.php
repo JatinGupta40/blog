@@ -27,7 +27,7 @@ $method = new methodQuery\method;
       <h2><a href="<?php echo $_COOKIE['cookiename']?>/personalisedcarousel">Personalise Carousel</a></h2>
     </div>
     <hr>
-    <div class="myblog">
+    <div dir="<?php echo $rtl;?>" class="container">
       <h2><u>My Blogs</u> <i class="fas fa-caret-down"></i></h2>
     </div>
     <?php
@@ -47,7 +47,8 @@ $method = new methodQuery\method;
           $content = $row['content'];
           $cleanurl = $row['cleanurl']
       ?>
-          <div class="container blogbox">
+          <!-- Displaying all the blogs that logged-in user added. -->
+          <div dir="<?php echo $rtl;?>"class="container blogbox">
             <h3><?php echo $heading; ?></h3>
             <p>
       <?php

@@ -324,6 +324,14 @@ h1, h2, h3, h4, h5, h6, p, a {
   }
 }
  
+
+.rtlright
+{
+  ul
+  {
+    margin-right: 2vw;
+  }
+}
 .languagemenu
 {
   margin-top: 30px;
@@ -334,7 +342,7 @@ h1, h2, h3, h4, h5, h6, p, a {
   float: right;
   input
   {
-    padding: 0 0 0 5px; 
+    padding: 0 5px 0 5px; 
     background-color: $langred;   
   }
 }
@@ -428,12 +436,6 @@ h1, h2, h3, h4, h5, h6, p, a {
       color:$purple;
     }
   }  
-
-.myblog
-  {
-    margin-left: 8vw; 
-    margin-top: 2vh;
-  }
 
  
 @media (max-width:417px)
